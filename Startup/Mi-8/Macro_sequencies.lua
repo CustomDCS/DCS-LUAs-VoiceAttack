@@ -383,6 +383,11 @@ push_start_command(dt, {message = _("Manual steps remaining:"), message_timeout 
 push_start_command(dt, {message = _("Navigation ... As needed"), message_timeout = 20})
 push_start_command(dt, {message = _("Altimeter ... Set to match QFE (airfield elevation) or QNH (sea level altitude) as desired"), message_timeout = 20})
 push_start_command(dt, {message = _("ADF ... Set to where you want to go"), message_timeout = 20})
+--Yushin Test 03/13/23
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_11, value = 1.0}) -- ARC 9 MAIN PRESS
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_3, value = 0.1}) -- ARC 9 COMP
+push_start_command(dt, {device = devices.R_828, action = device_commands.Button_2, value = 0.5}) -- 828 VOLUME KNOB
+push_start_command(dt, {device = devices.SPU_7, action = device_commands.Button_2, value = 0.90}) -- MAIN RADIO VOLUME KNOB
 end
 doStartSequence()
 
