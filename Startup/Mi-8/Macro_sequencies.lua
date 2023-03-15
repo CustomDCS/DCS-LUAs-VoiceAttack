@@ -272,6 +272,7 @@ push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.
 push_start_command(dt, {message = _("RADAR ALTIMETER - ON"), message_timeout = mto})
 push_start_command(dt, {device = devices.RADAR_ALTIMETER, action = device_commands.Button_3, value = 1.0})
 push_start_command(dt, {message = _("RADAR ALTIMETER - 20M for length of cargo cable"), message_timeout = mto})
+
 -- push all the buttons and see what works
 --push_start_command(dt, {device = devices.RADAR_ALTIMETER, action = device_commands.Button_1, value = 0.02}) -- this turns it off
 push_start_command(dt, {device = devices.RADAR_ALTIMETER, action = device_commands.Button_2, value = 1.0}) -- not sure what this one does
@@ -356,11 +357,12 @@ push_start_command(dt, {device = devices.ARC_UD, action = device_commands.Button
 -- push_start_command(10.0, {device = devices.HEATER_KO50, action = device_commands.Button_1, value = 0.0}) -- Release
 -- push_start_command(dt, {device = devices.HEATER_KO50, action = device_commands.Button_4, value = 0.0})
 
-push_start_command(dt, {message = _("Danger Alarm To 20 Meters"), message_timeout = dt_mto})
-for i = 1, 776, 1 do
-	push_start_command(0.01, {device = devices.RADAR_ALTIMETER, action = device_commands.Button_1, value = -.00104})
-end
--- this will be great once we get it going
+-- Turning up Main Radio, Turning other to half volume
+--Yushin Test 03/13/23
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_11, value = 1.0}) -- ARC 9 MAIN PRESS
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_3, value = 0.1}) -- ARC 9 COMP
+push_start_command(dt, {device = devices.R_828, action = device_commands.Button_2, value = 0.5}) -- 828 VOLUME KNOB
+push_start_command(dt, {device = devices.R_863, action = device_commands.Button_5, value = 1.00}) -- MAIN RADIO VOLUME KNOB
 
 -- now we should be safe to close the windows
 push_start_command(dt, {message = _("LEFT COCKPIT WINDOW - CLOSE"), message_timeout = mto})
@@ -383,11 +385,6 @@ push_start_command(dt, {message = _("Manual steps remaining:"), message_timeout 
 push_start_command(dt, {message = _("Navigation ... As needed"), message_timeout = 20})
 push_start_command(dt, {message = _("Altimeter ... Set to match QFE (airfield elevation) or QNH (sea level altitude) as desired"), message_timeout = 20})
 push_start_command(dt, {message = _("ADF ... Set to where you want to go"), message_timeout = 20})
---Yushin Test 03/13/23
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_11, value = 1.0}) -- ARC 9 MAIN PRESS
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_3, value = 0.1}) -- ARC 9 COMP
-push_start_command(dt, {device = devices.R_828, action = device_commands.Button_2, value = 0.5}) -- 828 VOLUME KNOB
-push_start_command(dt, {device = devices.SPU_7, action = device_commands.Button_2, value = 0.90}) -- MAIN RADIO VOLUME KNOB
 end
 doStartSequence()
 
@@ -397,7 +394,7 @@ doStartSequence()
 -- Function to collect all the stop sequence commands.
 local function doStopSequence()
 -- Stop sequence
-push_stop_command(0.0, {message = _("HAVOC'S QUICK AUTOSTOP SEQUENCE IS RUNNING"), message_timeout = mto})
+push_stop_command(0.0, {message = _("Custom DCS/HAVOC's QUICK AUTOSTOP SEQUENCE IS RUNNING"), message_timeout = mto})
 
 --Left Panel
 push_stop_command(dt, {message = _("LEFT ADI - OFF"), message_timeout = mto})
