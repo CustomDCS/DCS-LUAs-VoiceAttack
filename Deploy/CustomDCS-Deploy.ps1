@@ -33,14 +33,16 @@ function Get-DCSInstallPath {
   return $installPath
 }
 
-function Get-BackupPath ($path, $i = 0) {
+function Get-BackupPath ($path, [int] $i = 0) {
   if(Test-Path $path)
   {
     #increment by 1
+    $origPath = $path
     $path = $path + "_" + $i
     if(Test-Path $path)
     {
-      $path = Get-BackupPath $path $i++
+      $i++
+      $path = Get-BackupPath $origPath $i
     }
   }
   return $path
@@ -51,7 +53,7 @@ $installPath = Get-DCSInstallPath
 Write-Host "Current DCS install path: " $installPath
 
 $macroSequenciesPath = $installPath + "\" + ([string]::Format($macroSequenciesRelPath,$Mi8MTV2))
-Write-Host "Checking that we can find your autostart file..."
+Write-Host "Checking that we can find your autostart file..." -NoNewline
 if(!(Test-Path $macroSequenciesPath))
 {
   Write-Error -Message "File doesn't seem to be at this path: $macroSequenciesPath"
@@ -63,6 +65,9 @@ if(!(Test-Path $macroSequenciesPath))
     Write-Host "Installer Exiting"
     exit 1
   }
+}
+else {
+  Write-Host "success!"
 }
 Write-Host "Taking a backup of your current auto start..."
 $backupPath = $macroSequenciesPath + "." + (get-date -Format "yy-MM-dd") + ".bak"
