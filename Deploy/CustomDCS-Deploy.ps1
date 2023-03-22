@@ -29,13 +29,17 @@ function Get-DCSInstallPath {
     # Hopefully the folder selection dialog should help here
     $path = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\DCS World_is1'
   }
-  $installPath = (Get-ItemProperty -Path $path -Name InstallLocation).InstallLocation
-  if(!$installPath)
+  
+  if(Test-Path -Path $installPath)
   {
+    $installPath = (Get-ItemProperty -Path $path -Name InstallLocation).InstallLocation
+  }
+  else {
     Write-Host "Where is your DCS install path?"
     $installPath = Get-Folder
     Write-Host "If this keeps happening, please reach out to FlamerNZ..."
   }
+  
   return $installPath
 }
 
