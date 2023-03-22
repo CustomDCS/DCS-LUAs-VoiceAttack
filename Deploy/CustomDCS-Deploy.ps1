@@ -23,7 +23,13 @@ function Get-Folder()
 function Get-DCSInstallPath {
   # Check that we know where the ED install location is:
   ##$installPath = $env:DCS_INSTALL_PATH # the environment variables don't seem to persist, so let's use the registry instead
-  $installPath = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\DCS World OpenBeta_is1' -Name InstallLocation).InstallLocation
+  $path = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\DCS World OpenBeta_is1'
+  if (!(Test-Path -Path $path)) {
+    # for some reason, even though he's on the beta, Zebra's path is different, might have to handle more weird cases?  
+    # Hopefully the folder selection dialog should help here
+    $path = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\DCS World_is1'
+  }
+  $installPath = (Get-ItemProperty -Path $path -Name InstallLocation).InstallLocation
   if(!$installPath)
   {
     Write-Host "Where is your DCS install path?"
