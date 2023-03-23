@@ -43,7 +43,7 @@ end
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
-push_start_command(0, {message = _("CUSTOMDCS.com AUTOSTART IS RUNNING (2m45s)"), message_timeout = start_sequence_time})
+push_start_command(0, {message = _("CUSTOMDCS.com AUTOSTART IS RUNNING (3m45s)"), message_timeout = start_sequence_time})
 push_start_command(0, {message = _("MAKE SURE YOUR COLLECTIVE IS FULLY DOWN!"), message_timeout = 30})
 
 push_start_command(dt, {message = _("Cockpit door - Close"), message_timeout = dt_mto})
@@ -114,17 +114,19 @@ push_start_command(dt, {message = _("Master Caution Light - Reset"), message_tim
 push_start_command(dt, {device = devices.SYST_CONTROLLER, action = 3001, value = 0.2}) -- Press
 push_start_command(dt, {device = devices.SYST_CONTROLLER, action = 3001, value = 0.0}) -- Release
 
--- RADIOS
-push_start_command(dt, {device = devices.R_800, action = 3007, value = 1.0})
-push_start_command(dt, {device = devices.R_800, action = 3007, value = 1.0})
-push_start_command(dt, {device = devices.R_800, action = 3007, value = 1.0})
-push_start_command(dt, {device = devices.R_800, action = 3007, value = 1.0})
-push_start_command(dt, {device = devices.R_800, action = 3007, value = 1.0})
-push_start_command(dt, {device = devices.R_800, action = 3007, value = 1.0})
-push_start_command(dt, {device = devices.R_800, action = 3008, value = -1.0})
-push_start_command(dt, {device = devices.R_800, action = 3008, value = -1.0})
-push_start_command(dt, {device = devices.R_800, action = 3008, value = -1.0})
-push_start_command(dt, {device = devices.R_800, action = 3008, value = -1.0})
+-- RADIOS Removed for RH, they corrected it on their end. 
+-- push_start_command(dt, {device = devices.R_800, action = 3007, value = 1.0})
+-- push_start_command(dt, {device = devices.R_800, action = 3007, value = 1.0})
+-- push_start_command(dt, {device = devices.R_800, action = 3007, value = 1.0})
+-- push_start_command(dt, {device = devices.R_800, action = 3007, value = 1.0})
+-- push_start_command(dt, {device = devices.R_800, action = 3007, value = 1.0})
+-- push_start_command(dt, {device = devices.R_800, action = 3007, value = 1.0})
+-- push_start_command(dt, {device = devices.R_800, action = 3008, value = -1.0})
+-- push_start_command(dt, {device = devices.R_800, action = 3008, value = -1.0})
+-- push_start_command(dt, {device = devices.R_800, action = 3008, value = -1.0})
+-- push_start_command(dt, {device = devices.R_800, action = 3008, value = -1.0})
+push_start_command(dt, {device = devices.RADAR_ALTIMETER, action = 3001, value = -.8})
+
 
 -- R 828
 push_start_command(dt, {device = devices.R_828, action = 3001, value = 0.4})
@@ -275,11 +277,35 @@ push_start_command(dt, {device = devices.UV_26, action = 3004, value = 1.0}) -- 
 push_start_command(dt, {device = devices.UV_26, action = 3004, value = 0.0}) -- Release
 push_start_command(dt, {device = devices.UV_26, action = 3004, value = 1.0}) -- Press
 push_start_command(dt, {device = devices.UV_26, action = 3004, value = 0.0}) -- Release
+push_start_command(dt, {device = devices.UV_26, action = 3004, value = 1.0}) -- Press
+push_start_command(dt, {device = devices.UV_26, action = 3004, value = 0.0}) -- Release
+push_start_command(dt, {device = devices.UV_26, action = 3004, value = 1.0}) -- Press
+push_start_command(dt, {device = devices.UV_26, action = 3004, value = 0.0}) -- Release
+push_start_command(dt, {device = devices.UV_26, action = 3004, value = 1.0}) -- Press
+push_start_command(dt, {device = devices.UV_26, action = 3004, value = 0.0}) -- Release
+push_start_command(dt, {device = devices.UV_26, action = 3004, value = 1.0}) -- Press
+push_start_command(dt, {device = devices.UV_26, action = 3004, value = 0.0}) -- Release
+
+--push_start_command(dt, {device = devices.UV_26, action = 3004, value = 1.0}) -- Press
+--push_start_command(dt, {device = devices.UV_26, action = 3004, value = 0.0}) -- Release
+--push_start_command(dt, {device = devices.UV_26, action = 3004, value = 1.0}) -- Press
+--push_start_command(dt, {device = devices.UV_26, action = 3004, value = 0.0}) -- Release
 push_start_command(dt, {message = _("UV-26 Dispense interval - 1 SEC"), message_timeout = dt_mto})
 push_start_command(dt, {device = devices.UV_26, action = 3006, value = 1.0}) -- Press
 push_start_command(dt, {device = devices.UV_26, action = 3006, value = 0.0}) -- Release
+push_start_command(dt, {device = devices.UV_26, action = 3006, value = 1.0}) -- Press
+push_start_command(dt, {device = devices.UV_26, action = 3006, value = 0.0}) -- Release
+push_start_command(dt, {device = devices.UV_26, action = 3006, value = 1.0}) -- Press
+push_start_command(dt, {device = devices.UV_26, action = 3006, value = 0.0}) -- Release
+push_start_command(dt, {device = devices.UV_26, action = 3006, value = 1.0}) -- Press
+push_start_command(dt, {device = devices.UV_26, action = 3006, value = 0.0}) -- Release
+push_start_command(dt, {device = devices.UV_26, action = 3006, value = 1.0}) -- Press
+push_start_command(dt, {device = devices.UV_26, action = 3006, value = 0.0}) -- Release
+
 push_start_command(dt, {message = _("SWITCHING ABRIS TO MAP"), message_timeout = 10.0})
 push_start_command(dt, {device = devices.ABRIS, action = 3005, value = 1.0}) -- ABRIS TO MAP
+push_start_command(dt, {message = _("CHECK THE WIND READING (70s)"), message_timeout = 65.0})
+push_start_command(dt, {device = devices.PVI, action = 3023, value = 1.0}) -- WIND ON
 push_start_command(dt, {message = _("TURNING ON LASER"), message_timeout = 10.0})
 push_start_command(dt, {device = devices.LASERRANGER, action = 3001, value = 1.0}) -- LASER ON
 push_start_command(dt, {message = _("JETTISON WEAPON ARM ON"), message_timeout = 10.0})
@@ -292,8 +318,9 @@ push_start_command(dt, {device = devices.ILLUMINATION_INTERFACE, action = 3007, 
 push_start_command(dt, {device = devices.ILLUMINATION_INTERFACE, action = 3001, value = 1.0}) -- HSI LIGHT
 
 push_start_command(dt, {message = _("PLEASE CHECK IF HMS IS ACTIVATED AND SWITCH TO IT IN GROUND MENU IF REQUIRED"), message_timeout = 20.0})
-push_start_command(dt, {message = _("WAITING 30s TO ACTIVATE HMS, YOU MAY TAKE OFF"), message_timeout = 35.0})
+push_start_command(dt, {message = _("WAITING TO ACTIVATE HMS"), message_timeout = 35.0})
 push_start_command(30, {device = devices.HELMET, action = 3002, value = 1.0}) -- HMS ON
+
 -- Autopilot buttons
 push_start_command(dt, {message = _("WAITING FOR INS ALIGN TO TURN ON AP, 30 SECONDS."), message_timeout = 35.0})
 push_start_command(30, {message = _("Autopilot bank hold - On"), message_timeout = dt_mto})
@@ -304,14 +331,10 @@ push_start_command(dt, {device = devices.AUTOPILOT, action = 3003, value = 1.0})
 push_start_command(dt, {device = devices.AUTOPILOT, action = 3003, value = 0.0})
 --push_start_command(dt, {message = _("Autopilot heading hold - On"), message_timeout = dt_mto})
 --push_start_command(dt, {device = devices.AUTOPILOT, action = 3002, value = 1.0})
---push_start_command(dt, {device = devices.AUTOPILOT, action = 3002, value = 0.0})
---
-push_start_command(dt, {message = _("CUSTOMDCS.com AUTOSTART COMPLETE (BIG THANKS TO HAVOC)"), message_timeout = 60.0})
-push_start_command(dt, {message = _("Manual steps remaining:"), message_timeout = 60})
-push_start_command(dt, {message = _("Lights ... As needed"), message_timeout = 60})
-push_start_command(dt, {message = _("Radios ... As needed"), message_timeout = 60})
-push_start_command(dt, {message = _("Unguided weapon pylon ballistic knob (middle knob on right rear wall) ... As needed (see manual p.169 or Chuck's p.126)"), message_timeout = 60})
-push_start_command(dt, {message = _("Baro altitude ... As needed"), message_timeout = 60})
+push_start_command(dt, {device = devices.AUTOPILOT, action = 3002, value = 0.0})
+
+push_start_command(dt, {message = _("CUSTOMDCS.com AUTOSTART COMPLETE (BIG THANKS TO HAVOC!)"), message_timeout = 60.0})
+push_start_command(dt, {device = devices.PVI, action = 3023, value = -1.0}) -- WIND OFF
 
 
 
