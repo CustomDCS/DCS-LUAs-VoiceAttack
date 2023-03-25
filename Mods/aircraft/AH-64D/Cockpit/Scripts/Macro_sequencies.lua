@@ -313,7 +313,7 @@ local function doStartSequence()
 	push_combined(seq, dt, {device = devices.ENGINE_INTERFACE, action = engine_commands.APU_StartBtnCover, value = 1.0})
 	push_combined(seq, dt, {device = devices.ENGINE_INTERFACE, action = engine_commands.APU_StartBtn, value = 1.0})
 	push_combined(seq, dt, {device = devices.ENGINE_INTERFACE, action = engine_commands.APU_StartBtn, value = 0.0})
-	push_combined(seq, 20.0, {check_condition = AH64_AD_APU_READY, message_timeout = dt_mto})
+	push_combined(seq, 30.0, {check_condition = AH64_AD_APU_READY, message_timeout = dt_mto})
 	push_combined(seq, dt, {message = _("Waiting for EGI alignment, shows TSD chart background when finished (3m55s) ..."), message_timeout = dt_awt})
 	local alignment_timer = t_start -- Start a timer for the alignment process at the current t_start value.
 
