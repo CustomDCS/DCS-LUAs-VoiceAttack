@@ -169,6 +169,31 @@ for i = 1, 776, 1 do
 	push_start_command(0.01, {device = devices.RADAR_ALTIMETER, action = device_commands.Button_1, value = -.00104})
 end
 
+-- Pretty lights on the outside
+push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_14, value = 1.0})
+push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_15, value = 1.0})
+push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_16, value = 1.0})
+push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_12, value = 1.0})
+push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_13, value = 1.0})
+-- Fans
+push_start_command(dt, {message = _("PILOT'S FAN - ON - Essential for Soviet Choppers ;)"), message_timeout = 10.0})
+push_start_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_20, value = 1.0})
+push_start_command(dt, {message = _("COPILOT'S FAN - ON"), message_timeout = mto})
+
+--Lights
+push_start_command(dt, {message = _("Let there be lights!"), message_timeout = mto})
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_11, value = 1.0})
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_10, value = 1.0})
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_9, value = 1.0})
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_8, value = 1.0})
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_7, value = 1.0})
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_6, value = 1.0})
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_5, value = 1.0})
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_23, value = 1.0})
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_2, value = -1.0})
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_3, value = -1.0})
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_4, value = 1.0})
+
 -- APU
 push_start_command(dt, {message = _("STARTING APU (20 SEC)"), message_timeout = 20.0})
 push_start_command(dt, {message = _("APU START MODE - START"), message_timeout = mto})
@@ -268,20 +293,6 @@ push_start_command(dt, {device = devices.GMK1A, action = device_commands.Button_
 push_start_command(dt, {message = _("RIGHT ATT IND - ON"), message_timeout = mto})
 push_start_command(dt, {device = devices.AGB_3K_RIGHT, action = device_commands.Button_4, value = 1.0})
 
---Lights
-push_start_command(dt, {message = _("Let there be lights!"), message_timeout = mto})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_11, value = 1.0})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_10, value = 1.0})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_9, value = 1.0})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_8, value = 1.0})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_7, value = 1.0})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_6, value = 1.0})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_5, value = 1.0})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_23, value = 1.0})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_2, value = -1.0})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_3, value = -1.0})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_4, value = 1.0})
-
 -- Other
 push_start_command(dt, {message = _("RADAR ALTIMETER - ON"), message_timeout = mto})
 push_start_command(dt, {device = devices.RADAR_ALTIMETER, action = device_commands.Button_3, value = 1.0})
@@ -327,21 +338,10 @@ push_start_command(dt, {message = _("UV-26 SET DISPENSER INTERVAL - 1 SEC"), mes
 push_start_command(dt, {device = devices.UV_26, action = device_commands.Button_6, value = 1.0}) -- Press
 push_start_command(0.1, {device = devices.UV_26, action = device_commands.Button_6, value = 0.0}) -- Release
 
--- Fans
-push_start_command(dt, {message = _("PILOT'S FAN - ON - Essential for Soviet Choppers ;)"), message_timeout = 10.0})
-push_start_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_20, value = 1.0})
-push_start_command(dt, {message = _("COPILOT'S FAN - ON"), message_timeout = mto})
-
 -- Yushin rocket arming
 push_start_command(dt, {message = _("Yushin Weapon Startup Proceeding"), message_timeout = 10})
 -- closing co-pilot window (closed by default)
 push_start_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_21, value = 1.0})
--- Pretty lights on the outside
-push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_14, value = 1.0})
-push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_15, value = 1.0})
-push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_16, value = 1.0})
-push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_12, value = 1.0})
-push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_13, value = 1.0})
 
 push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_30, value = 1.0})
 push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_22, value = -1.0})
