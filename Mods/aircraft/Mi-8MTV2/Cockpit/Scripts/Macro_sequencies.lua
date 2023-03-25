@@ -150,6 +150,15 @@ push_start_command(dt, {device = devices.JADRO_1A, action = device_commands.Butt
 push_start_command(dt, {device = devices.JADRO_1A, action = device_commands.Button_1, value = 1.0})
 push_start_command(dt, {device = devices.JADRO_1A, action = device_commands.Button_2, value = 1.0})
 
+-- Turning up Main Radio, Turning other to half volume
+--Yushin Test 03/25/23 ADF 
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_11, value = 0.0}) -- ARC 9 MAIN PRESS
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_3, value = 0.1}) -- ARC 9 COMP
+push_start_command(dt, {device = devices.R_828, action = device_commands.Button_2, value = 0.5}) -- 828 VOLUME KNOB
+push_start_command(dt, {device = devices.R_863, action = device_commands.Button_5, value = 1.00}) -- MAIN RADIO VOLUME KNOB
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_6, value = -0.4}) -- ARC 9 10KHZ DIAL
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_5, value = 0.25}) -- ARC 9 100KHZ DIAL
+
 
 -- R-828 radio
 push_start_command(dt, {message = _("R-828 RADIO POWER - ON"), message_timeout = mto})
@@ -337,7 +346,6 @@ push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_comman
 push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_30, value = 1.0})
 push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_22, value = -1.0})
 push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_27, value = 1.0}) -- remove for smoky
-push_start_command(dt, {message = _("BE ADVISED, IF YOU ARE CARRYING ROCKETS, YOU ARE HOT!"), message_timeout = 30})
 
 -- TODO: figure out what this value should be set to
 --push_start_command(dt, {device = devices.PKV, action = device_commands.Button_3, value = 1}) 
@@ -362,12 +370,6 @@ push_start_command(dt, {device = devices.ARC_UD, action = device_commands.Button
 -- push_start_command(10.0, {device = devices.HEATER_KO50, action = device_commands.Button_1, value = 0.0}) -- Release
 -- push_start_command(dt, {device = devices.HEATER_KO50, action = device_commands.Button_4, value = 0.0})
 
--- Turning up Main Radio, Turning other to half volume
---Yushin Test 03/13/23
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_11, value = 1.0}) -- ARC 9 MAIN PRESS
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_3, value = 0.1}) -- ARC 9 COMP
-push_start_command(dt, {device = devices.R_828, action = device_commands.Button_2, value = 0.5}) -- 828 VOLUME KNOB
-push_start_command(dt, {device = devices.R_863, action = device_commands.Button_5, value = 1.00}) -- MAIN RADIO VOLUME KNOB
 
 -- now we should be safe to close the windows
 push_start_command(dt, {message = _("LEFT COCKPIT WINDOW - CLOSE"), message_timeout = mto})
@@ -383,13 +385,8 @@ push_start_command(0.5, {device = devices.MISC_SYSTEMS_INTERFACE, action = devic
 push_start_command(0.5, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Press
 push_start_command(dt, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 0.0}) -- Release
 
-push_start_command(dt, {message = _("Ready for Take-off, good (Will) hunting!"), message_timeout = 60})
-push_start_command(dt, {message = _("Manual steps remaining:"), message_timeout = 20})
---push_start_command(dt, {message = _("Lights ... As needed"), message_timeout = 60})
---push_start_command(dt, {message = _("Radios ... As needed"), message_timeout = 60})
-push_start_command(dt, {message = _("Navigation ... As needed"), message_timeout = 20})
-push_start_command(dt, {message = _("Altimeter ... Set to match QFE (airfield elevation) or QNH (sea level altitude) as desired"), message_timeout = 20})
-push_start_command(dt, {message = _("ADF ... Set to where you want to go"), message_timeout = 20})
+push_start_command(dt, {message = _("Ready for Take-off, Weapons (Rockets) Hot"), message_timeout = 60})
+push_start_command(dt, {message = _("ADF ... Tuned to 600 On The Reserve, Adjust as needed"), message_timeout = 20})
 push_start_command(dt, {message = _("Big Thank You To Havoc!"), message_timeout = 20})
 end
 doStartSequence()
