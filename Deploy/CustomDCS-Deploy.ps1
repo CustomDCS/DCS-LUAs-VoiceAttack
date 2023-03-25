@@ -30,7 +30,7 @@ function Get-DCSInstallPath {
     $path = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\DCS World_is1'
   }
   
-  if(Test-Path -Path $installPath)
+  if(Test-Path -Path $path)
   {
     $installPath = (Get-ItemProperty -Path $path -Name InstallLocation).InstallLocation
   }
@@ -87,6 +87,6 @@ Rename-Item $macroSequenciesPath -NewName $backupPath
 Write-Host "Backup saved to: " $backupPath
 
 Write-Host "Deploying new auto start..."
-Copy-Item "Startup\Mi-8\Macro_sequencies.lua" -Destination $macroSequenciesPath
+Copy-Item "Mods\aircraft\Mi-8MTV2\Cockpit\Scripts\Macro_sequencies.lua" -Destination $macroSequenciesPath
 
 Write-Host "Auto Start Script updated from current branch.  Enjoy!"
