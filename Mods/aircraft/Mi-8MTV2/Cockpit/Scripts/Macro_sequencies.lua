@@ -156,15 +156,15 @@ push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_
 push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_3, value = 0.1}) -- ARC 9 COMP
 push_start_command(dt, {device = devices.R_828, action = device_commands.Button_2, value = 0.5}) -- 828 VOLUME KNOB
 push_start_command(dt, {device = devices.R_863, action = device_commands.Button_5, value = 1.00}) -- MAIN RADIO VOLUME KNOB
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_6, value = -0.4}) -- ARC 9 10KHZ DIAL
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_5, value = 0.25}) -- ARC 9 100KHZ DIAL
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_6, value = 0.6}) -- ARC 9 10KHZ DIAL
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_5, value = 0.05}) -- ARC 9 100KHZ DIAL
 
 
 -- R-828 radio
 push_start_command(dt, {message = _("R-828 RADIO POWER - ON"), message_timeout = mto})
 push_start_command(dt, {device = devices.R_828, action = device_commands.Button_5, value = 1.0})
 
-push_start_command(dt, {message = _("Danger Alarm To 20 Meters - that's the length of your cable"), message_timeout = dt_mto})
+push_start_command(dt, {message = _("Radar Altimeter To 20 Meters - The length of your cable"), message_timeout = dt_mto})
 for i = 1, 776, 1 do
 	push_start_command(0.01, {device = devices.RADAR_ALTIMETER, action = device_commands.Button_1, value = -.00104})
 end
@@ -175,10 +175,7 @@ push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_comman
 push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_16, value = 1.0})
 push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_12, value = 1.0})
 push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_13, value = 1.0})
--- Fans
-push_start_command(dt, {message = _("PILOT'S FAN - ON - Essential for Soviet Choppers ;)"), message_timeout = 10.0})
-push_start_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_20, value = 1.0})
-push_start_command(dt, {message = _("COPILOT'S FAN - ON"), message_timeout = mto})
+
 
 --Lights
 push_start_command(dt, {message = _("Let there be lights!"), message_timeout = mto})
@@ -207,6 +204,12 @@ push_start_command(17.0, {message = _("APU STARTED"), message_timeout = mto})
 push_start_command(17.0, {message = _("Stand-By Gen and Equip Test, so that we can tune the radios"), message_timeout = mto})
 push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_1, value = 1.0})  -- Standby Generator Switch, ON/OFF
 push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_9, value = 1.0})  -- Equipment Test Switch, ON/OFF
+
+-- Fans
+push_start_command(dt, {message = _("PILOT'S FAN - ON - Essential for Soviet Choppers ;)"), message_timeout = 10.0})
+push_start_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_20, value = 1.0})
+push_start_command(dt, {message = _("COPILOT'S FAN - ON"), message_timeout = mto})
+
 -- Then we can tune to 30.00 FM
 push_start_command(dt, {message = _("Tuning into Rifle FM!  Hope that guy isn't still hot micing..."), message_timeout = 10})
 push_start_command(dt, {device = devices.R_828, action = device_commands.Button_1, value = 0.4})
