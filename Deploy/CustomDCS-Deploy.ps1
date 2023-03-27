@@ -154,6 +154,6 @@ else {
 }
 
 # get list of airframes
-$airframes = (Get-ChildItem -Path "Mods\aircraft" -Directory).Name
+#$airframes = (Get-ChildItem -Path "Mods\aircraft" -Directory).Name
 $airframes = @("Mi-8MTV2")
 AutoStartSelection -airframes $airframes, $installPath
