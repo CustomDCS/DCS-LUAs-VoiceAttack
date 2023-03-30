@@ -115,11 +115,11 @@ push_start_command(dt, {device = devices.JADRO_1A, action = device_commands.Butt
 -- Pretty Lights on the Outside
 
 push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_14, value = 1.0}) -- Tip Lights Switch
---push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_16, value = 1.0}) -- ANO Code Button
+push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_16, value = 1.0}) -- ANO Code Button
 push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_17, value = 1.0}) -- Taxi Light
 push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_15, value = 1.0}) -- Strobe Light - Red Flashing Light
---push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_12, value = 1.0}) -- ANO Switch
---push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_13, value = 1.0}) -- Formation Lights
+push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_12, value = 1.0}) -- ANO Switch
+push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_13, value = 1.0}) -- Formation Lights
 
 
 
@@ -196,16 +196,6 @@ push_start_command(dt, {message = _("SET RADAR ALTIMETER TO - 20M - LENGTH OF CA
 push_start_command(dt, {device = devices.EXT_CARGO_EQUIPMENT, action = device_commands.Button_5, value = 1.0}) -- Auto Unhook
 push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_10, value = 1.0}) -- Fuel Cutoff Lever - Left
 push_start_command(0.1, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_9, value = 1.0}) -- Fuel Cutoff Lever - Right
-
---Turn On Rocket Systems
-
-push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_30, value = 1.0}) -- RS/GUV Selector Switch
-push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_22, value = -1.0}) -- UPK/PKT/RS Switch Set to RS - Rockets
-push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_20, value = -1.0}) -- 8/16/4 Switch - Set to 4
-
---push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_27, value = 1.0}) -- Wepons Master ARM - On
-push_start_command(dt, {message = _("THE ROCKET SYSTEMS ARE ON, MASTER ARM IS OFF"), message_timeout = 60})
---push_start_command(dt, {message = _("THE ROCKET SYSTEMS ARE ON, MASTER ARM IS ON"), message_timeout = 30})
 
 
 -- UV-26 Countermeasures System
@@ -293,16 +283,13 @@ push_start_command(0.8, {device = devices.AGB_3K_RIGHT, action = device_commands
 push_start_command(0.1, {device = devices.AGB_3K_LEFT, action = device_commands.Button_2, value = 0.0}) -- Release - Uncage Left Gyro
 push_start_command(0.1, {device = devices.AGB_3K_RIGHT, action = device_commands.Button_2, value = 0.0}) -- Release - Uncage Right Gyro
 
-push_start_command(23.0, {message = _("RIGHT ENGINE - STARTED"), message_timeout = mto})
+push_start_command(31.0, {message = _("RIGHT ENGINE - STARTED"), message_timeout = mto})
 
 
 -- APU Stop
 
 push_start_command(0.1, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_7, value = 1.0}) -- Press
 push_start_command(0.1, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_7, value = 0.0}) -- Release
-
-push_start_command(dt, {message = _("STABILIZING ENGINE RPM"), message_timeout = mto})
-push_start_command(12.0, {message = _("."), message_timeout = 0.0}) -- Pause for 12sec To Let The Engine RPM Stabilize
 
 
 -- Auto Pilot
@@ -314,16 +301,50 @@ push_start_command(0.1, {device = devices.AUTOPILOT, action = device_commands.Bu
 push_start_command(dt, {device = devices.VMS, action = device_commands.Button_6, value = 1.0}) -- Bitchin Betty - On
 
 
+-- UV-26 countermeasures system
+push_start_command(dt, {message = _("UV-26 POWER - ON"), message_timeout = mto})
+push_start_command(dt, {device = devices.UV_26, action = device_commands.Button_10, value = 1.0})
+push_start_command(dt, {message = _("UV-26 DISPENSER - BOTH"), message_timeout = mto})
+push_start_command(dt, {device = devices.UV_26, action = device_commands.Button_2, value = 0.5})
+push_start_command(dt, {message = _("UV-26 RESET TO DEFAULT PROGRAM (110)"), message_timeout = mto})
+push_start_command(dt, {device = devices.UV_26, action = device_commands.Button_8, value = 1.0}) -- Press
+push_start_command(dt, {device = devices.UV_26, action = device_commands.Button_8, value = 0.0}) -- Release
+push_start_command(dt, {message = _("UV-26 SET NUM SEQUENCES - 4"), message_timeout = mto})
+for i = 1, 9, 1 do -- Press and release 3 times
+	push_start_command(dt, {device = devices.UV_26, action = device_commands.Button_4, value = 1.0}) -- Press
+	push_start_command(0.1, {device = devices.UV_26, action = device_commands.Button_4, value = 0.0}) -- Release
+end
+push_start_command(dt, {message = _("UV-26 SET DISPENSER INTERVAL - 1 SEC"), message_timeout = mto})
+push_start_command(dt, {device = devices.UV_26, action = device_commands.Button_6, value = 1.0}) -- Press
+push_start_command(0.1, {device = devices.UV_26, action = device_commands.Button_6, value = 0.0}) -- Release
+
+-- Yushin rocket arming
+push_start_command(dt, {message = _("Yushin Weapon Startup Proceeding"), message_timeout = 10})
+
+-- closing co-pilot window (closed by default)
+push_start_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_21, value = 1.0})
+push_start_command(1.0, {device = devices.CPT_MECH, action =  device_commands.Button_6, value = 1.0}) -- Press
+push_start_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_6, value = 0.0}) -- Release
+push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_30, value = 1.0})
+push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_22, value = -1.0})
+push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_27, value = 1.0}) -- remove for smoky
+
+-- TODO: figure out what this value should be set to
+--push_start_command(dt, {device = devices.PKV, action = device_commands.Button_3, value = 1}) 
+
+push_start_command(dt, {message = _("Setting cargo hook to let go automatically, no one likes a clinger"), message_timeout = 10})
+push_start_command(dt, {device = devices.EXT_CARGO_EQUIPMENT, action = device_commands.Button_5, value = 1.0})
+
 -- Toot the Horn
 
-push_start_command(0.26, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Press
+push_start_command(0.20, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Press
 push_start_command(0.10, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 0.0}) -- Release
-push_start_command(0.26, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Press
+push_start_command(0.20, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Press
 push_start_command(0.10, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 0.0}) -- Release
-push_start_command(0.26, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Press
+push_start_command(0.20, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Press
 push_start_command(0.10, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 0.0}) -- Release
 
-push_start_command(dt, {message = _("99% CHANCE YOU ARE READY TO FLY"), message_timeout = 15})
+push_start_command(dt, {message = _("YOU ARE READY TO FLY"), message_timeout = 15})
 end
 doStartSequence()
 
@@ -332,84 +353,80 @@ doStartSequence()
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
+
+
+
+
 -- Function to collect all the stop sequence commands.
+
 local function doStopSequence()
-	-- Stop sequence
-	push_stop_command(0.0, {message = _("CUSTOMDCS.com SUPER QUICK AUTOSTOP SEQUENCE IS RUNNING"), message_timeout = mto})
-	
-	push_stop_command(dt, {device = devices.VMS, action = device_commands.Button_6, value = 0.0})
-	push_stop_command(dt, {action = Keys.iCommand_ThrottleDecrease})
-	push_stop_command(1.0, {action = Keys.iCommand_ThrottleStop})
-	push_stop_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_9, value = 0})
-	push_stop_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_10, value = 0})
-	push_stop_command(4.0, {message = _("."), message_timeout = 0.0})
-	push_stop_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_11, value = 1})
-	
-	push_stop_command(dt, {message = _("ALL CB SWITCHES - OFF"), message_timeout = mto})
-	for i = device_commands.Button_31, device_commands.Button_31 + 75, 1 do
-		push_stop_command(0.01, {device = devices.ELEC_INTERFACE, action = i, value = 0.0})
-	end
-	
-	push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_3, value = -1.0}) -- Battery 1 Switch
-	push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_2, value = -1.0}) -- Battery 2 Switch
+
+-- Stop sequence
+
+push_stop_command(0.0, {message = _("CUSTOMDCS.com QUICK AUTOSTOP SEQUENCE IS RUNNING"), message_timeout = mto})
+
+push_stop_command(0.1, {device = devices.VMS, action = device_commands.Button_6, value = 0.0}) -- Bitchin Betty
+push_stop_command(0.1, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_9, value = 0}) -- Left Engine Stop Lever
+push_stop_command(0.1, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_10, value = 0}) -- Right Engine Stop Lever
+--push_start_command(0.1, {device = devices.ELEC_INTERFACE, action = device_commands.Button_3, value = -1.0}) -- Battery 1 Off
+--push_start_command(0.1, {device = devices.ELEC_INTERFACE, action = device_commands.Button_2, value = -1.0}) -- Battery 2 Off
 
 
-	-- Wait for rotor to spin down.
+push_stop_command(5.0, {message = _("."), message_timeout = 0.0})
 
-	push_stop_command(dt, {message = _("WAIT FOR ROTOR TO SPIN DOWN (45s)"), message_timeout = 29.5})
-	push_stop_command(25.0, {message = _("WAIT FOR ROTOR TO SPIN DOWN (20s)"), message_timeout = 9})
-	push_stop_command(10.0, {message = _("WAIT FOR ROTOR TO SPIN DOWN (10s)"), message_timeout = 5})
-	push_stop_command(5.0, {message = _("WAIT FOR ROTOR TO SPIN DOWN (5s)"), message_timeout = 4})
-	
-	push_stop_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_15, value = 1.0})
-	
-	push_stop_command(dt, {message = _("CUSTOMDCS.com QUICK AUTOSTOP COMPLETE"), message_timeout = mto})
-	end
-	doStopSequence()
-	
-	
-	-- Inserts messages into the sequence that show how many minutes there are remaining in the sequence.  Also adds " (XmXs)" time display to the end of the first item in the sequence (which must be a message, and is by default).
-	local function insertTimeRemaining(sequence, endingTime)
-	local totalTime = math.ceil(endingTime) -- Round up to the next whole second.
-	local totalTimeMins = math.floor(totalTime / 60)
-	local totalTimeSecs = totalTime % 60
-	-- Add the total time onto the end of the initial startup message.
-	sequence[1]['message'] = sequence[1]['message']..' ('..totalTimeMins..'m'..totalTimeSecs..'s)'
-	
-	local minsRemaining = totalTimeMins
-	local i = 1
-	while sequence[i] do
-		-- If the current array element has a time less than or equal to our current number of minutes remaining, insert an element at the current position that shows the time remaining.
-		if minsRemaining ~= 0 and endingTime - sequence[i]['time'] <= minsRemaining * 60 then
-			if minsRemaining == 1 then
-				minutesString = 'MINUTE'
-			else
-				minutesString = 'MINUTES'
-			end
-			table.insert(sequence, i, {message = _('=== '..minsRemaining..' '..minutesString..' REMAINING ==='), message_timeout = 60})
-			sequence[i]['time'] = endingTime - minsRemaining * 60.0
-			--log.info('sequence[i]: '..sequence[i]['message'])
-			-- Subtract 1 minute from the remaining minutes to do.
-			minsRemaining = minsRemaining - 1
-			-- Decrement the index counter since we just added an element.  This makes sure we don't skip one.
-			i = i - 1
+push_stop_command(0.1, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_11, value = 1}) -- Rotor Barke
+
+push_stop_command(dt, {message = _("ROTOR SPOOL DOWN - 50SEC"), message_timeout = 29.5})
+push_stop_command(30, {message = _("ROTOR SPOOL DOWN - 20SEC"), message_timeout = 10})
+push_stop_command(10, {message = _("ROTOR SPOOL DOWN - 10SEC"), message_timeout = 10})
+
+push_stop_command(1.0, {message = _("CUSTOMDCS.com SUPER QUICK AUTOSTOP COMPLETE"), message_timeout = mto})
+end
+doStopSequence()
+
+
+-- Inserts messages into the sequence that show how many minutes there are remaining in the sequence.  Also adds " (XmXs)" time display to the end of the first item in the sequence (which must be a message, and is by default).
+local function insertTimeRemaining(sequence, endingTime)
+local totalTime = math.ceil(endingTime) -- Round up to the next whole second.
+local totalTimeMins = math.floor(totalTime / 60)
+local totalTimeSecs = totalTime % 60
+-- Add the total time onto the end of the initial startup message.
+sequence[1]['message'] = sequence[1]['message']..' ('..totalTimeMins..'m'..totalTimeSecs..'s)'
+
+local minsRemaining = totalTimeMins
+local i = 1
+while sequence[i] do
+	-- If the current array element has a time less than or equal to our current number of minutes remaining, insert an element at the current position that shows the time remaining.
+	if minsRemaining ~= 0 and endingTime - sequence[i]['time'] <= minsRemaining * 60 then
+		if minsRemaining == 1 then
+			minutesString = 'MINUTE'
+		else
+			minutesString = 'MINUTES'
 		end
-		-- Increment the index counter to go to the next element.
-		i = i + 1
+		table.insert(sequence, i, {message = _('=== '..minsRemaining..' '..minutesString..' REMAINING ==='), message_timeout = 60})
+		sequence[i]['time'] = endingTime - minsRemaining * 60.0
+		--log.info('sequence[i]: '..sequence[i]['message'])
+		-- Subtract 1 minute from the remaining minutes to do.
+		minsRemaining = minsRemaining - 1
+		-- Decrement the index counter since we just added an element.  This makes sure we don't skip one.
+		i = i - 1
 	end
-	log.info('Start/Stop sequence time: '..totalTimeMins..'m'..totalTimeSecs..'s')
+	-- Increment the index counter to go to the next element.
+	i = i + 1
+end
+log.info('Start/Stop sequence time: '..totalTimeMins..'m'..totalTimeSecs..'s')
+end
+insertTimeRemaining(start_sequence_full, t_start)
+insertTimeRemaining(stop_sequence_full, t_stop)
+
+-- Debug function to log all the timing and message data for the entire sequence.  Useful to check to make sure the right values are going in, and in the right order.
+local function logSequenceData()
+for i = 1, #start_sequence_full do
+	local message = '(action)'
+	if start_sequence_full[i]['message'] then
+		message = start_sequence_full[i]['message']
 	end
-	insertTimeRemaining(start_sequence_full, t_start)
-	insertTimeRemaining(stop_sequence_full, t_stop)
-	
-	-- Debug function to log all the timing and message data for the entire sequence.  Useful to check to make sure the right values are going in, and in the right order.
-	local function logSequenceData()
-	for i = 1, #start_sequence_full do
-		local message = '(action)'
-		if start_sequence_full[i]['message'] then
-			message = start_sequence_full[i]['message']
-		end
-		log.info("start_sequence_full[i]['time']: "..start_sequence_full[i]['time']..', remaining: '..t_start-start_sequence_full[i]['time']..', message: '..message)
-	end
-	end
-	--logSequenceData()
+	log.info("start_sequence_full[i]['time']: "..start_sequence_full[i]['time']..', remaining: '..t_start-start_sequence_full[i]['time']..', message: '..message)
+end
+end
+--logSequenceData()
