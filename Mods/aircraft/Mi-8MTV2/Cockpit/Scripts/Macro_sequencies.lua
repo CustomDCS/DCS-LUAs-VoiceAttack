@@ -51,10 +51,11 @@ alert_messages[RIGHT_ENGINE_START_FAULT] = { message = _("RIGHT ENGINE START FAU
 local function doStartSequence()
 
 push_start_command(dt, {message = _(" "), message_timeout = start_sequence_time})	
-push_start_command(dt, {message = _("=================================================="), message_timeout = start_sequence_time})
-push_start_command(dt, {message = _("  CustomDCS.com Super Quick Autostart Sequence Is Running (2m 05sec)"), message_timeout = start_sequence_time})
---push_start_command(dt, {message = _("      Night Mode - Doppler is Off For Night Vision"), message_timeout = start_sequence_time}) -- Remove -- for Night Mode
-push_start_command(dt, {message = _("=================================================="), message_timeout = start_sequence_time})
+push_start_command(dt, {message = _("=================================================="), message_timeout = 122})
+push_start_command(dt, {message = _("  CustomDCS.com Super Quick Autostart Sequence Is Running (2m 05sec)"), message_timeout = 122})
+push_start_command(dt, {message = _("          This Auto Start is Set For FARP SHARON"), message_timeout = 122})
+--push_start_command(dt, {message = _("       Night Mode - Doppler is Off For Night Vision"), message_timeout = 122}) -- Remove -- for Night Mode
+push_start_command(dt, {message = _("=================================================="), message_timeout = 122})
 
 
 -- Lights - Brightness Knobs - All To MAX - Day Mode
@@ -238,9 +239,15 @@ push_start_command(dt, {device = devices.R_863, action = device_commands.Button_
 
 -- Tune ADF
 
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_6, value = 0.6}) -- ARC 9 10KHZ DIAL
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_5, value = 0.05}) -- ARC 9 100KHZ DIAL
+-- Main - Set To 700kHz
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_6, value = -0.5}) -- ARC 9 10KHZ DIAL
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_5, value = 0.25}) -- ARC 9 100KHZ DIAL
 
+-- Reserve - Set To 260kHz
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_9, value = 0.6}) -- ARC 9 10KHZ DIAL
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_8, value = 0.05}) -- ARC 9 100KHZ DIAL
+
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_11, value = 1.0}) -- Main/Reserve Switch - Set To Main
 
 -- Set QNH To FARP Height - Not Automatic - Set to SHARON
 
@@ -257,18 +264,19 @@ end
 
 push_start_command(dt, {message = _(" "), message_timeout = 100})
 push_start_command(dt, {message = _("================================="), message_timeout = 100})
-push_start_command(dt, {message = _("  Altimeter Set To FARP Sharon"), message_timeout = 100})
+push_start_command(dt, {message = _("  Altimeter Set To FARP SHORON"), message_timeout = 100})
 push_start_command(dt, {message = _("  Radio Set To ICS To Allow Rearm And Refuel"), message_timeout = 100})
 --push_start_command(dt, {message = _("  The Rocket Systems Are On, Master Arm Is OFF"), message_timeout = 100})
 push_start_command(dt, {message = _("  The Rocket Systems Are On, Master Arm Is ON"), message_timeout = 100})
-push_start_command(dt, {message = _("  Reserve ADF Tuned To FARP Sharon (260kHz)"), message_timeout = 100})
-push_start_command(dt, {message = _("  Tune Main ADF As Needed"), message_timeout = 100})
-push_start_command(dt, {message = _("    Arrow - 600kHz - 15.5nm 012 North"), message_timeout = 100})
-push_start_command(dt, {message = _("    Glory - 290kHz - 17nm 076 East"), message_timeout = 100})
-push_start_command(dt, {message = _("================================="), message_timeout = 100})
+push_start_command(dt, {message = _("  Main ADF Tuned To FARP SHARON (260kHz)"), message_timeout = 100})
+push_start_command(dt, {message = _("  Reserve ADF Tuned To FARP ARROW (600kHz)"), message_timeout = 100})
+push_start_command(dt, {message = _("     ARROW    - 600kHz - 15nm 012 N"), message_timeout = 100})
+push_start_command(dt, {message = _("  A  TAJI     - 270kHz - 29nm 042 NE  "), message_timeout = 100})
+push_start_command(dt, {message = _("  B  GLORY    - 290kHz - 17nm 076 E"), message_timeout = 100})
+push_start_command(dt, {message = _("  C  BLKHORSE - 700kHz - 47nm 075 E"), message_timeout = 100})
 push_start_command(dt, {message = _(" "), message_timeout = 100})
 
-push_start_command(8.0, {message = _("  APU Running"), message_timeout = mto})
+push_start_command(12.0, {message = _("  APU Running"), message_timeout = mto})
 push_start_command(dt, {message = _(" "), message_timeout = mto})
 
 
@@ -397,6 +405,7 @@ push_stop_command(dt, {message = _("  CustomDCS.com - Super Quick Autostop Seque
 push_stop_command(dt, {message = _("================================================"), message_timeout = 49})
 push_stop_command(dt, {message = _(" "), message_timeout = 49})
 
+push_stop_command(dt, {device = devices.SPU_7, action = device_commands.Button_4, value = -1.0}) -- Radio Set To ICS
 push_stop_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_18, value = 0.0}) -- Left Landing Light Switch - Off
 push_stop_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_19, value = 0.0}) -- Right Landing Light Switch - Off
 push_stop_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_17, value = -1.0}) -- Taxi Light - Off
@@ -433,14 +442,14 @@ push_stop_command(6, {message = _("  Rotor Spool Down (40s)"), message_timeout =
 push_stop_command(dt, {message = _(" "), message_timeout = 19.0})
 push_stop_command(20.0, {message = _("  Rotor Spool Down (20s)"), message_timeout = 9.0})
 push_stop_command(dt, {message = _(" "), message_timeout = 9.0})
-push_stop_command(10, {message = _("  Rotor Spool Down (10s)"), message_timeout = 8.0})
+push_stop_command(10, {message = _("  Rotor Spool Down (10s)"), message_timeout = 7.0})
 push_stop_command(dt, {message = _(" "), message_timeout = 8.0})
 
 push_stop_command(5.0, {message = _(""), message_timeout = 0.0})
 
 push_stop_command(2.0, {device = devices.CPT_MECH, action = device_commands.Button_15, value = 1.0})
 
-push_stop_command(3.0, {message = _(""), message_timeout = 0.0})
+push_stop_command(2.0, {message = _(""), message_timeout = 0.0})
 
 push_stop_command(dt, {message = _(" "), message_timeout = mto})
 push_stop_command(dt, {message = _("============================================"), message_timeout = mto})
