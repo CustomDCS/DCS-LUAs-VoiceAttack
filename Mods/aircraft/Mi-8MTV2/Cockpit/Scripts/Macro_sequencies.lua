@@ -69,7 +69,7 @@ push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.
 push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_23, value = 1.0}) -- Cargo Cabin Common Lights Switch
 push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_4, value = 1.0}) -- 5.5V Lights Switch
 push_start_command(dt, {device = devices.SYS_CONTROLLER, action = device_commands.Button_6, value = 1.0}) -- Transparent Switch
-push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_12, value = 1.0}) -- ANO Switch- Bright
+push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_12, value = 1.0}) -- ANO Switch- Bright - NAV Lights?
 push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_13, value = 1.0}) -- Formation Lights - Bright
 
 -- Lights - Brightness Knobs - All To HALF - Night Mode
@@ -92,8 +92,8 @@ push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_comman
 --push_start_command(dt, {device = devices.AUTOPILOT, action = device_commands.Button_21, value = 0.50}) -- Auto Pilot Brigtness Knob - Pitch/Roll
 --push_start_command(dt, {device = devices.AUTOPILOT, action = device_commands.Button_19, value = 0.50}) -- Auto Pilot Brigtness Knob - Heading ON
 --push_start_command(dt, {device = devices.AUTOPILOT, action = device_commands.Button_20, value = 0.50}) -- Auto Pilot Brigtness Knob - Heading OFF
---push_start_command(dt, {device = devices.AUTOPILOT, action = device_commands.Button_22, value = 0.50}) -- Auto Pilot Brigtness Knob - ALT Hold - ON
---push_start_command(dt, {device = devices.AUTOPILOT, action = device_commands.Button_23, value = 0.50}) -- Auto Pilot Brigtness Knob - ALT Hold - OFF
+--push_start_command(dt, {device = devices.AUTOPILOT, action = device_commands.Button_22, value = 0.50}) -- Auto Pilot Brigtness Knob - ALT Hold ON
+--push_start_command(dt, {device = devices.AUTOPILOT, action = device_commands.Button_23, value = 0.50}) -- Auto Pilot Brigtness Knob - ALT Hold OFF
 
 
 -- Pretty Lights on the Outside
@@ -195,14 +195,17 @@ push_start_command(dt, {device = devices.ARC_UD, action = device_commands.Button
 push_start_command(dt, {device = devices.RADAR_ALTIMETER, action = device_commands.Button_3, value = 1.0}) -- RADALT On
 push_start_command(dt, {device = devices.EXT_CARGO_EQUIPMENT, action = device_commands.Button_5, value = 1.0}) -- Auto Unhook
 push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_10, value = 1.0}) -- Fuel Cutoff Lever - Left
-push_start_command(0.1, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_9, value = 1.0}) -- Fuel Cutoff Lever - Right
-push_start_command(0.01, {device = devices.PKV, action = device_commands.Button_3, value = .215}) -- Set Sight Limb Knob - 0.3 Default
+push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_9, value = 1.0}) -- Fuel Cutoff Lever - Right
+push_start_command(dt, {device = devices.PKV, action = device_commands.Button_3, value = .215}) -- Set Sight Limb Knob - 0.3 Default
+push_start_command(dt, {device = devices.RADAR_ALTIMETER, action = device_commands.Button_1, value = -0.80}) -- Set RADALT to 20 Meters
+
 
 -- Turn On Rocket Systems
 
 push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_30, value = 1.0}) -- RS/GUV Selector Switch
 push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_22, value = -1.0}) -- UPK/PKT/RS Switch Set to RS - Rockets
 push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_20, value = -1.0}) -- 8/16/4 Switch - Set to 4
+push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_27, value = 1.0}) -- Wepons Master ARM - On
 
 
 -- UV-26 Countermeasures System
@@ -219,10 +222,6 @@ push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_comma
 push_start_command(0.2, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_26, value = 1.0}) -- Press
 push_start_command(0.2, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_26, value = 0.0}) -- Release
 
-for i = 1, 776, 1 do
-	push_start_command(0.01, {device = devices.RADAR_ALTIMETER, action = device_commands.Button_1, value = -.00104}) -- Set RADALT to 20 Meters
-end
-
 
 -- R-828 Radio
 
@@ -235,13 +234,30 @@ push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_
 push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_3, value = 0.1}) -- ARC 9 COMP
 push_start_command(dt, {device = devices.R_828, action = device_commands.Button_2, value = 0.5}) -- 828 VOLUME KNOB - 30FM
 push_start_command(dt, {device = devices.R_863, action = device_commands.Button_5, value = 1.00}) -- MAIN RADIO VOLUME KNOB 250AM
+
+
+-- Tune ADF
+
 push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_6, value = 0.6}) -- ARC 9 10KHZ DIAL
 push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_5, value = 0.05}) -- ARC 9 100KHZ DIAL
 
-push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_27, value = 1.0}) -- Wepons Master ARM - On
+
+-- Set QNH To FARP Height - Not Automatic - Set to SHARON
+
+for i = 1, 100, 1 do
+	push_start_command(0.01, {device = devices.BAR_ALTIMETER_L, action = device_commands.Button_1, value = 1}) -- Set QNH = Pilot
+end
+
+for i = 1, 100, 1 do
+	push_start_command(0.01, {device = devices.BAR_ALTIMETER_R, action = device_commands.Button_1, value = 1}) -- Set QNH - Copilot
+end
+
+
+-- Information Message - Current Set Up
 
 push_start_command(dt, {message = _(" "), message_timeout = 100})
 push_start_command(dt, {message = _("================================="), message_timeout = 100})
+push_start_command(dt, {message = _("  Altimeter Set To FARP Sharon"), message_timeout = 100})
 push_start_command(dt, {message = _("  Radio Set To ICS To Allow Rearm And Refuel"), message_timeout = 100})
 --push_start_command(dt, {message = _("  The Rocket Systems Are On, Master Arm Is OFF"), message_timeout = 100})
 push_start_command(dt, {message = _("  The Rocket Systems Are On, Master Arm Is ON"), message_timeout = 100})
@@ -289,7 +305,7 @@ push_start_command(dt, {device = devices.R_828, action = device_commands.Button_
 push_start_command(dt, {device = devices.R_828, action = device_commands.Button_3, value = 1.0}) -- Press - R-828, Radio Tuner Button
 push_start_command(3.0, {device = devices.R_828, action = device_commands.Button_3, value = 0.0}) -- Release - R-828, Radio Tuner Button
 
-push_start_command(40, {message = _("  Left Engine Running"), message_timeout = mto})
+push_start_command(46, {message = _("  Left Engine Running"), message_timeout = mto})
 push_start_command(dt, {message = _(" "), message_timeout = mto})
 
 
@@ -326,7 +342,7 @@ push_start_command(dt, {message = _("================="), message_timeout = mto}
 push_start_command(dt, {message = _("  Stabilizing Engine RPM"), message_timeout = 12})
 push_start_command(dt, {message = _("================="), message_timeout = 12})
 
-push_start_command(10.0, {message = _(""), message_timeout = 0.0}) -- Pause for 13sec To Let The Engine RPM Stabilize
+push_start_command(10.0, {message = _(""), message_timeout = 0.0}) -- Pause for 10sec To Let The Engine RPM Stabilize
 
 
 -- Radios
@@ -353,12 +369,12 @@ push_start_command(dt, {message = _(" "), message_timeout = 10})
 
 -- Toot the Horn
 
-push_start_command(0.50, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Press
-push_start_command(0.30, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 0.0}) -- Release
-push_start_command(0.50, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Press
-push_start_command(0.30, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 0.0}) -- Release
-push_start_command(0.50, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Press
-push_start_command(0.30, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 0.0}) -- Release
+push_start_command(0.30, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Press
+push_start_command(0.20, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 0.0}) -- Release
+push_start_command(0.30, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Press
+push_start_command(0.20, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 0.0}) -- Release
+push_start_command(0.30, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Press
+push_start_command(0.20, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 0.0}) -- Release
 
 
 end
@@ -375,11 +391,11 @@ doStopSequence()
 
 -- Stop sequence
 
-push_stop_command(dt, {message = _(" "), message_timeout = 50})
-push_stop_command(dt, {message = _("================================================"), message_timeout = 50})
-push_stop_command(dt, {message = _("  CustomDCS.com - Super Quick Autostop Sequence Is Running (50sec)"), message_timeout = 50})
-push_stop_command(dt, {message = _("================================================"), message_timeout = 50})
-push_stop_command(dt, {message = _(" "), message_timeout = 50})
+push_stop_command(dt, {message = _(" "), message_timeout = 49})
+push_stop_command(dt, {message = _("================================================"), message_timeout = 49})
+push_stop_command(dt, {message = _("  CustomDCS.com - Super Quick Autostop Sequence Is Running (50sec)"), message_timeout = 49})
+push_stop_command(dt, {message = _("================================================"), message_timeout = 49})
+push_stop_command(dt, {message = _(" "), message_timeout = 49})
 
 push_stop_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_18, value = 0.0}) -- Left Landing Light Switch - Off
 push_stop_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_19, value = 0.0}) -- Right Landing Light Switch - Off
@@ -389,6 +405,7 @@ push_stop_command(0.1, {device = devices.ENGINE_INTERFACE, action = device_comma
 push_stop_command(dt, {device = devices.VMS, action = device_commands.Button_6, value = 0.0}) -- Bitchin Betty - Off
 push_stop_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_9, value = 0}) -- Left Fuel Lever - Off
 push_stop_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_10, value = 0}) -- Right Fuel Lever - Off
+push_stop_command(dt, {device = devices.RADAR_ALTIMETER, action = device_commands.Button_1, value = 0.80}) -- Set RADALT to STD
 push_stop_command(dt, {action = Keys.iCommand_ThrottleDecrease}) -- Throttle Down
 push_stop_command(0.5, {action = Keys.iCommand_ThrottleStop})
 push_stop_command(3.5, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_11, value = 1}) -- Rotor Brake - On
@@ -397,28 +414,33 @@ for i = device_commands.Button_31, device_commands.Button_31 + 75, 1 do
 	push_stop_command(0.005, {device = devices.ELEC_INTERFACE, action = i, value = 0.0}) -- Turn off All Circut Brakers
 end
 
-for i = 1, 776, 1 do
-	push_stop_command(0.01, {device = devices.RADAR_ALTIMETER, action = device_commands.Button_1, value = 0.00104}) -- Set RADALT to STD
-end
-
 push_stop_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_3, value = -1.0}) -- Battery 1 Switch - Off
 push_stop_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_2, value = -1.0}) -- Battery 2 Switch - Off
 
 
+for i = 1, 100, 1 do
+	push_stop_command(0.01, {device = devices.BAR_ALTIMETER_L, action = device_commands.Button_1, value = -1}) -- Set QNH = Pilot
+end
+
+for i = 1, 100, 1 do
+	push_stop_command(0.01, {device = devices.BAR_ALTIMETER_R, action = device_commands.Button_1, value = -1}) -- Set QNH - Copilot
+end
+
+
 -- Wait for rotor to spin down.
 
-push_stop_command(6, {message = _("  Rotor Spool Down (30s)"), message_timeout = 14.0})
-push_stop_command(dt, {message = _(" "), message_timeout = 14.0})
-push_stop_command(15.0, {message = _("  Rotor Spool Down (15s)"), message_timeout = 4.0})
-push_stop_command(dt, {message = _(" "), message_timeout = 4.0})
-push_stop_command(5, {message = _("  Rotor Spool Down (10s)"), message_timeout = 4.0})
-push_stop_command(dt, {message = _(" "), message_timeout = 4.0})
-push_stop_command(5, {message = _("  Rotor Spool Down (5s)"), message_timeout = 6.0})
-push_stop_command(dt, {message = _(" "), message_timeout = 6.0})
+push_stop_command(6, {message = _("  Rotor Spool Down (40s)"), message_timeout = 19.0})
+push_stop_command(dt, {message = _(" "), message_timeout = 19.0})
+push_stop_command(20.0, {message = _("  Rotor Spool Down (20s)"), message_timeout = 9.0})
+push_stop_command(dt, {message = _(" "), message_timeout = 9.0})
+push_stop_command(10, {message = _("  Rotor Spool Down (10s)"), message_timeout = 8.0})
+push_stop_command(dt, {message = _(" "), message_timeout = 8.0})
 
-push_stop_command(3.0, {device = devices.CPT_MECH, action = device_commands.Button_15, value = 1.0})
+push_stop_command(5.0, {message = _(""), message_timeout = 0.0})
 
-push_stop_command(6.0, {message = _(""), message_timeout = 0.0})
+push_stop_command(2.0, {device = devices.CPT_MECH, action = device_commands.Button_15, value = 1.0})
+
+push_stop_command(3.0, {message = _(""), message_timeout = 0.0})
 
 push_stop_command(dt, {message = _(" "), message_timeout = mto})
 push_stop_command(dt, {message = _("============================================"), message_timeout = mto})
