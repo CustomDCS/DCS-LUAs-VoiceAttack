@@ -57,7 +57,7 @@ push_start_command(dt, {message = _("  CustomDCS.com Super Quick Autostart Seque
 push_start_command(dt, {message = _("=================================================="), message_timeout = start_sequence_time})
 
 
---Lights - Brightness Knobs - All To MAX - Day Mode
+-- Lights - Brightness Knobs - All To MAX - Day Mode
 
 push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_11, value = 1.0}) -- 5.5V Lights Brightness Rheostat
 push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_10, value = 1.0}) -- Central Red Lights Brightness Group 2 Rheostat
@@ -72,7 +72,7 @@ push_start_command(dt, {device = devices.SYS_CONTROLLER, action = device_command
 push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_12, value = 1.0}) -- ANO Switch- Bright
 push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_13, value = 1.0}) -- Formation Lights - Bright
 
---Lights - Brightness Knobs - All To HALF - Night Mode
+-- Lights - Brightness Knobs - All To HALF - Night Mode
 
 --push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_11, value = 0.5}) -- 5.5V Lights Brightness Rheostat
 --push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_10, value = 0.5}) -- Central Red Lights Brightness Group 2 Rheostat
@@ -147,14 +147,14 @@ push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_comm
 push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_5, value = 1.0}) -- Right Tank Pump Switch
 
 
---JADRO
+-- JADRO
 
 push_start_command(dt, {device = devices.JADRO_1A, action = device_commands.Button_13, value = 1.0}) -- Jadro 1A, Power Switch
 push_start_command(dt, {device = devices.JADRO_1A, action = device_commands.Button_1, value = 1.0}) -- Jadro 1A, Mode Switch
 push_start_command(dt, {device = devices.JADRO_1A, action = device_commands.Button_2, value = 1.0}) -- Jadro 1A, Frequency Selector
 
 
---Fans
+-- Fans
 
 push_start_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_20, value = 1.0}) -- Pilot Fan
 push_start_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_21, value = 1.0}) -- Co Pilot Fan
@@ -174,14 +174,14 @@ push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_command
 push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_13, value = -1.0}) -- 36V Inverter Switch
 
 
---Pilot's Triangular Panel
+-- Pilot's Triangular Panel
 
 push_start_command(dt, {device = devices.AGB_3K_LEFT, action = device_commands.Button_4, value = 1.0}) -- Left Attitude Indicator Power Switch
 push_start_command(dt, {device = devices.CORRECTION_INTERRUPT, action = device_commands.Button_1, value = 1.0}) -- Gyro Cutout
 push_start_command(dt, {device = devices.SPUU_52, action = device_commands.Button_5, value = 1.0}) -- Pitch Limit System
 
 
---Copilot's Triangular Panel
+-- Copilot's Triangular Panel
 
 push_start_command(dt, {device = devices.DISS_15, action = device_commands.Button_1, value = 1.0}) -- Doppler Navigator Power Switch
 push_start_command(dt, {device = devices.GMK1A, action = device_commands.Button_1, value = 1.0}) -- GMC Power Switch
@@ -196,9 +196,9 @@ push_start_command(dt, {device = devices.RADAR_ALTIMETER, action = device_comman
 push_start_command(dt, {device = devices.EXT_CARGO_EQUIPMENT, action = device_commands.Button_5, value = 1.0}) -- Auto Unhook
 push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_10, value = 1.0}) -- Fuel Cutoff Lever - Left
 push_start_command(0.1, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_9, value = 1.0}) -- Fuel Cutoff Lever - Right
-push_start_command(0.01, {device = devices.PKV, action = device_commands.Button_3, value = .215}) -- Set Sight Limb Knob - WIP - 0.3 Default
+push_start_command(0.01, {device = devices.PKV, action = device_commands.Button_3, value = .215}) -- Set Sight Limb Knob - 0.3 Default
 
---Turn On Rocket Systems
+-- Turn On Rocket Systems
 
 push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_30, value = 1.0}) -- RS/GUV Selector Switch
 push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_22, value = -1.0}) -- UPK/PKT/RS Switch Set to RS - Rockets
@@ -389,7 +389,7 @@ push_stop_command(0.1, {device = devices.ENGINE_INTERFACE, action = device_comma
 push_stop_command(dt, {device = devices.VMS, action = device_commands.Button_6, value = 0.0}) -- Bitchin Betty - Off
 push_stop_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_9, value = 0}) -- Left Fuel Lever - Off
 push_stop_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_10, value = 0}) -- Right Fuel Lever - Off
-push_stop_command(dt, {action = Keys.iCommand_ThrottleDecrease}) -- Throttle Dwon
+push_stop_command(dt, {action = Keys.iCommand_ThrottleDecrease}) -- Throttle Down
 push_stop_command(0.5, {action = Keys.iCommand_ThrottleStop})
 push_stop_command(3.5, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_11, value = 1}) -- Rotor Brake - On
 
