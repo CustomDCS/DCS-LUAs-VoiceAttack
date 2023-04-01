@@ -173,12 +173,6 @@ push_start_command(dt, {device = devices.JADRO_1A, action = device_commands.Butt
 push_start_command(dt, {device = devices.JADRO_1A, action = device_commands.Button_2, value = 1.0}) -- Jadro 1A, Frequency Selector
 
 
--- R-828 Radio - 30FM
-
-push_start_command(dt, {device = devices.R_828, action = device_commands.Button_5, value = 1.0}) -- 30FM Power - ON
-push_start_command(dt, {device = devices.R_828, action = device_commands.Button_1, value = 0.4}) -- Channel Selector Knob
-
-
 -- Radio Selector Switch
 
 push_start_command(dt, {device = devices.SPU_7, action = device_commands.Button_4, value = 1.0}) -- Radio Set to ICS
@@ -362,19 +356,22 @@ push_start_command(0.7, {device = devices.CPT_MECH, action = device_commands.But
 
 -- Throttle Up
 
-push_start_command(dt, {action = Keys.iCommand_ThrottleIncrease}) -- Collective Throttle To MAX
+push_start_command(0.1, {action = Keys.iCommand_ThrottleIncrease}) -- Collective Throttle To MAX
 push_start_command(1.3, {action = Keys.iCommand_ThrottleStop}) -- MAX Value
 
 
 -- R-828 Radio - 30FM
 
-push_start_command(dt, {device = devices.R_828, action = device_commands.Button_3, value = 1.0}) -- Press - R-828, Radio Tuner Button
-push_start_command(3.0, {device = devices.R_828, action = device_commands.Button_3, value = 0.0}) -- Release - R-828, Radio Tuner Button
+push_start_command(dt, {device = devices.R_828, action = device_commands.Button_5, value = 1.0}) -- 30FM Power - ON
+push_start_command(dt, {device = devices.R_828, action = device_commands.Button_1, value = 0.4}) -- Channel Selector Knob
+
+push_start_command(0.1, {device = devices.R_828, action = device_commands.Button_3, value = 1.0}) -- Press - R-828 Radio Tuner Button
+push_start_command(3.0, {device = devices.R_828, action = device_commands.Button_3, value = 0.0}) -- Release - R-828 Radio Tuner Button
 
 
 -- Wait For Left Engine To Start
 
-push_start_command(44, {message = _("  Left Engine Running"), message_timeout = mto})
+push_start_command(43.8, {message = _("  Left Engine Running"), message_timeout = mto})
 push_start_command(dt, {message = _(" "), message_timeout = mto})
 
 
@@ -410,17 +407,15 @@ push_start_command(dt, {message = _("  Stopping APU - Aprox 3min For Cool Down")
 push_start_command(0.1, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_7, value = 1.0}) -- Press - APU Stop Button
 push_start_command(0.2, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_7, value = 0.0}) -- Release - APU Start Button
 
-push_start_command(dt, {message = _(" "), message_timeout = 12})
-push_start_command(dt, {message = _("=================="), message_timeout = 12})
-push_start_command(dt, {message = _("  Stabilizing Engine RPM"), message_timeout = 12})
-push_start_command(dt, {message = _("=================="), message_timeout = 12})
-
-push_start_command(11.0, {message = _(""), message_timeout = 0.0}) -- Pause for 12sec To Let The Engine RPM Stabilize
+push_start_command(1.0, {message = _(" "), message_timeout = 14})
+push_start_command(dt, {message = _("=================="), message_timeout = 14})
+push_start_command(dt, {message = _("  Stabilizing Engine RPM"), message_timeout = 14})
+push_start_command(dt, {message = _("=================="), message_timeout = 14})
 
 
 -- Radios
 
-push_start_command(dt, {device = devices.SPU_7, action = device_commands.Button_4, value = 0.0}) -- Radio Set to Radio
+push_start_command(12, {device = devices.SPU_7, action = device_commands.Button_4, value = 0.0}) -- Radio Set to Radio
 
 
 -- Auto Pilot
@@ -434,7 +429,7 @@ push_start_command(dt, {message = _("================================"), message
 push_start_command(dt, {message = _("  Autopilot Pitch/Roll Channel - ON"), message_timeout = 10})
 push_start_command(dt, {message = _("  ICS Off"), message_timeout = 10})
 push_start_command(dt, {message = _("  PTT for SRS will Now Transmit On 250kHz AM"), message_timeout = 10})
-push_start_command(dt, {message = _("  99.5% Chance You Are Ready To Fly"), message_timeout = 10})
+push_start_command(dt, {message = _("  99.8% Chance You Are Ready To Fly"), message_timeout = 10})
 push_start_command(dt, {message = _("  Auto Start Complete"), message_timeout = 10})
 push_start_command(dt, {message = _("================================"), message_timeout = 10})
 push_start_command(dt, {message = _(" "), message_timeout = 10})
@@ -457,15 +452,31 @@ doStartSequence()
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- Other Buttons And Switches
 
---NAV Lights 'CODE' Button
+
+-- NAV Lights 'CODE' Button
+
 --push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_16, value = 1.0}) -- ANO Code Button
 
+-- Engine Dust Protection
+
+--push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_28, value = 1.0}) -- Left Dust Protection
+--push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_29, value = 1.0}) -- Right Dust Protection
 
 
+--Recorder P-503B
+
+--push_start_command(dt, {device = devices.RECORDER_P503B, action = device_commands.Button_1, value = 1.0}) -- Recorder P-503B Power Switch
 
 
+-- Standby Generator Voltage Adjustment Rheostat
+
+--push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_10, value = -1.0}) -- Standby Generator Voltage Adjustment - Set To MIN
 
 
+-- Generator 1 Voltage Adjustment Rheostats
+
+--push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_11, value = -1.0}) -- Generator 1 Voltage Adjustment - St To MIN
+--push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_18, value = -1.0}) -- Generator 2 Voltage Adjustment - St To MIN
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -486,19 +497,14 @@ push_stop_command(dt, {message = _(" "), message_timeout = 52})
 -- Cage Gyros
 
 push_stop_command(0.1, {device = devices.AGB_3K_LEFT, action = device_commands.Button_2, value = 1.0}) -- Press - Cage Left Gyro
-push_stop_command(0.8, {device = devices.AGB_3K_LEFT, action = device_commands.Button_2, value = 0.0}) -- Release - Uncage Left Gyro
+push_stop_command(1.0, {device = devices.AGB_3K_LEFT, action = device_commands.Button_2, value = 0.0}) -- Release - Uncage Left Gyro
 push_stop_command(0.1, {device = devices.AGB_3K_RIGHT, action = device_commands.Button_2, value = 1.0}) -- Press - Cage Right Gryo
-push_stop_command(0.8, {device = devices.AGB_3K_RIGHT, action = device_commands.Button_2, value = 0.0}) -- Release - Uncage Right Gyro
-
-
--- Pause For Gyros
-
-push_stop_command(0.8, {message = _(" "), message_timeout = 0.0})
+push_stop_command(1.0, {device = devices.AGB_3K_RIGHT, action = device_commands.Button_2, value = 0.0}) -- Release - Uncage Right Gyro
 
 
 -- Set Sight
 
-push_stop_command(dt, {device = devices.PKV, action = device_commands.Button_3, value = 0.3}) -- Set Sight Limb Knob - 0.3 Default
+push_stop_command(0.9, {device = devices.PKV, action = device_commands.Button_3, value = 0.3}) -- Set Sight Limb Knob - 0.3 Default
 
 
 -- Main Radio
