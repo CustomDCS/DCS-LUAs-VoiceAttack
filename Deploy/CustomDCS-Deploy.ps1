@@ -101,9 +101,12 @@ function AutoStartSelection ([string[]] $airframes, $installPath) {
           Rename-Item $destPath -NewName $backupPath
           Write-Host "Backup saved to: " $backupPath
 
-          Write-Host "Deploying new auto start..."
+          Write-Host "Deploying new auto start..." -NoNewline
 
           Copy-Item $relPath -Destination $destPath
+
+          Write-Host "success!"
+          Write-Host "Happy fast start-up!  (You can now close the dialog)"
 
         } else {
           Write-Host "Not implemented yet, sorry!"
