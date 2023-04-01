@@ -391,7 +391,7 @@ push_start_command(1.0, {device = devices.ENGINE_INTERFACE, action = device_comm
 
 -- Cage Gyros
 
-push_start_command(25, {message = _("  Cage/Uncage Gyros 30sec To Align"), message_timeout = 30})
+push_start_command(22, {message = _("  Cage/Uncage Gyros 30sec To Align"), message_timeout = 30})
 push_start_command(dt, {message = _(" "), message_timeout = 31.8})
 
 push_start_command(0.1, {device = devices.AGB_3K_LEFT, action = device_commands.Button_2, value = 1.0}) -- Press - Cage Left Gyro
@@ -506,6 +506,22 @@ push_stop_command(dt, {device = devices.PKV, action = device_commands.Button_3, 
 push_stop_command(dt, {device = devices.SPU_7, action = device_commands.Button_4, value = -1.0}) -- Radio Set To ICS
 
 
+-- Tune ADF
+
+-- Main - Set To 150kHz
+
+push_stop_command(dt, {device = devices.ARC_9, action = device_commands.Button_6, value = 0.5}) -- ARC 9 10KHZ DIAL
+push_stop_command(dt, {device = devices.ARC_9, action = device_commands.Button_5, value = 0.0}) -- ARC 9 100KHZ DIAL
+
+
+-- Reserve - Set To 150kHz
+
+push_stop_command(dt, {device = devices.ARC_9, action = device_commands.Button_9, value = 0.5}) -- ARC 9 10KHZ DIAL
+push_stop_command(dt, {device = devices.ARC_9, action = device_commands.Button_8, value = 0.0}) -- ARC 9 100KHZ DIAL
+
+push_stop_command(dt, {device = devices.ARC_9, action = device_commands.Button_11, value = 0.0}) -- Main/Reserve Switch - Set To Reserve
+
+
 -- External Lights OFF
 
 push_stop_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_18, value = 0.00}) -- Left Landing Light Switch - OFF
@@ -596,7 +612,11 @@ push_stop_command(dt, {message = _(" "), message_timeout = 9.0})
 push_stop_command(10, {message = _("  Rotor Spool Down (10s)"), message_timeout = 8.0})
 push_stop_command(dt, {message = _(" "), message_timeout = 8.0})
 
-push_stop_command(7.7, {device = devices.CPT_MECH, action = device_commands.Button_15, value = 1.0})
+
+-- Blister Windows
+
+push_stop_command(8.1, {device = devices.CPT_MECH, action = device_commands.Button_15, value = -1.0}) -- Pilots Window - OPEN
+push_stop_command(0.1, {device = devices.CPT_MECH, action = device_commands.Button_16, value = -1.0}) -- Co Pilots Window - OPEN
 
 push_stop_command(dt, {message = _(" "), message_timeout = mto})
 push_stop_command(dt, {message = _("============================================"), message_timeout = mto})
