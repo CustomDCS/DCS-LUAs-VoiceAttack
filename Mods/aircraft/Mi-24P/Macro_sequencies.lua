@@ -165,6 +165,12 @@ push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_
 push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
 
+-- Fire Extinguisher Circuts
+
+push_start_command(dt,{device = devices.FIRE_EXTING_INTERFACE,action =  fire_commands.SensorControl, value = 1.0}) -- Extinguisher Control Switch - EXING
+push_start_command(dt,{device = devices.FIRE_EXTING_INTERFACE,action =  fire_commands.Power, value = 1.0}) -- Fire Extinguisher Power - ON
+
+
 -- Fuel Cutoff Switches
 
 push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveTank1, value = 1.0}) -- Tank 1 Cutoff Switch Set - ON
@@ -240,7 +246,7 @@ push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24
 
 -- APU Generator Switch
 
-push_start_command(10	,{device = devices.ELEC_INTERFACE,action =  elec_commands.DCGenerator, value = 1.0}) -- APU Gen Set - ON
+push_start_command(10,{device = devices.ELEC_INTERFACE,action =  elec_commands.DCGenerator, value = 1.0}) -- APU Gen Set - ON
 
 
 -- Fuel Control Valves
@@ -267,8 +273,8 @@ push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_comman
 
 -- Throttle Up
 
-push_start_command(0.1, {action = Keys.iCommand_ThrottleIncrease}) -- Collective Throttle To MAX
-push_start_command(1.3, {action = Keys.iCommand_ThrottleStop}) -- MAX Value
+push_start_command(0.1,{action = Keys.iCommand_ThrottleIncrease}) -- Collective Throttle To MAX
+push_start_command(1.3,{action = Keys.iCommand_ThrottleStop}) -- MAX Value
 
 
 -- Left Engine Start TIME 48sec
@@ -282,20 +288,14 @@ push_start_command(0.1,{device = devices.ENGINE_INTERFACE,action =  engine_comma
 push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 0.0}) -- Engine Start Button - RELEASE
 
 
--- Cage Gyros
-
-push_start_command(35,{device = devices.MGV1SU_1,action =  mgv1su_commands.CAGE, value = 1.0}) -- Left Gyro Cage - PRESS
-push_start_command(1.0,{device = devices.MGV1SU_1,action =  mgv1su_commands.CAGE, value = 0.0}) -- Left Gyro Cage - RELEASE
-
-push_start_command(dt,{device = devices.MGV1SU_2,action =  mgv1su_commands.CAGE, value = 1.0}) -- Right Gyro Cage - PRESS
-push_start_command(1.0,{device = devices.MGV1SU_2,action =  mgv1su_commands.CAGE, value = 0.0}) -- Right Gyro Cage - RELEASE
-
-
 -- Weapons Systems
 
 push_start_command(dt,{device = devices.INT_LIGHTS_SYSTEM,action =  int_lights_commands.SpecialEquipmentPanelRedLights, value = 1.0}) -- Armament Panel Red Lights Switch - ON
-push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_FKP_CAMERA, value = 1.0}) -- Weapon Camera - ON
-push_start_command(dt,{device = devices.I9K113,action =  i9K113_commands.Command_POWER_PN, value = 1.0}) -- Sight Power - ON
+push_start_command(dt,{device = devices.WEAP_SYS,action = weapon_commands.Pilot_FKP_CAMERA, value = 1.0}) -- Weapon Camera - ON
+push_start_command(dt,{device = devices.ASP_17V,action = asp_commands.Power, value = 1.0}) -- Pilot Sight Power Switch - ON
+push_start_command(dt,{device = devices.ASP_17V,action = asp_commands.Power, value = 1.0}) -- CPG Sight Power Switch - ON
+push_start_command(dt,{device = devices.ASP_17V,action = asp_commands.Manual_Auto, value = 1.0}) -- Sight Mode Switch - AUTO
+push_start_command(dt,{device = devices.ASP_17V,action = asp_commands.Sync_Async, value = 1.0}) -- Sight Sync Switch - SYNC
 push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_NPU_CHAIN, value = 1.0}) -- Burst Length - MED
 push_start_command(dt,{device = devices.ASP_17V,action =  asp_commands.Range_Auto_Manual, value = 1.0}) -- Sight AUTO/MANUAL - AUTO
 push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_SWITCHER_FIRE_CONTROL, value = 1.0}) -- Pilot Master Arm - ON
@@ -304,7 +304,7 @@ push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot
 push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_EMERG_RELEASE_COVER, value = 1.0}) -- Jettison Pylons Cover - OPEN
 push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_EMERG_RELEASE_PU_COVER, value = 1.0}) -- Jettison Launcher Cover - OPEN
 push_start_command(dt,{device = devices.I9K113,action =  i9K113_commands.Command_9k113_Backlight, value = 1.0}) -- CPG Backlight Switch - ON
---push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_SWITCHER_SAFE_WEAP, value = 1.0}) -- Master ARM - ON
+--push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_SWITCHER_SAFE_WEAP, value = 1.0}) -- CPG Master ARM - ON
 push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_URS_POWER, value = 1.0}) -- Missiles Power - ON
 push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_PUS_ARMING, value = 1.0}) -- Arm Rockets
 push_start_command(dt,{device = devices.PKP72M_INTERFACE,action =  pkp72m_interface_commands.PKP72MoperatorSwitch, value = 1.0}) -- ADI Power Switch - ON
@@ -315,9 +315,12 @@ push_start_command(dt,{device = devices.CPT_MECH,action =  cockpit_mechanics_com
 push_start_command(dt,{device = devices.CPT_MECH,action =  cockpit_mechanics_commands.Command_CPT_MECH_PitotTotalAndAoASideslip, value = 1.0}) -- Heating DUAS Power Switch - ON
 
 
+
+
+
 -- Right Engine Start TIME 48sec
 
-push_start_command(15,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Launch_Method, value = 0.0}) -- Mode Selector Switch To START
+push_start_command(46,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Launch_Method, value = 0.0}) -- Mode Selector Switch To START
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Select, value = -1.0}) -- Engine Select Switch - RIGHT
 
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 1.0}) -- Engine Start Button - PRESS
@@ -326,33 +329,43 @@ push_start_command(0.1,{device = devices.ENGINE_INTERFACE,action =  engine_comma
 push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 0.0}) -- Engine Start Button - RELEASE
 
 
--- APU Stop
+-- Invreters
 
-push_start_command(46,{device = devices.ELEC_INTERFACE,action =  elec_commands.DCGenerator, value = 0.0}) -- APU Gen Set - OFF
+push_start_command(22,{device = devices.ELEC_INTERFACE,action =  elec_commands.Rotary115vConverterCover, value = 0.0}) -- Inverter PO-750A Cover (115v) - CLOSED
+push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.Rotary36vConverterCover, value = 0.0}) -- Inverter PT-125Ts Cover (36v) - CLOSED
+push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.NetworkToBatteriesCover, value = 0.0}) -- Network To Batteries Cover - CLOSED
+
 push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.Transformer115vMainBackup, value = 0.0}) -- Left Transformer Set - AUTO
 push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.Transformer36vMainBackup, value = 0.0}) -- Right Transformer Set - AUTO
 
+push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  elec_commands.Transformer115vMainBackup, value = 1.0}) -- Left Transformer Set - MAIN
+push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  elec_commands.Transformer36vMainBackup, value = 1.0}) -- Right Transformer Set - MAIN
+
+
+-- Cage Gyros
+
+push_start_command(1.0,{device = devices.MGV1SU_1,action =  mgv1su_commands.CAGE, value = 1.0}) -- Left Gyro Cage - PRESS
+push_start_command(1.0,{device = devices.MGV1SU_1,action =  mgv1su_commands.CAGE, value = 0.0}) -- Left Gyro Cage - RELEASE
+
+push_start_command(dt,{device = devices.MGV1SU_2,action =  mgv1su_commands.CAGE, value = 1.0}) -- Right Gyro Cage - PRESS
+push_start_command(1.0,{device = devices.MGV1SU_2,action =  mgv1su_commands.CAGE, value = 0.0}) -- Right Gyro Cage - RELEASE
+
+
+-- APU Stop
+
+push_start_command(22,{device = devices.ELEC_INTERFACE,action =  elec_commands.DCGenerator, value = 0.0}) -- APU Gen Set - OFF
+
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_Stop, value = 1.0}) -- APU Stop Button - Press
 push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_Stop, value = 0.0}) -- APU Stop Button - Release
-
-push_start_command(2.0,{device = devices.ELEC_INTERFACE,action =  elec_commands.Transformer115vMainBackup, value = 1.0}) -- Left Transformer Set - MAIN
-push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.Transformer36vMainBackup, value = 1.0}) -- Right Transformer Set - MAIN
-
-
--- Invreters
-
-push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.Rotary115vConverterCover, value = 0.0}) -- Inverter PO-750A Cover (115v) - CLOSED
-push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.Rotary36vConverterCover, value = 0.0}) -- Inverter PT-125Ts Cover (36v) - CLOSED
-push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.NetworkToBatteriesCover, value = 0.0}) -- Network To Batteries Cover - CLOSED
 
 
 -- Auto Pilot
 
 push_start_command(0.1,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonKon, value = 1.0}) -- Autopilot K Channel (ROLL) - ON
 push_start_command(0.1,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonTon, value = 1.0}) -- Autopilot T Channel (PITCH) - ON 
+push_start_command(0.1,{device = devices.SPUU_52,action =  spuu_commands.On_Off, value = 1.0}) -- SPUU Power Switch - ON
 
 
-
-push_start_command(dt, {message = _("......... "), message_timeout = 5})	
+push_start_command(dt, {message = _("WIP Auto Start Has Finished"), message_timeout = 15})	
 
 
