@@ -3,9 +3,9 @@ dofile(LockOn_Options.script_path.."devices.lua")
 
 local t_start = 0.0
 local t_stop = 0.0
-local dt = 0.2 -- Default interval between commands in the stack.
-local mto = 3.0 -- Default message timeout time.
-local start_sequence_time = 3.0 * 60 -- Quick startup takes about 3m00s (orignal was 3m20s)
+local dt = 0.001 -- Default interval between commands in the stack.
+local mto = 8.0 -- Default message timeout time.
+local start_sequence_time = 2.1 * 60 -- Quick startup takes about 2m05s (orignal was 3m20s)
 local stop_sequence_time = 60.0 -- TODO: timeout
 
 start_sequence_full = {}
@@ -43,527 +43,578 @@ alert_messages[FUEL_PUMP_FAULT] = { message = _("FEEDING FUEL TANK PUMP FAULT"),
 alert_messages[LEFT_ENGINE_START_FAULT] = { message = _("LEFT ENGINE START FAULT"), message_timeout = 10}
 alert_messages[RIGHT_ENGINE_START_FAULT] = { message = _("RIGHT ENGINE START FAULT"), message_timeout = 10}
 
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 
-----------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------
 -- Function to collect all the start sequence commands.
+
 local function doStartSequence()
-push_start_command(dt, {message = _("CUSTOMDCS.com QUICK AUTOSTART SEQUENCE IS RUNNING"), message_timeout = start_sequence_time})
 
--- removing Cockpit window close so that we can rearm, and avoid a race condition with VoiceAttack
---push_start_command(dt, {message = _("LEFT COCKPIT WINDOW - CLOSE"), message_timeout = mto}) 
---push_start_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_15, value = 0.0})
-
--- Set intercom mode knob to INT, allows rearming.
-push_start_command(dt, {message = _("INTERCOM MODE KNOB - INT"), message_timeout = mto})
-push_start_command(dt, {device = devices.INTERCOM, action = device_commands.Button_8, value = 0.1})
-
--- Power levers and throttle
-push_start_command(dt, {action = Keys.iCommand_PlaneAUTDecreaseRegime})
-push_start_command(dt, {action = Keys.iCommand_PlaneAUTDecreaseRegime})
-push_start_command(dt, {message = _("ENGINE POWER LEVERS - AUTO"), message_timeout = mto})
-push_start_command(dt, {action = Keys.iCommand_PlaneAUTIncreaseRegime})
-push_start_command(dt, {message = _("THROTTLE - MINIMUM (LEFT)"), message_timeout = mto})
-push_start_command(dt, {action = Keys.iCommand_ThrottleDecrease})
-push_start_command(dt, {message = _("COLLECTIVE - FULL DOWN"), message_timeout = mto})
-push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_69, value = -1.0})
-push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_70, value = -1.0})
-push_start_command(dt, {action = Keys.iCommand_ThrottleStop})
-
-push_start_command(dt, {message = _("ROTOR BRAKE - OFF"), message_timeout = mto})
-push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_11, value = 0.0})
-
-push_start_command(dt, {message = _("BATTERY 1 - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_3, value = 1.0})
-push_start_command(dt, {message = _("BATTERY 2 - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_2, value = 1.0})
-push_start_command(dt, {message = _("115V INVERTER - AUTO (down)"), message_timeout = mto})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_12, value = -1.0})
-
-push_start_command(dt, {message = _("DC VOLTMETER SELECTOR - BATT BUS"), message_timeout = mto})
-for i = 0.1, 0.4, 0.1 do
-	push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_8, value = i})
-end
-
-push_start_command(dt, {message = _("CIRCUIT BREAKER GROUP 1 - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_22, value = 1.0})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_22, value = 0.0})
-
-push_start_command(dt, {message = _("CIRCUIT BREAKER GROUP 2 - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_23, value = 1.0})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_23, value = 0.0})
-
-push_start_command(dt, {message = _("CIRCUIT BREAKER GROUP 3 - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_24, value = 1.0})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_24, value = 0.0})
-
-push_start_command(dt, {message = _("CIRCUIT BREAKER GROUP 4 - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_25, value = 1.0})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_25, value = 0.0})
-
-push_start_command(dt, {message = _("CIRCUIT BREAKER GROUP 5 - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_26, value = 1.0})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_26, value = 0.0})
-
-push_start_command(dt, {message = _("CIRCUIT BREAKER GROUP 6 - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_27, value = 1.0})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_27, value = 0.0})
-
-push_start_command(dt, {message = _("CIRCUIT BREAKER GROUP 7 - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_28, value = 1.0})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_28, value = 0.0})
-
-push_start_command(dt, {message = _("CIRCUIT BREAKER GROUP 8 - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_29, value = 1.0})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_29, value = 0.0})
-
-push_start_command(dt, {message = _("CIRCUIT BREAKER GROUP 9 - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_30, value = 1.0})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_30, value = 0.0})
-
-push_start_command(dt, {message = _("FIRE EXTINGUISHER - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.FIRE_EXTING_INTERFACE, action = device_commands.Button_10, value = 1.0})
-
-push_start_command(dt, {message = _("FUEL METER - TOTAL"), message_timeout = mto})
-push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_8, value = 0.1})
-
-push_start_command(dt, {message = _("LEFT SHUTOFF VALVE - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_9, value = 1.0}) -- switch cover
-push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- switch
-push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_9, value = 0.0}) -- switch cover
-
-push_start_command(dt, {message = _("RIGHT SHUTOFF VALVE - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_10, value = 1.0}) -- switch cover
-push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_2, value = 1.0}) -- switch
-push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_10, value = 0.0}) -- switch cover
-
-push_start_command(dt, {message = _("SERVICE TANK PUMP - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_6, value = 1.0})
-push_start_command(dt, {message = _("LEFT TANK PUMP - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_3, value = 1.0})
-push_start_command(dt, {message = _("RIGHT TANK PUMP - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_5, value = 1.0})
-
---JADRO
-push_start_command(dt, {message = _("JADRO ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.JADRO_1A, action = device_commands.Button_13, value = 1.0})
-push_start_command(dt, {device = devices.JADRO_1A, action = device_commands.Button_1, value = 1.0})
-push_start_command(dt, {device = devices.JADRO_1A, action = device_commands.Button_2, value = 1.0})
-
--- Turning up Main Radio, Turning other to half volume
---Yushin Test 03/25/23 ADF 
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_11, value = 0.0}) -- ARC 9 MAIN PRESS
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_3, value = 0.1}) -- ARC 9 COMP
-push_start_command(dt, {device = devices.R_828, action = device_commands.Button_2, value = 0.5}) -- 828 VOLUME KNOB
-push_start_command(dt, {device = devices.R_863, action = device_commands.Button_5, value = 1.00}) -- MAIN RADIO VOLUME KNOB
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_6, value = 0.6}) -- ARC 9 10KHZ DIAL
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_5, value = 0.05}) -- ARC 9 100KHZ DIAL
+push_start_command(dt, {message = _(" "), message_timeout = 120})	
+push_start_command(dt, {message = _("=================================================="), message_timeout = 120})
+push_start_command(dt, {message = _("  CustomDCS.com Super Quick Autostart Sequence Is Running (2m 10sec)"), message_timeout = 120})
+push_start_command(dt, {message = _("          This Auto Start is Set For FARP SHARON"), message_timeout = 120})
+push_start_command(dt, {message = _("       Night Mode - Doppler is Off For Night Vision"), message_timeout = 120}) -- Text For Night Mode
+push_start_command(dt, {message = _("=================================================="), message_timeout = 120})
 
 
--- R-828 radio
-push_start_command(dt, {message = _("R-828 RADIO POWER - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.R_828, action = device_commands.Button_5, value = 1.0})
+-- Parking Brake
 
-push_start_command(dt, {message = _("Radar Altimeter To 20 Meters - The length of your cable"), message_timeout = dt_mto})
-for i = 1, 776, 1 do
-	push_start_command(0.01, {device = devices.RADAR_ALTIMETER, action = device_commands.Button_1, value = -.00104})
-end
-
--- Pretty lights on the outside
-push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_14, value = 1.0})
-push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_15, value = 1.0})
-push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_16, value = 1.0})
-push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_12, value = 1.0})
-push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_13, value = 1.0})
+push_start_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_17, value = 1.0}) -- Parking Brake - ON
 
 
---Lights
-push_start_command(dt, {message = _("Let there be lights!"), message_timeout = mto})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_11, value = 1.0})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_10, value = 1.0})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_9, value = 1.0})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_8, value = 1.0})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_7, value = 1.0})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_6, value = 1.0})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_5, value = 1.0})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_23, value = 1.0})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_2, value = -1.0})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_3, value = -1.0})
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_4, value = 1.0})
+-- Circut Brakers
 
--- APU
-push_start_command(dt, {message = _("STARTING APU (20 SEC)"), message_timeout = 20.0})
-push_start_command(dt, {message = _("APU START MODE - START"), message_timeout = mto})
-push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_12, value = 1.0, check_condition = FUEL_PUMP_FAULT}) -- APU Start Mode Switch, START/COLD CRANKING/FALSE START
-push_start_command(dt, {message = _("APU START BUTTON - HOLD FOR 3 SEC"), message_timeout = mto})
-push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_26, value = 1.0}) -- Press
-push_start_command(3.0, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_26, value = 0.0}) -- Release
-push_start_command(17.0, {message = _("APU STARTED"), message_timeout = mto})
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_22, value = 1.0}) -- CB Group 1 ON
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_22, value = 0.0}) -- Return
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_23, value = 1.0}) -- CB Group 2 ON
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_23, value = 0.0}) -- Return
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_24, value = 1.0}) -- CB Group 3 ON
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_24, value = 0.0}) -- Return
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_25, value = 1.0}) -- CB Group 4 ON
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_25, value = 0.0}) -- Return
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_26, value = 1.0}) -- CB Group 5 ON
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_26, value = 0.0}) -- Return
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_27, value = 1.0}) -- CB Group 6 ON
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_27, value = 0.0}) -- Return
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_28, value = 1.0}) -- CB Group 7 ON
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_28, value = 0.0}) -- Return
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_29, value = 1.0}) -- CB Group 8 ON
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_29, value = 0.0}) -- Return
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_30, value = 1.0}) -- CB Group 9 ON
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_30, value = 0.0}) -- Return
 
--- Backup Gen and Equip Test, so that we can tune the radios before the engines start up
-push_start_command(17.0, {message = _("Stand-By Gen and Equip Test, so that we can tune the radios"), message_timeout = mto})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_1, value = 1.0})  -- Standby Generator Switch, ON/OFF
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_9, value = 1.0})  -- Equipment Test Switch, ON/OFF
 
--- Fans
-push_start_command(dt, {message = _("PILOT'S FAN - ON - Essential for Soviet Choppers ;)"), message_timeout = 10.0})
-push_start_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_20, value = 1.0})
-push_start_command(dt, {message = _("COPILOT'S FAN - ON"), message_timeout = mto})
+-- Battery Switches
 
--- Then we can tune to 30.00 FM
-push_start_command(dt, {message = _("Tuning into Rifle FM!  Hope that guy isn't still hot micing..."), message_timeout = 10})
-push_start_command(dt, {device = devices.R_828, action = device_commands.Button_1, value = 0.4})
-push_start_command(dt, {device = devices.R_828, action = device_commands.Button_3, value = 1.0}) -- Press
-push_start_command(3.0, {device = devices.R_828, action = device_commands.Button_3, value = 0.0}) -- Release
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_3, value = 1.0}) -- Battery 1 Switch - ON
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_2, value = 1.0}) -- Battery 2 Switch - ON
 
--- Remove for smoky
--- Left engine
-push_start_command(dt, {message = _("STARTING LEFT ENGINE (50 SEC)"), message_timeout = 50.0})
-push_start_command(dt, {message = _("ENGINE START MODE - START"), message_timeout = mto})
-push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_27, value = 1.0, check_condition = APU_START_FAULT}) -- Engine Start Mode Switch, START/OFF/COLD CRANKING
-push_start_command(dt, {message = _("ENGINE SELECTOR SWITCH - LEFT"), message_timeout = mto})
-push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_8, value = -1.0, check_condition = COLLECTIVE}) --Engine Selector Switch, LEFT/OFF/RIGHT
-push_start_command(dt, {message = _("ENGINE START BUTTON - HOLD FOR 3 SEC"), message_timeout = mto})
-push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_5, value = 1.0}) -- Engine Start Button - Push to start engine
-push_start_command(3.0, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_5, value = 0.0}) -- Release
-push_start_command(3.0, {message = _("LEFT ENGINE FUEL SHUTOFF LEVER - OPEN"), message_timeout = mto})
-push_start_command(3.0, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_9, value = 1})
-push_start_command(41.0, {message = _("LEFT ENGINE - STARTED"), message_timeout = mto})
-
--- Right engine
-push_start_command(dt, {message = _("STARTING RIGHT ENGINE (55 SEC)"), message_timeout = 55.0})
-push_start_command(dt, {message = _("ENGINE SELECTOR SWITCH - RIGHT"), message_timeout = mto})
-push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_8, value = 1.0, check_condition = LEFT_ENGINE_START_FAULT})
-push_start_command(dt, {message = _("ENGINE START BUTTON - HOLD FOR 3 SEC"), message_timeout = mto})
-push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_5, value = 1.0})
-push_start_command(3.0, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_5, value = 0.0})
-push_start_command(3.0, {message = _("RIGHT ENGINE FUEL SHUTOFF LEVER - OPEN"), message_timeout = mto})
-push_start_command(3.0, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_10, value = 1})
-push_start_command(46.0, {message = _("RIGHT ENGINE - STARTED"), message_timeout = mto})
-
--- Engines started, selector to neutral
-push_start_command(dt, {message = _("ENGINE SELECTOR SWITCH - CENTER"), message_timeout = mto})
-push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_8, value = 0.0})
-
--- Throttle up
-push_start_command(dt, {message = _("THROTTLE - MAXIMUM (RIGHT)"), message_timeout = mto})
-push_start_command(dt, {action = Keys.iCommand_ThrottleIncrease})
-push_start_command(4.0, {action = Keys.iCommand_ThrottleStop})
-push_start_command(dt, {message = _("ALLOW RPM TO STABILIZE (10 SEC)"), message_timeout = 10.0})
-push_start_command(10.0, {message = _("RPM STABILIZED"), message_timeout = mto})
--- End remove for smoky
 
 -- Generators and Rectifiers
-push_start_command(dt, {message = _("TURN ON GENERATORS"), message_timeout = mto})
-push_start_command(dt, {message = _("GENERATOR 1 - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_15, value = 1.0})
-push_start_command(dt, {message = _("GENERATOR 2 - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_16, value = 1.0})
-push_start_command(dt, {message = _("RECTIFIER 1 - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_7, value = 1.0})
-push_start_command(dt, {message = _("RECTIFIER 2 - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_5, value = 1.0})
-push_start_command(dt, {message = _("RECTIFIER 3 - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_6, value = 1.0})
-push_start_command(dt, {message = _("DC VOLTMETER SELECTOR - RECT BUS"), message_timeout = mto})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_8, value = 0.5})
-push_start_command(dt, {message = _("AC VOLTMETER SELECTOR - 115V"), message_timeout = mto})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_17, value = 1.0})
 
-push_start_command(dt, {message = _("36V INVERTER - AUTO (down)"), message_timeout = mto})
-push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_13, value = -1.0})
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Standby Generator Switch - ON
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_9, value = 1.0}) -- Equipment Test Switch - ON
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_15, value = 1.0}) -- Generator 1 Switch - ON
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_16, value = 1.0}) -- Generator 2 Switch - ON
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_7, value = 1.0}) -- Rectifier 1 Switch - ON
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_5, value = 1.0}) -- Rectifier 2 Switch - ON
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_6, value = 1.0}) -- Rectifier 3 Switch - ON
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_8, value = 0.5}) -- DC Voltmeter Selector - ON
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_17, value = 1.0}) -- AC Voltmeter Selector - ON
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_13, value = -1.0}) -- 36V Inverter Switch - ON
+push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_12, value = -1.0}) -- 115V Inverter Switch - ON
 
--- Remove this as well
-push_start_command(dt, {message = _("APU STOP"), message_timeout = mto})
-push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_7, value = 1.0}) -- Press
-push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_7, value = 0.0}) -- Release
 
---Pilot's triangular panel
-push_start_command(dt, {message = _("LEFT ATT IND - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.AGB_3K_LEFT, action = device_commands.Button_4, value = 1.0})
-push_start_command(dt, {message = _("GYRO CUT OUT - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.CORRECTION_INTERRUPT, action = device_commands.Button_1, value = 1.0})
-push_start_command(dt, {message = _("PITCH LIM SYS - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.SPUU_52, action = device_commands.Button_5, value = 1.0})
-push_start_command(dt, {message = _("AUDIO WARN - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.VMS, action = device_commands.Button_6, value = 1.0})
+-- APU - START 10.2sec
 
---Copilot's triangular panel
-push_start_command(dt, {message = _("DOPP - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.DISS_15, action = device_commands.Button_1, value = 1.0})
-push_start_command(dt, {message = _("COMP SYS - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.GMK1A, action = device_commands.Button_1, value = 1.0})
-push_start_command(dt, {message = _("RIGHT ATT IND - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.AGB_3K_RIGHT, action = device_commands.Button_4, value = 1.0})
+push_start_command(0.0, {message = _(" "), message_timeout = mto})
+push_start_command(0.0, {message = _("  APU Start"), message_timeout = mto})
 
--- Other
-push_start_command(dt, {message = _("RADAR ALTIMETER - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.RADAR_ALTIMETER, action = device_commands.Button_3, value = 1.0})
-push_start_command(dt, {message = _("RADAR ALTIMETER - 20M for length of cargo cable"), message_timeout = mto})
+push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_12, value = 1.0}) -- APU Start Mode Switch To START
+push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_26, value = 1.0}) -- Press
+push_start_command(0.2, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_26, value = 0.0}) -- Release
 
--- push all the buttons and see what works
---push_start_command(dt, {device = devices.RADAR_ALTIMETER, action = device_commands.Button_1, value = 0.02}) -- this turns it off
-push_start_command(dt, {device = devices.RADAR_ALTIMETER, action = device_commands.Button_2, value = 1.0}) -- not sure what this one does
---push_start_command(dt, {device = devices.RADAR_ALTIMETER, action = device_commands.Button_4, value = 0.02}) -- this one also turns it off
-push_start_command(dt, {message = _("Caging Gyros"), message_timeout = mto})
-push_start_command(2.0, {device = devices.AGB_3K_LEFT, action = device_commands.Button_2, value = 1.0}) -- Press
-push_start_command(dt, {device = devices.AGB_3K_LEFT, action = device_commands.Button_2, value = 0.0}) -- Release
-push_start_command(2.0, {device = devices.AGB_3K_RIGHT, action = device_commands.Button_2, value = 1.0}) -- Press
-push_start_command(dt, {device = devices.AGB_3K_RIGHT, action = device_commands.Button_2, value = 0.0}) -- Release
-push_start_command(dt, {message = _("Aligning Gyro...  Takes 30 seconds or so, but you can take off without it if you're not bothered."), message_timeout = 10.0})
 
-push_start_command(dt, {message = _("Resetting Accelerometer - now let's see how many Gs you can pull..."), message_timeout = mto})
-push_start_command(1.0, {device = devices.CPT_MECH, action =  device_commands.Button_6, value = 1.0}) -- Press
-push_start_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_6, value = 0.0}) -- Release
--- no clicking thank you!
---push_start_command(dt, {message = _("FLASHER - ON"), message_timeout = mto})
---push_start_command(dt, {device = devices.SYS_CONTROLLER, action = device_commands.Button_5, value = 1.0})
+-- Lights - Brightness Knobs - All To MAX - Day Mode
 
--- we have this below
---push_start_command(dt, {message = _("AUTOPILOT ROLL/PITCH CHANNEL - ON"), message_timeout = mto})
---push_start_command(dt, {device = devices.AUTOPILOT, action = device_commands.Button_2, value = 1.0}) -- Press
---push_start_command(dt, {device = devices.AUTOPILOT, action = device_commands.Button_2, value = 0.0}) -- Release
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_11, value = 0.5}) -- 5.5V Lights Brightness Rheostat
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_10, value = 0.5}) -- Central Red Lights Brightness Group 2 Rheostat
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_9, value = 0.5}) -- Central Red Lights Brightness Group 1 Rheostat
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_8, value = 0.5}) -- Right Red Lights Brightness Group 2 Rheostat
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_7, value = 0.5}) -- Right Red Lights Brightness Group 1 Rheostat
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_6, value = 0.5}) -- Left Red Lights Brightness Group 2 Rheostat
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_5, value = 0.5}) -- Left Red Lights Brightness Group 1 Rheostat
+push_start_command(dt, {device = devices.RECORDER_P503B, action = device_commands.Button_2, value = 0.5}) -- Recorder P-503B Backlight Brightness Knob
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_23, value = 0.5}) -- Cargo Cabin Common Lights Switch
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_2, value = -1.0}) -- Left Ceiling Light Switch
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_3, value = -1.0}) -- Right Ceiling Light Switch
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_4, value = 0.5}) -- 5.5V Lights Switch
+push_start_command(dt, {device = devices.SYS_CONTROLLER, action = device_commands.Button_6, value = 1.0}) -- Transparent Switch - Warning Lights To Night
+push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_12, value = 1.0}) -- ANO Switch - NAV Lights - Bright
+push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_13, value = 1.0}) -- Formation Lights - BRIGHT
 
--- UV-26 countermeasures system
-push_start_command(dt, {message = _("UV-26 POWER - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.UV_26, action = device_commands.Button_10, value = 1.0})
-push_start_command(dt, {message = _("UV-26 DISPENSER - BOTH"), message_timeout = mto})
-push_start_command(dt, {device = devices.UV_26, action = device_commands.Button_2, value = 0.5})
-push_start_command(dt, {message = _("UV-26 RESET TO DEFAULT PROGRAM (110)"), message_timeout = mto})
-push_start_command(dt, {device = devices.UV_26, action = device_commands.Button_8, value = 1.0}) -- Press
-push_start_command(dt, {device = devices.UV_26, action = device_commands.Button_8, value = 0.0}) -- Release
-push_start_command(dt, {message = _("UV-26 SET NUM SEQUENCES - 4"), message_timeout = mto})
-for i = 1, 9, 1 do -- Press and release 3 times
-	push_start_command(dt, {device = devices.UV_26, action = device_commands.Button_4, value = 1.0}) -- Press
-	push_start_command(0.1, {device = devices.UV_26, action = device_commands.Button_4, value = 0.0}) -- Release
+
+-- Fire Check Circuts
+
+push_start_command(dt, {device = devices.FIRE_EXTING_INTERFACE, action = device_commands.Button_10, value = 1.0}) -- Check Fire Circuits Switch - ON
+
+
+-- Turning up Main Radio, Turning Other to Half Volume
+
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_11, value = 0.0}) -- ARC 9 MAIN PRESS
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_3, value = 0.1}) -- ARC 9 COMP
+push_start_command(dt, {device = devices.R_828, action = device_commands.Button_2, value = 0.5}) -- 828 VOLUME KNOB - 30FM
+push_start_command(dt, {device = devices.R_863, action = device_commands.Button_5, value = 1.00}) -- MAIN RADIO VOLUME KNOB 250AM
+
+
+-- JADRO
+
+push_start_command(dt, {device = devices.JADRO_1A, action = device_commands.Button_13, value = 1.0}) -- Jadro 1A, Power Switch - ON
+push_start_command(dt, {device = devices.JADRO_1A, action = device_commands.Button_1, value = 1.0}) -- Jadro 1A, Mode Switch
+push_start_command(dt, {device = devices.JADRO_1A, action = device_commands.Button_2, value = 1.0}) -- Jadro 1A, Frequency Selector
+
+
+-- Radio Selector Switch
+
+push_start_command(dt, {device = devices.SPU_7, action = device_commands.Button_4, value = 1.0}) -- Radio Set to ICS
+
+
+-- Pilot's Triangular Panel
+
+push_start_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_20, value = 1.0}) -- Pilot Fan
+push_start_command(dt, {device = devices.AGB_3K_LEFT, action = device_commands.Button_4, value = 1.0}) -- Left Attitude Indicator Power Switch
+push_start_command(dt, {device = devices.CORRECTION_INTERRUPT, action = device_commands.Button_1, value = 1.0}) -- Gyro Cutout
+push_start_command(dt, {device = devices.SPUU_52, action = device_commands.Button_5, value = 1.0}) -- Pitch Limit System
+
+
+-- Copilot's Triangular Panel
+
+--push_start_command(dt, {device = devices.DISS_15, action = device_commands.Button_1, value = 1.0}) -- Doppler Navigator Power Switch
+push_start_command(dt, {device = devices.GMK1A, action = device_commands.Button_1, value = 1.0}) -- GMC Power Switch
+push_start_command(dt, {device = devices.AGB_3K_RIGHT, action = device_commands.Button_4, value = 1.0}) -- Right Attitude Indicator Power Switch
+push_start_command(dt, {device = devices.ARC_UD, action = device_commands.Button_4, value = 0.0}) -- ARC-UD, Channel Selector Switch
+push_start_command(dt, {device = devices.ARC_UD, action = device_commands.Button_12, value = 1.0}) -- ARC-UD, Lock Switch
+push_start_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_21, value = 1.0}) -- Co Pilot Fan
+
+
+-- Turn On Rocket Systems
+
+push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_30, value = 1.0}) -- RS/GUV Selector Switch
+push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_22, value = -1.0}) -- UPK/PKT/RS Switch Set to RS - Rockets
+push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_20, value = -1.0}) -- 8/16/4 Switch - Set to 4
+--push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_27, value = 1.0}) -- Wepons Master ARM - ON
+
+
+-- Set Sight
+
+push_start_command(dt, {device = devices.PKV, action = device_commands.Button_3, value = .215}) -- Set Sight Limb Knob - 0.3 Default
+
+
+-- Fuel Tank Pumps
+
+push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_6, value = 1.0}) -- Feed Tank Pump Switch
+push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_3, value = 1.0}) -- Left Tank Pump Switch
+push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_5, value = 1.0}) -- Right Tank Pump Switch
+
+
+-- UV-26 Countermeasures System
+
+push_start_command(dt, {device = devices.UV_26, action = device_commands.Button_10, value = 1.0}) -- CMD Power ON
+push_start_command(dt, {device = devices.UV_26, action = device_commands.Button_2, value = 0.5}) -- Set CMD To BOTH
+
+
+-- External Lights
+
+push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_14, value = 1.0}) -- Tip Lights Switch
+push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_15, value = 1.0}) -- Strobe Light - Red Flashing Light
+
+
+-- RADALT
+
+push_start_command(dt, {device = devices.RADAR_ALTIMETER, action = device_commands.Button_3, value = 1.0}) -- RADALT On
+push_start_command(dt, {device = devices.RADAR_ALTIMETER, action = device_commands.Button_1, value = -0.80}) -- Set RADALT to 20 Meters
+
+
+-- Cargo Auto Hook
+
+push_start_command(dt, {device = devices.EXT_CARGO_EQUIPMENT, action = device_commands.Button_5, value = 1.0}) -- Auto Unhook
+
+
+-- Fuel Guage
+
+push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_8, value = 0.1}) -- Fuel Meter Switch, Set To ALL
+
+
+-- Tune ADF
+
+-- Main - Set To 700kHz
+
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_6, value = -0.5}) -- ARC 9 10KHZ DIAL
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_5, value = 0.25}) -- ARC 9 100KHZ DIAL
+
+-- Reserve - Set To 260kHz
+
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_9, value = 0.6}) -- ARC 9 10KHZ DIAL
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_8, value = 0.05}) -- ARC 9 100KHZ DIAL
+
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_11, value = 1.0}) -- Main/Reserve Switch - Set To Main
+
+
+-- Set QNH To FARP Height - Not Automatic - Set to SHARON
+
+for i = 1, 100, 1 do
+	push_start_command(0.01, {device = devices.BAR_ALTIMETER_L, action = device_commands.Button_1, value = 1}) -- Set QNH - Pilot
 end
-push_start_command(dt, {message = _("UV-26 SET DISPENSER INTERVAL - 1 SEC"), message_timeout = mto})
-push_start_command(dt, {device = devices.UV_26, action = device_commands.Button_6, value = 1.0}) -- Press
-push_start_command(0.1, {device = devices.UV_26, action = device_commands.Button_6, value = 0.0}) -- Release
 
--- Yushin rocket arming
-push_start_command(dt, {message = _("Yushin Weapon Startup Proceeding"), message_timeout = 10})
--- closing co-pilot window (closed by default)
-push_start_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_21, value = 1.0})
-
-push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_30, value = 1.0})
-push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_22, value = -1.0})
-push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_27, value = 1.0}) -- remove for smoky
-
--- TODO: figure out what this value should be set to
---push_start_command(dt, {device = devices.PKV, action = device_commands.Button_3, value = 1}) 
-
-push_start_command(dt, {message = _("Setting cargo hook to let go automatically, no one likes a clinger"), message_timeout = 10})
-push_start_command(dt, {device = devices.EXT_CARGO_EQUIPMENT, action = device_commands.Button_5, value = 1.0})
-
--- TODO: need to adjust the volume on this rotary: 
---elements["PTR-ADDSECPLT-LVR-CHNL"].sound = {{SOUND_ROTARY_1,SOUND_ROTARY_1},{SOUND_ROTARY_1,SOUND_ROTARY_1}}
---elements["PTR-LPE-LVR-CHANNEL"].sound = {{SOUND_ROTARY_1,SOUND_ROTARY_1},{SOUND_ROTARY_1,SOUND_ROTARY_1}}
-
---New Stuff
--- No idea what this one does, neither does smoky - lol
-push_start_command(dt, {device = devices.ARC_UD, action = device_commands.Button_4, value = 0.0})
-push_start_command(dt, {device = devices.ARC_UD, action = device_commands.Button_12, value = 1.0})
-
--- Combust heater was fun for a while - add back for cold weather
--- push_start_command(dt, {device = devices.HEATER_KO50, action = device_commands.Button_4, value = 1.0})
--- push_start_command(dt, {device = devices.HEATER_KO50, action = device_commands.Button_3, value = -1.0})
--- push_start_command(dt, {device = devices.HEATER_KO50, action = device_commands.Button_2, value = 1.0})
--- push_start_command(dt, {device = devices.HEATER_KO50, action = device_commands.Button_1, value = 1.0}) --Press
--- push_start_command(10.0, {device = devices.HEATER_KO50, action = device_commands.Button_1, value = 0.0}) -- Release
--- push_start_command(dt, {device = devices.HEATER_KO50, action = device_commands.Button_4, value = 0.0})
+for i = 1, 100, 1 do
+	push_start_command(0.01, {device = devices.BAR_ALTIMETER_R, action = device_commands.Button_1, value = 1}) -- Set QNH - Copilot
+end
 
 
--- now we should be safe to close the windows
-push_start_command(dt, {message = _("LEFT COCKPIT WINDOW - CLOSE"), message_timeout = mto})
-push_start_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_15, value = 0.0})
+-- Information Message - Current Set Up - 125.7sec to Horn
 
-push_start_command(dt, {message = _("AUTOPILOT ROLL/PITCH CHANNEL - ON"), message_timeout = mto})
-push_start_command(dt, {device = devices.AUTOPILOT, action = device_commands.Button_2, value = 1.0}) -- Press
-push_start_command(dt, {device = devices.AUTOPILOT, action = device_commands.Button_2, value = 0.0}) -- Release
+push_start_command(dt, {message = _(" "), message_timeout = 100})
+push_start_command(dt, {message = _("================================="), message_timeout = 100})
+push_start_command(dt, {message = _("  Altimeter Set To FARP SHARON"), message_timeout = 100})
+push_start_command(dt, {message = _("  Radio Set To ICS To Allow Rearm And Refuel"), message_timeout = 100})
+push_start_command(dt, {message = _("  The Rocket Systems Are On, Master Arm Is OFF"), message_timeout = 100})
+--push_start_command(dt, {message = _("  The Rocket Systems Are On, Master Arm Is ON"), message_timeout = 100})
+push_start_command(dt, {message = _("  Main ADF Tuned To FARP SHARON (260kHz)"), message_timeout = 100})
+push_start_command(dt, {message = _("  Reserve ADF Tuned To FARP ARROW (600kHz)"), message_timeout = 100})
+push_start_command(dt, {message = _("      ARROW     - 600kHz - 15nm 012 N"), message_timeout = 100})
+push_start_command(dt, {message = _("  A  TAJI           - 270kHz - 29nm 042 NE"), message_timeout = 100})
+push_start_command(dt, {message = _("  B  GLORY       - 290kHz - 17nm 076 E"), message_timeout = 100})
+push_start_command(dt, {message = _("  C  BLKHORSE - 700kHz - 47nm 075 E"), message_timeout = 100})
+push_start_command(dt, {message = _("================================="), message_timeout = 100})
+push_start_command(dt, {message = _(" "), message_timeout = 100})
 
--- toot the horn!
-push_start_command(0.5, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Press
-push_start_command(0.5, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 0.0}) -- Release
-push_start_command(0.5, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Press
-push_start_command(dt, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 0.0}) -- Release
 
-push_start_command(dt, {message = _("Ready for Take-off, Weapons (Rockets) Hot"), message_timeout = 60})
-push_start_command(dt, {message = _("ADF ... Tuned to 600 On The Reserve, Adjust as needed"), message_timeout = 20})
-push_start_command(dt, {message = _("Big Thank You To Havoc!"), message_timeout = 20})
+-- Wait For APU Start
+
+push_start_command(14.0, {message = _("  APU Running"), message_timeout = mto})
+push_start_command(0.0, {message = _(" "), message_timeout = mto})
+
+
+-- Taxi Light
+
+push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_17, value = 1.0}) -- Taxi Light - ON
+
+
+-- Power levers and throttle
+
+push_start_command(dt, {action = Keys.iCommand_PlaneAUTDecreaseRegime}) -- ?
+push_start_command(dt, {action = Keys.iCommand_PlaneAUTDecreaseRegime}) -- ?
+push_start_command(dt, {action = Keys.iCommand_PlaneAUTIncreaseRegime}) -- ?
+push_start_command(dt, {action = Keys.iCommand_ThrottleDecrease}) -- ?
+push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_69, value = -1.0}) -- ?
+push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_70, value = -1.0}) -- ?
+push_start_command(dt, {action = Keys.iCommand_ThrottleStop}) -- ?
+
+
+-- Fuel Shutoff Switches
+
+push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_11, value = 1.0}) -- Cross Feed Valve Switch Cover - Open
+push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_4, value = 1.0}) -- Cross Feed Valve Switch
+push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_11, value = 0.0}) -- Cross Feed Valve Switch Cover - Close
+
+push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_9, value = 1.0}) -- Left Shutoff Valve Switch Cover - Open
+push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Left Shutoff Valve Switch
+push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_9, value = 0.0}) -- Left Shutoff Valve Switch Cover - Close
+
+push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_10, value = 1.0}) -- Right Shutoff Valve Switch Cover - Open
+push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_2, value = 1.0}) -- Right Shutoff Valve Switch
+push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_10, value = 0.0}) -- Right Shutoff Valve Switch Cover - Vlose
+
+
+-- Blister Windows
+
+push_start_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_15, value = 0.0}) -- Pilot Blister Window Close
+push_start_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_16, value = 0.0}) -- Co Pilot Blister Window Close
+
+
+-- Rotor Brake
+
+push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_11, value = 0.0}) -- Rotor Brake Handle - OFF
+
+
+-- Left Engine - START 50sec
+
+push_start_command(dt, {message = _("  Left Engine Start"), message_timeout = 44.0})
+push_start_command(dt, {message = _(" "), message_timeout = 44})
+
+push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_9, value = 1.0}) -- Fuel Cutoff Lever - Left
+push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_27, value = 1.0}) -- Engine Start Mode Switch
+push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_8, value = -1.0}) -- Engine Selector Switch
+push_start_command(0.2, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_5, value = 1.0}) -- Engine Start Button - Push to start engine
+push_start_command(0.8, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_5, value = 0.0}) -- Relese
+
+
+-- Reset G Meter
+
+push_start_command(dt, {device = devices.CPT_MECH, action =  device_commands.Button_6, value = 1.0}) -- Press - G Meter
+push_start_command(0.7, {device = devices.CPT_MECH, action = device_commands.Button_6, value = 0.0}) -- Release - G Meter
+
+
+-- Throttle Up
+
+push_start_command(0.1, {action = Keys.iCommand_ThrottleIncrease}) -- Collective Throttle To MAX
+push_start_command(1.3, {action = Keys.iCommand_ThrottleStop}) -- MAX Value
+
+
+-- R-828 Radio - 30FM
+
+push_start_command(dt, {device = devices.R_828, action = device_commands.Button_5, value = 1.0}) -- 30FM Power - ON
+push_start_command(dt, {device = devices.R_828, action = device_commands.Button_1, value = 0.4}) -- Channel Selector Knob
+
+push_start_command(0.1, {device = devices.R_828, action = device_commands.Button_3, value = 1.0}) -- Press - R-828 Radio Tuner Button
+push_start_command(3.0, {device = devices.R_828, action = device_commands.Button_3, value = 0.0}) -- Release - R-828 Radio Tuner Button
+
+
+-- Wait For Left Engine To Start
+
+push_start_command(43.8, {message = _("  Left Engine Running"), message_timeout = mto})
+push_start_command(dt, {message = _(" "), message_timeout = mto})
+
+
+-- Right Engine START 57.2sec
+
+push_start_command(dt, {message = _("  Right Engine Start"), message_timeout = 44.0})
+push_start_command(dt, {message = _(" "), message_timeout = 56})
+
+push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_10, value = 1.0}) -- Fuel Cutoff Lever - Right
+push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_8, value = 1.0}) -- Start Selector
+push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_5, value = 1.0}) -- Push to Start
+push_start_command(1.0, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_5, value = 0.0}) -- Relese
+
+
+-- Cage Gyros
+
+push_start_command(22, {message = _("  Cage/Uncage Gyros 30sec To Align"), message_timeout = 30})
+push_start_command(dt, {message = _(" "), message_timeout = 31.8})
+
+push_start_command(0.1, {device = devices.AGB_3K_LEFT, action = device_commands.Button_2, value = 1.0}) -- Press - Cage Left Gyro
+push_start_command(0.8, {device = devices.AGB_3K_LEFT, action = device_commands.Button_2, value = 0.0}) -- Release - Uncage Left Gyro
+push_start_command(0.1, {device = devices.AGB_3K_RIGHT, action = device_commands.Button_2, value = 1.0}) -- Press - Cage Right Gryo
+push_start_command(0.8, {device = devices.AGB_3K_RIGHT, action = device_commands.Button_2, value = 0.0}) -- Release - Uncage Right Gyro
+
+push_start_command(22, {message = _("  Right Engine Running"), message_timeout = 8})
+push_start_command(dt, {message = _(" "), message_timeout = 12})
+
+
+-- APU Stop
+
+push_start_command(dt, {message = _("  Stopping APU - Aprox 3min For Cool Down"), message_timeout = 12})
+
+push_start_command(0.1, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_7, value = 1.0}) -- Press - APU Stop Button
+push_start_command(0.2, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_7, value = 0.0}) -- Release - APU Start Button
+
+push_start_command(1.0, {message = _(" "), message_timeout = 14})
+push_start_command(dt, {message = _("=================="), message_timeout = 14})
+push_start_command(dt, {message = _("  Stabilizing Engine RPM"), message_timeout = 14})
+push_start_command(dt, {message = _("=================="), message_timeout = 14})
+
+
+-- Radios
+
+push_start_command(12, {device = devices.SPU_7, action = device_commands.Button_4, value = 0.0}) -- Radio Set to Radio
+
+
+-- Auto Pilot
+
+push_start_command(0.1, {device = devices.AUTOPILOT, action = device_commands.Button_2, value = 1.0}) -- Press
+push_start_command(0.1, {device = devices.AUTOPILOT, action = device_commands.Button_2, value = 0.0}) -- Release
+push_start_command(dt, {device = devices.VMS, action = device_commands.Button_6, value = 1.0}) -- Bitchin Betty - ON
+
+push_start_command(1.0, {message = _(" "), message_timeout = 10})
+push_start_command(dt, {message = _("================================"), message_timeout = 10})
+push_start_command(dt, {message = _("  Autopilot Pitch/Roll Channel - ON"), message_timeout = 10})
+push_start_command(dt, {message = _("  ICS Off"), message_timeout = 10})
+push_start_command(dt, {message = _("  PTT for SRS will Now Transmit On 250kHz AM"), message_timeout = 10})
+push_start_command(dt, {message = _("  99.8% Chance You Are Ready To Fly"), message_timeout = 10})
+push_start_command(dt, {message = _("  Auto Start Complete"), message_timeout = 10})
+push_start_command(dt, {message = _("================================"), message_timeout = 10})
+push_start_command(dt, {message = _(" "), message_timeout = 10})
+
+
+-- Toot the Horn
+
+push_start_command(0.30, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Press
+push_start_command(0.20, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 0.0}) -- Release
+push_start_command(0.30, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Press
+push_start_command(0.20, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 0.0}) -- Release
+push_start_command(0.30, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Press
+push_start_command(0.20, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 0.0}) -- Release
+
+
 end
 doStartSequence()
 
 
-----------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------
--- Function to collect all the stop sequence commands.
-local function doStopSequence()
--- Stop sequence
-push_stop_command(0.0, {message = _("CUSTOMDCS.com QUICK AUTOSTOP SEQUENCE IS RUNNING"), message_timeout = mto})
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- Other Buttons And Switches
 
---Left Panel
-push_stop_command(dt, {message = _("LEFT ADI - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.AGB_3K_LEFT, action = device_commands.Button_4, value = 0.0})
-push_stop_command(dt, {message = _("VK-53 - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.CORRECTION_INTERRUPT, action = device_commands.Button_1, value = 0.0})
-push_stop_command(dt, {message = _("SPUU-52 - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.SPUU_52, action = device_commands.Button_5, value = 0.0})
-push_stop_command(dt, {message = _("RADAR ALTIMETER - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.RADAR_ALTIMETER, action = device_commands.Button_3, value = 0.0})
-push_stop_command(dt, {message = _("RI-65 - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.VMS, action = device_commands.Button_6, value = 0.0})
 
--- R-828 radio
-push_stop_command(dt, {message = _("R-828 RADIO POWER - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.R_828, action = device_commands.Button_5, value = 0.0})
+-- NAV Lights 'CODE' Button
 
--- UV-26 countermeasures system
-push_stop_command(dt, {message = _("UV-26 POWER - ON"), message_timeout = mto})
-push_stop_command(dt, {device = devices.UV_26, action = device_commands.Button_10, value = 0.0})
+--push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_16, value = 1.0}) -- ANO Code Button
 
---Right Panel
-push_stop_command(dt, {message = _("DISS-15 - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.DISS_15, action = device_commands.Button_1, value = 0.0})
-push_stop_command(dt, {message = _("GMC-1A - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.GMK1A, action = device_commands.Button_1, value = 0.0})
-push_stop_command(dt, {message = _("RIGHT ADI - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.AGB_3K_RIGHT, action = device_commands.Button_4, value = 0.0})
-push_stop_command(dt, {message = _("JADRO-1A MODE - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.JADRO_1A, action = device_commands.Button_1, value = 0.0})
-push_stop_command(dt, {message = _("JADRO-1A POWER - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.JADRO_1A, action = device_commands.Button_13, value = 0.0})
+-- Engine Dust Protection
 
-push_stop_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_12, value = 0.0})
-push_stop_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_13, value = 0.0})
-push_stop_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_14, value = 0.0})
-push_stop_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_15, value = 0.0})
+--push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_28, value = 1.0}) -- Left Dust Protection
+--push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_29, value = 1.0}) -- Right Dust Protection
 
-push_stop_command(dt, {message = _("GENERATOR 1 - ON"), message_timeout = mto})
-push_stop_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_15, value = 0.0})
-push_stop_command(dt, {message = _("GENERATOR 2 - ON"), message_timeout = mto})
-push_stop_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_16, value = 0.0})
 
-push_stop_command(dt, {message = _("STANDBY GENERATOR - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_1, value = 0.0})
-push_stop_command(dt, {message = _("VU-2 - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_5, value = 0.0})
-push_stop_command(dt, {message = _("VU-3 - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_6, value = 0.0})
-push_stop_command(dt, {message = _("VU-1 - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_7, value = 0.0})
-push_stop_command(dt, {message = _("PO-500 - NEUTRAL"), message_timeout = mto})
-push_stop_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_12, value = 0.0})
-push_stop_command(dt, {message = _("PT-200 - NEUTRAL"), message_timeout = mto})
-push_stop_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_13, value = 0.0})
+--Recorder P-503B
 
-push_stop_command(dt, {message = _("CORRECTION SET TO LEFT"), message_timeout = mto})
-push_stop_command(dt, {action = Keys.iCommand_ThrottleDecrease})
-push_stop_command(4.0, {action = Keys.iCommand_ThrottleStop})
+--push_start_command(dt, {device = devices.RECORDER_P503B, action = device_commands.Button_1, value = 1.0}) -- Recorder P-503B Power Switch
 
-push_stop_command(5.0, {message = _("LEFT ENGINE STOP"), message_timeout = mto})
-push_stop_command(5.0, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_9, value = 0})
-push_stop_command(2.0, {message = _("RIGHT ENGINE STOP"), message_timeout = mto})
-push_stop_command(2.0, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_10, value = 0})
 
-push_stop_command(dt, {message = _("SERVICE TANK PUMP - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_6, value = 0.0})
-push_stop_command(dt, {message = _("LEFT TANK PUMP - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_3, value = 0.0})
-push_stop_command(dt, {message = _("RIGHT TANK PUMP - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_5, value = 0.0})
+-- Standby Generator Voltage Adjustment Rheostat
 
-push_stop_command(dt, {message = _("LEFT SHUTOFF VALVE - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_9, value = 1.0}) -- Cover open
-push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_1, value = 0.0}) -- Switch
-push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_9, value = 0.0}) -- Cover close
+--push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_10, value = -1.0}) -- Standby Generator Voltage Adjustment - Set To MIN
 
-push_stop_command(dt, {message = _("RIGHT SHUTOFF VALVE - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_10, value = 1.0}) -- Cover open
-push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_2, value = 0.0}) -- Switch
-push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_10, value = 0.0}) -- Cover close
 
---push_stop_command(dt, {message = _("CROSSFEED SWITCH - OFF"), message_timeout = mto})
---push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_11, value = 1.0}) -- Cover open
---push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_4, value = 0.0}) -- Switch
---push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_11, value = 0.0}) -- Cover close
---
---push_stop_command(dt, {message = _("BYPASS SWITCH - OFF"), message_timeout = mto})
---push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_12, value = 1.0}) -- Cover open
---push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_8, value = 0.0}) -- Switch
---push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_12, value = 0.0}) -- Cover close
+-- Generator 1 Voltage Adjustment Rheostats
 
--- Fans
-push_stop_command(dt, {message = _("PILOT'S FAN - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_20, value = 0.0})
-push_stop_command(dt, {message = _("COPILOT'S FAN - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_21, value = 0.0})
+--push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_11, value = -1.0}) -- Generator 1 Voltage Adjustment - St To MIN
+--push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_18, value = -1.0}) -- Generator 2 Voltage Adjustment - St To MIN
 
-push_stop_command(dt, {message = _("BATTERY 1 - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_3, value = 0.0})
-push_stop_command(dt, {message = _("BATTERY 2 - OFF"), message_timeout = mto})
-push_stop_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_2, value = 0.0})
+-----------------------------------------------------------------------------------------------------------------------------------------
 
-push_stop_command(dt, {message = _("ALL CB SWITCHES - OFF"), message_timeout = mto})
-for i = device_commands.Button_31, device_commands.Button_31 + 75, 1 do
-	push_stop_command(0.1, {device = devices.ELEC_INTERFACE, action = i, value = 0.0})
-end
+local function
 
--- Wait for rotor to spin down.
-push_stop_command(dt, {message = _("WAIT FOR ROTOR TO SPIN DOWN (65s)"), message_timeout = mto})
-push_stop_command(65.0, {message = _("ROTOR BRAKE ON"), message_timeout = mto})
-push_stop_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_11, value = 1})
-
-push_stop_command(dt, {message = _("LEFT COCKPIT WINDOW - OPEN"), message_timeout = mto})
-push_stop_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_15, value = 1.0})
-
-push_stop_command(dt, {message = _("CUSTOMDCS.com QUICK AUTOSTOP COMPLETE"), message_timeout = mto})
-end
 doStopSequence()
 
 
--- Inserts messages into the sequence that show how many minutes there are remaining in the sequence.  Also adds " (XmXs)" time display to the end of the first item in the sequence (which must be a message, and is by default).
-local function insertTimeRemaining(sequence, endingTime)
-local totalTime = math.ceil(endingTime) -- Round up to the next whole second.
-local totalTimeMins = math.floor(totalTime / 60)
-local totalTimeSecs = totalTime % 60
--- Add the total time onto the end of the initial startup message.
-sequence[1]['message'] = sequence[1]['message']..' ('..totalTimeMins..'m'..totalTimeSecs..'s)'
+-- Stop sequence
 
-local minsRemaining = totalTimeMins
-local i = 1
-while sequence[i] do
-	-- If the current array element has a time less than or equal to our current number of minutes remaining, insert an element at the current position that shows the time remaining.
-	if minsRemaining ~= 0 and endingTime - sequence[i]['time'] <= minsRemaining * 60 then
-		if minsRemaining == 1 then
-			minutesString = 'MINUTE'
-		else
-			minutesString = 'MINUTES'
-		end
-		table.insert(sequence, i, {message = _('=== '..minsRemaining..' '..minutesString..' REMAINING ==='), message_timeout = 60})
-		sequence[i]['time'] = endingTime - minsRemaining * 60.0
-		--log.info('sequence[i]: '..sequence[i]['message'])
-		-- Subtract 1 minute from the remaining minutes to do.
-		minsRemaining = minsRemaining - 1
-		-- Decrement the index counter since we just added an element.  This makes sure we don't skip one.
-		i = i - 1
-	end
-	-- Increment the index counter to go to the next element.
-	i = i + 1
-end
-log.info('Start/Stop sequence time: '..totalTimeMins..'m'..totalTimeSecs..'s')
-end
-insertTimeRemaining(start_sequence_full, t_start)
-insertTimeRemaining(stop_sequence_full, t_stop)
+push_stop_command(dt, {message = _(" "), message_timeout = 52})
+push_stop_command(dt, {message = _("================================================"), message_timeout = 52})
+push_stop_command(dt, {message = _("  CustomDCS.com - Super Quick Autostop Sequence Is Running (55sec)"), message_timeout = 52})
+push_stop_command(dt, {message = _("================================================"), message_timeout = 52})
+push_stop_command(dt, {message = _(" "), message_timeout = 52})
 
--- Debug function to log all the timing and message data for the entire sequence.  Useful to check to make sure the right values are going in, and in the right order.
-local function logSequenceData()
-for i = 1, #start_sequence_full do
-	local message = '(action)'
-	if start_sequence_full[i]['message'] then
-		message = start_sequence_full[i]['message']
-	end
-	log.info("start_sequence_full[i]['time']: "..start_sequence_full[i]['time']..', remaining: '..t_start-start_sequence_full[i]['time']..', message: '..message)
+
+-- Parking Brake
+
+push_stop_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_17, value = 1.0}) -- Parking Brake - ON
+
+
+-- Cage Gyros
+
+push_stop_command(0.1, {device = devices.AGB_3K_LEFT, action = device_commands.Button_2, value = 1.0}) -- Press - Cage Left Gyro
+push_stop_command(1.0, {device = devices.AGB_3K_LEFT, action = device_commands.Button_2, value = 0.0}) -- Release - Uncage Left Gyro
+push_stop_command(0.1, {device = devices.AGB_3K_RIGHT, action = device_commands.Button_2, value = 1.0}) -- Press - Cage Right Gryo
+push_stop_command(1.0, {device = devices.AGB_3K_RIGHT, action = device_commands.Button_2, value = 0.0}) -- Release - Uncage Right Gyro
+
+
+-- Set Sight
+
+push_stop_command(0.1, {device = devices.PKV, action = device_commands.Button_3, value = 0.3}) -- Set Sight Limb Knob - 0.3 Default
+
+
+-- Main Radio
+
+push_stop_command(dt, {device = devices.SPU_7, action = device_commands.Button_4, value = -1.0}) -- Radio Set To ICS
+
+
+-- Tune ADF
+
+-- Main - Set To 150kHz
+
+push_stop_command(dt, {device = devices.ARC_9, action = device_commands.Button_6, value = 0.5}) -- ARC 9 10KHZ DIAL
+push_stop_command(dt, {device = devices.ARC_9, action = device_commands.Button_5, value = 0.0}) -- ARC 9 100KHZ DIAL
+
+
+-- Reserve - Set To 150kHz
+
+push_stop_command(dt, {device = devices.ARC_9, action = device_commands.Button_9, value = 0.5}) -- ARC 9 10KHZ DIAL
+push_stop_command(dt, {device = devices.ARC_9, action = device_commands.Button_8, value = 0.0}) -- ARC 9 100KHZ DIAL
+
+push_stop_command(dt, {device = devices.ARC_9, action = device_commands.Button_11, value = 0.0}) -- Main/Reserve Switch - Set To Reserve
+
+
+-- External Lights OFF
+
+push_stop_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_18, value = 0.00}) -- Left Landing Light Switch - OFF
+push_stop_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_19, value = 0.00}) -- Right Landing Light Switch - OFF
+push_stop_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_17, value = -1.0}) -- Taxi Light - OFF
+push_stop_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_14, value = 0.00}) -- Tip Lights Switch - OFF
+push_stop_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_15, value = 0.00}) -- Strobe Light - Red Flashing Light - OFF
+
+
+-- APU STOP
+
+push_stop_command(0.1, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_7, value = 1.0}) -- Press - APU Stop Button
+push_stop_command(0.2, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_7, value = 0.0}) -- Release - APU Start Button
+
+
+-- Audio Warnings
+
+push_stop_command(dt, {device = devices.VMS, action = device_commands.Button_6, value = 0.0}) -- Bitchin Betty - OFF
+
+
+-- Fuel Shutoff Switches
+
+push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_11, value = 1.0}) -- Cross Feed Valve Switch Cover - Open
+push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_4, value = 0.0}) -- Cross Feed Valve Switch
+push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_11, value = 0.0}) -- Cross Feed Valve Switch Cover - Close
+
+push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_9, value = 1.0}) -- Left Shutoff Valve Switch Cover - Open
+push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_1, value = 0.0}) -- Left Shutoff Valve Switch
+push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_9, value = 0.0}) -- Left Shutoff Valve Switch Cover - Close
+
+push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_10, value = 1.0}) -- Right Shutoff Valve Switch Cover - Open
+push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_2, value = 0.0}) -- Right Shutoff Valve Switch
+push_stop_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_10, value = 0.0}) -- Right Shutoff Valve Switch Cover - Vlose
+
+
+-- Fuel Leavers
+
+push_stop_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_9, value = 0}) -- Left Fuel Lever - OFF
+push_stop_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_10, value = 0}) -- Right Fuel Lever - OFF
+
+
+-- Rotor Brake
+
+push_stop_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_11, value = 1}) -- Rotor Brake - ON
+
+
+-- Throttle
+
+push_stop_command(0.8, {action = Keys.iCommand_ThrottleDecrease}) -- Throttle Down
+push_stop_command(0.5, {action = Keys.iCommand_ThrottleStop})
+
+
+-- CB Pannel
+
+for i = device_commands.Button_31, device_commands.Button_31 + 75, 1 do
+	push_stop_command(0.001, {device = devices.ELEC_INTERFACE, action = i, value = 0.0}) -- Turn OFF All Circut Brakers
 end
+
+
+-- Battery Switches
+
+push_stop_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_3, value = -1.0}) -- Battery 1 Switch - OFF
+push_stop_command(dt, {device = devices.ELEC_INTERFACE, action = device_commands.Button_2, value = -1.0}) -- Battery 2 Switch - OFF
+
+
+-- Barometric Altimeter
+
+for i = 1, 100, 1 do
+	push_stop_command(0.01, {device = devices.BAR_ALTIMETER_L, action = device_commands.Button_1, value = -1}) -- Set QNH - Pilot To STD
 end
---logSequenceData()
+
+for i = 1, 100, 1 do
+	push_stop_command(0.01, {device = devices.BAR_ALTIMETER_R, action = device_commands.Button_1, value = -1}) -- Set QNH - Copilot To STD
+end
+
+
+-- RADALT
+
+push_stop_command(dt, {device = devices.RADAR_ALTIMETER, action = device_commands.Button_1, value = 0.80}) -- Set RADALT to STD
+
+
+-- Wait For Rotor Spool Down TIME - 13 To Here
+
+push_stop_command(8.5, {message = _("  Rotor Spool Down (40s)"), message_timeout = 19.0})
+push_stop_command(dt, {message = _(" "), message_timeout = 19.0})
+push_stop_command(20.0, {message = _("  Rotor Spool Down (20s)"), message_timeout = 9.0})
+push_stop_command(dt, {message = _(" "), message_timeout = 9.0})
+push_stop_command(10, {message = _("  Rotor Spool Down (10s)"), message_timeout = 8.0})
+push_stop_command(dt, {message = _(" "), message_timeout = 8.0})
+
+
+-- Blister Windows
+
+push_stop_command(8.1, {device = devices.CPT_MECH, action = device_commands.Button_15, value = -1.0}) -- Pilots Window - OPEN
+push_stop_command(0.1, {device = devices.CPT_MECH, action = device_commands.Button_16, value = -1.0}) -- Co Pilots Window - OPEN
+
+push_stop_command(dt, {message = _(" "), message_timeout = mto})
+push_stop_command(dt, {message = _("============================================"), message_timeout = mto})
+push_stop_command(dt, {message = _("  CustomDCS.com - Super Quick Autostop Sequence Is Complete"), message_timeout = mto})
+push_stop_command(dt, {message = _("============================================"), message_timeout = mto})
+push_stop_command(dt, {message = _(" "), message_timeout = mto})
+end
+doStopSequence()
