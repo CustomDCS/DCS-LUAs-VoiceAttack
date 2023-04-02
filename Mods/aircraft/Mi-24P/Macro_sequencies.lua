@@ -50,12 +50,12 @@ alert_messages[RIGHT_ENGINE_START_FAULT] = { message = _("RIGHT ENGINE START FAU
 -- Function to collect all the start sequence commands.
 
 
-push_start_command(dt, {message = _(" "), message_timeout = 120})	
-push_start_command(dt, {message = _("=================================================="), message_timeout = 120})
-push_start_command(dt, {message = _("  CustomDCS.com Super Quick Autostart Sequence Is Running (2m 10sec)"), message_timeout = 120})
-push_start_command(dt, {message = _("                 This Auto Start is Set For FARP XXXXXX"), message_timeout = 120})
-push_start_command(dt, {message = _("                         Master ARM Is OFF"), message_timeout = 120})
-push_start_command(dt, {message = _("=================================================="), message_timeout = 120})
+push_start_command(dt, {message = _(" "), message_timeout = 130})	
+push_start_command(dt, {message = _("=================================================="), message_timeout = 130})
+push_start_command(dt, {message = _("  CustomDCS.com Super Quick Autostart Sequence Is Running (2m 20sec)"), message_timeout = 130})
+push_start_command(dt, {message = _("                 This Auto Start is Set For FARP XXXXXX"), message_timeout = 130})
+--push_start_command(dt, {message = _("                         Master ARM Is OFF"), message_timeout = 130})
+push_start_command(dt, {message = _("=================================================="), message_timeout = 130})
 push_start_command(dt, {message = _(" "), message_timeout = 120})		
 
 
@@ -101,13 +101,16 @@ push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.B
 push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.NetworkToBatteriesCover, value = 1.0}) -- Network To Batteries Cover - OPEN
 push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  elec_commands.NetworkToBatteries, value = 1.0}) -- Network To Batteries Switch - ON
 
+push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
+
 
 -- Circut Breakers
 
 push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.CB_FRAME_LEFT, value = 1.0}) -- Turn Left CBs - ON
 push_start_command(0.5,{device = devices.ELEC_INTERFACE,action =  elec_commands.CB_FRAME_LEFT, value = 0.0}) -- Release
 
-push_start_command(0.05,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
 push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
 push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.CB_FRAME_RIGHT, value = 1.0}) -- Turn Right CBs - ON
@@ -229,9 +232,6 @@ push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_
 push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
 
-
-
-
 -- Lights And Radio Switches
 
 push_start_command(dt,{device = devices.SPU_8,action =  SPU_8_Mi24_commands.CMD_SPU8_NETWORK_1, value = 1.0}) -- Switch SPU-8 NET-1 - ON
@@ -332,9 +332,6 @@ push_start_command(dt,{device = devices.CPT_MECH,action =  cockpit_mechanics_com
 push_start_command(dt,{device = devices.CPT_MECH,action =  cockpit_mechanics_commands.Command_CPT_MECH_PitotTotalAndAoASideslip, value = 1.0}) -- Heating DUAS Power Switch - ON
 
 
-
-
-
 -- Right Engine Start TIME 48sec
 
 push_start_command(46,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Launch_Method, value = 0.0}) -- Mode Selector Switch To START
@@ -379,11 +376,111 @@ push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_comma
 -- Auto Pilot
 
 push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_SWITCHER_SAFE_WEAP, value = 1.0}) -- CPG Master ARM - ON
-push_start_command(5.0,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonKon, value = 1.0}) -- Autopilot K Channel (ROLL) - ON
+push_start_command(7.0,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonKon, value = 1.0}) -- Autopilot K Channel (ROLL) - ON
 push_start_command(0.1,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonTon, value = 1.0}) -- Autopilot T Channel (PITCH) - ON 
 push_start_command(0.1,{device = devices.SPUU_52,action =  spuu_commands.On_Off, value = 1.0}) -- SPUU Power Switch - ON
 
-push_start_command(dt, {message = _(" "), message_timeout = 15})
+push_start_command(5.0, {message = _(" "), message_timeout = 15})
 push_start_command(dt, {message = _("WIP Auto Start Has Finished"), message_timeout = 15})	
 push_start_command(dt, {message = _(" "), message_timeout = 15})
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- Auto Stop 34sec
+
+-- Cage Gyros
+
+push_stop_command(1.0,{device = devices.MGV1SU_1,action =  mgv1su_commands.CAGE, value = 1.0}) -- Left Gyro Cage - PRESS
+push_stop_command(1.0,{device = devices.MGV1SU_1,action =  mgv1su_commands.CAGE, value = 0.0}) -- Left Gyro Cage - RELEASE
+
+push_stop_command(dt,{device = devices.MGV1SU_2,action =  mgv1su_commands.CAGE, value = 1.0}) -- Right Gyro Cage - PRESS
+push_stop_command(1.0,{device = devices.MGV1SU_2,action =  mgv1su_commands.CAGE, value = 0.0}) -- Right Gyro Cage - RELEASE
+
+
+-- Battery Switches
+
+push_stop_command(0.1,{device = devices.ELEC_INTERFACE,action =  elec_commands.BatteryRight, value = -1.0}) -- Right Battery Switch - OFF
+push_stop_command(0.1,{device = devices.ELEC_INTERFACE,action =  elec_commands.BatteryLeft, value = -1.0}) -- Left Battery Switch - OFF
+
+
+-- AC Generators
+
+push_stop_command(dt,{device = devices.ELEC_INTERFACE,action = elec_commands.ACGeneratorLeft, value = 0.0}) -- Left Generator Set - OFF
+push_stop_command(dt,{device = devices.ELEC_INTERFACE,action = elec_commands.ACGeneratorRight, value = 0.0}) -- Right Generator Set - OFF
+
+
+-- Fuel Shutoff Valves
+
+push_stop_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.LEVER_Left_Engine_Lock, value = 1.0}) -- Left Engine Fuel Shutoff Valve - OFF
+push_stop_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.LEVER_Right_Engine_Lock, value = 1.0}) -- Right Engine Fuel Shutoff Valve - OFF
+
+
+-- APU Stop
+
+push_stop_command(1.0,{device = devices.ELEC_INTERFACE,action =  elec_commands.DCGenerator, value = 0.0}) -- APU Gen Set - OFF
+
+push_stop_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_Stop, value = 1.0}) -- APU Stop Button - Press
+push_stop_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_Stop, value = 0.0}) -- APU Stop Button - Release
+
+
+-- Fuel Control Valves
+
+push_stop_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveLeftEngineCover, value = 1.0}) -- Left Engine Fire Valve Cover - OPEN
+push_stop_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveLeftEngine, value = 0.0}) -- Left Engine Fire Valve - OFF
+push_stop_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveLeftEngineCover, value = 0.0}) -- Left Engine Fire Valve Cover - CLOSE
+
+push_stop_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveRightEngineCover, value = 1.0}) -- Right Engine Fire Valve Cover - OPEN
+push_stop_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveRightEngine, value = 0.0}) -- Right Engine Fire Valve - OFF
+push_stop_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveRightEngineCover, value = 0.0}) -- Right Engine Fire Valve Cover - CLOSE
+
+
+-- Fuel Shutoff Valves
+
+push_stop_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.LEVER_Left_Engine_Lock, value = 1.0}) -- Left Engine Fuel Shutoff Valve - OFF
+push_stop_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.LEVER_Right_Engine_Lock, value = 1.0}) -- Right Engine Fuel Shutoff Valve - OFF
+
+
+-- Rotor Brake
+
+push_stop_command(1.0,{device = devices.ENGINE_INTERFACE,action =  engine_commands.LEVER_Rotor_Lock, value = 1.0}) -- Rotor Brake - ON
+
+
+-- Barometric Pressure Set
+
+for i = 1, 53.0, 1 do
+	push_stop_command(0.01, {device = devices.BAROALT_P, action = baroaltimeter_commands.CMD_ADJUST_PRESSURE, value = -1}) -- Set QNH - Pilot
+end
+
+for i = 1, 20, 1 do
+	push_stop_command(0.01, {device = devices.RADAR_ALTIMETER, action = ralt_commands.ROTARY, value = -1}) -- RADALT Set To 0m
+end
+
+
+-- Fire Extinguisher Circuts
+
+push_stop_command(2.0,{device = devices.FIRE_EXTING_INTERFACE,action =  fire_commands.SensorControl, value = 1.0}) -- Extinguisher Control Switch - EXING
+push_stop_command(dt,{device = devices.FIRE_EXTING_INTERFACE,action =  fire_commands.Power, value = 1.0}) -- Fire Extinguisher Power - ON
+
+
+-- Fuel Cutoff Switches
+
+push_stop_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveTank1, value = 0.0}) -- Tank 1 Cutoff Switch Set - OFF
+push_stop_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveTank2, value = 0.0}) -- Tank 2 Cutoff Switch Set - OFF
+
+push_stop_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.Tank4Pump, value = 0.0}) -- Tank Pump 4 Set - OFF
+push_stop_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.Tank5Pump, value = 0.0}) -- Tank Pump 5 Set - OFF
+push_stop_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.Tank1Pump, value = 0.0}) -- Tank Pump 1 Set - OFF
+push_stop_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.Tank2Pump, value = 0.0}) -- Tank Pump 2 Set - OFF
+
+push_stop_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveDelimiter, value = 0.0}) -- Fuel Delimiter Valve Set - OFF
+
+
+-- Open Doors
+
+push_stop_command(34,{device = devices.CPT_MECH, action =  cockpit_mechanics_commands.Command_CPT_MECH_GENERAL_DOORS_CLOSE, value = 1.0}) -- Opens The Doors
+
+
 
