@@ -313,7 +313,7 @@ push_start_command(dt,{device = devices.ASP_17V,action = asp_commands.Power, val
 push_start_command(dt,{device = devices.ASP_17V,action = asp_commands.Power, value = 1.0}) -- CPG Sight Power Switch - ON
 push_start_command(dt,{device = devices.ASP_17V,action = asp_commands.Manual_Auto, value = 1.0}) -- Sight Mode Switch - AUTO
 push_start_command(dt,{device = devices.ASP_17V,action = asp_commands.Sync_Async, value = 1.0}) -- Sight Sync Switch - SYNC
-push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_NPU_CHAIN, value = 1.0}) -- Burst Length - MED
+push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_NPU_CHAIN, value = -1.0}) -- Burst Length - MED
 push_start_command(dt,{device = devices.ASP_17V,action =  asp_commands.Range_Auto_Manual, value = 1.0}) -- Sight AUTO/MANUAL - AUTO
 push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_SWITCHER_FIRE_CONTROL, value = 1.0}) -- Pilot Master Arm - ON
 push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_TEMP_NPU30, value = 1.0}) -- Cannon Fire Rate - FAST
@@ -321,15 +321,15 @@ push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot
 push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_EMERG_RELEASE_COVER, value = 1.0}) -- Jettison Pylons Cover - OPEN
 push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_EMERG_RELEASE_PU_COVER, value = 1.0}) -- Jettison Launcher Cover - OPEN
 push_start_command(dt,{device = devices.I9K113,action =  i9K113_commands.Command_9k113_Backlight, value = 1.0}) -- CPG Backlight Switch - ON
-push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_SWITCHER_SAFE_WEAP, value = 1.0}) -- CPG Master ARM - ON
-push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_URS_POWER, value = 1.0}) -- Missiles Power - ON
-push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_PUS_ARMING, value = 1.0}) -- Arm Rockets
-push_start_command(dt,{device = devices.PKP72M_INTERFACE,action =  pkp72m_interface_commands.PKP72MoperatorSwitch, value = 1.0}) -- ADI Power Switch - ON
-push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_POWER_SHO_SWITCHER, value = 1.0}) -- SCHO Power Switch - ON
-push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_CHECK_LAMPS_9C475, value = 1.0}) -- SCHO Lamps Check Switch - ON
+--push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_SWITCHER_SAFE_WEAP, value = 1.0}) -- CPG Master ARM - ON
+--push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_URS_POWER, value = 1.0}) -- Missiles Power - ON
+--push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_PUS_ARMING, value = 1.0}) -- Arm Rockets
+--push_start_command(dt,{device = devices.PKP72M_INTERFACE,action =  pkp72m_interface_commands.PKP72MoperatorSwitch, value = 1.0}) -- ADI Power Switch - ON
+--push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_POWER_SHO_SWITCHER, value = 1.0}) -- SCHO Power Switch - ON
+--push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_CHECK_LAMPS_9C475, value = 1.0}) -- SCHO Lamps Check Switch - ON
 push_start_command(dt,{device = devices.ECS_INTERFACE,action =  ecs_commands.HeatingAirFlowSight, value = 1.0}) -- Sight Fan Power Switch - ON
 push_start_command(dt,{device = devices.CPT_MECH,action =  cockpit_mechanics_commands.Command_CPT_MECH_FAN_OPERATOR, value = 1.0}) -- Co Pilots Fan Power Switch - ON
-push_start_command(dt,{device = devices.CPT_MECH,action =  cockpit_mechanics_commands.Command_CPT_MECH_PitotTotalAndAoASideslip, value = 1.0}) -- Heating DUAS Power Switch - ON
+--push_start_command(dt,{device = devices.CPT_MECH,action =  cockpit_mechanics_commands.Command_CPT_MECH_PitotTotalAndAoASideslip, value = 1.0}) -- Heating DUAS Power Switch - ON
 
 
 -- Right Engine Start TIME 48sec
