@@ -53,10 +53,12 @@ alert_messages[RIGHT_ENGINE_START_FAULT] = { message = _("RIGHT ENGINE START FAU
 push_start_command(dt, {message = _(" "), message_timeout = 120})	
 push_start_command(dt, {message = _("=================================================="), message_timeout = 120})
 push_start_command(dt, {message = _("  CustomDCS.com Super Quick Autostart Sequence Is Running (2m 10sec)"), message_timeout = 120})
-push_start_command(dt, {message = _("             This Auto Start is Set For FARP XXXXXX"), message_timeout = 120})
+push_start_command(dt, {message = _("                 This Auto Start is Set For FARP XXXXXX"), message_timeout = 120})
+push_start_command(dt, {message = _("                         Master ARM Is OFF"), message_timeout = 120})
 push_start_command(dt, {message = _("=================================================="), message_timeout = 120})
-	
-	
+push_start_command(dt, {message = _(" "), message_timeout = 120})		
+
+
 -- Hide Seat
 
 push_start_command(dt,{device = devices.CPT_MECH, action =  cockpit_mechanics_commands.Command_CPT_MECH_Elements_Hide, value = 1.0}) -- Turn Seat OFF
@@ -361,11 +363,11 @@ push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_comma
 
 -- Auto Pilot
 
-push_start_command(0.1,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonKon, value = 1.0}) -- Autopilot K Channel (ROLL) - ON
+push_start_command(0.5,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonKon, value = 1.0}) -- Autopilot K Channel (ROLL) - ON
 push_start_command(0.1,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonTon, value = 1.0}) -- Autopilot T Channel (PITCH) - ON 
 push_start_command(0.1,{device = devices.SPUU_52,action =  spuu_commands.On_Off, value = 1.0}) -- SPUU Power Switch - ON
 
-
+push_start_command(dt, {message = _(" "), message_timeout = 15})
 push_start_command(dt, {message = _("WIP Auto Start Has Finished"), message_timeout = 15})	
-
+push_start_command(dt, {message = _(" "), message_timeout = 15})
 
