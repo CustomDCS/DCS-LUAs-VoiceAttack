@@ -59,6 +59,10 @@ push_start_command(dt, {message = _("===========================================
 push_start_command(dt, {message = _(" "), message_timeout = 120})		
 
 
+-- Parking Brake
+
+push_start_command(dt,{device = devices.CPT_MECH, action =  cockpit_mechanics_commands.Command_CPT_MECH_ParkingBrake, value = 1.0}) -- Parking Brake - ON
+
 -- Barometric Pressure Set
 
 for i = 1, 53.0, 1 do
@@ -261,6 +265,7 @@ push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24
 push_start_command(4.1,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
 push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
+
 -- APU Generator Switch
 
 push_start_command(10,{device = devices.ELEC_INTERFACE,action =  elec_commands.DCGenerator, value = 1.0}) -- APU Gen Set - ON
@@ -391,6 +396,12 @@ push_start_command(dt, {message = _(" "), message_timeout = 15})
 
 -- Auto Stop 34sec
 
+
+-- Parking Brake
+
+push_stop_command(dt,{device = devices.CPT_MECH, action =  cockpit_mechanics_commands.Command_CPT_MECH_ParkingBrake, value = 1.0}) -- Parking Brake - ON
+
+
 -- Cage Gyros
 
 push_stop_command(1.0,{device = devices.MGV1SU_1,action =  mgv1su_commands.CAGE, value = 1.0}) -- Left Gyro Cage - PRESS
@@ -398,6 +409,12 @@ push_stop_command(1.0,{device = devices.MGV1SU_1,action =  mgv1su_commands.CAGE,
 
 push_stop_command(dt,{device = devices.MGV1SU_2,action =  mgv1su_commands.CAGE, value = 1.0}) -- Right Gyro Cage - PRESS
 push_stop_command(1.0,{device = devices.MGV1SU_2,action =  mgv1su_commands.CAGE, value = 0.0}) -- Right Gyro Cage - RELEASE
+
+
+-- Throttle
+
+push_stop_command(0.8, {action = Keys.iCommand_ThrottleDecrease}) -- Throttle Down
+push_stop_command(0.5, {action = Keys.iCommand_ThrottleStop})
 
 
 -- Battery Switches
