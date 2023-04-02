@@ -1,3 +1,7 @@
+
+
+
+
 ## Script to backup the current Mi8 auto start script and replace with our custom one from the current repo
 $ErrorActionPreference = "Stop" # this is a debug setting, will stop on any error so that we can figure out what went wrong
 $macroSequenciesRelPath = "Mods\aircraft\{0}\Cockpit\Scripts\Macro_sequencies.lua"
