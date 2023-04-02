@@ -239,14 +239,14 @@ end
 
 -- Tune ADF
 
--- Main - Set To 700kHz
+-- Reserve - Set To 450kHz
 
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_6, value = -0.5}) -- ARC 9 10KHZ DIAL
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_5, value = 0.25}) -- ARC 9 100KHZ DIAL
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_6, value = 0.5}) -- ARC 9 10KHZ DIAL
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_5, value = 0.15}) -- ARC 9 100KHZ DIAL
 
--- Reserve - Set To 250kHz
+-- Main - Set To 260kHz
 
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_9, value = 0.5}) -- ARC 9 10KHZ DIAL
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_9, value = 0.6}) -- ARC 9 10KHZ DIAL
 push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_8, value = 0.05}) -- ARC 9 100KHZ DIAL
 
 push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_11, value = 1.0}) -- Main/Reserve Switch - Set To Main
@@ -262,8 +262,8 @@ push_start_command(dt, {message = _("  The Rocket Systems Are On, Master Arm Is 
 --push_start_command(dt, {message = _("  The Rocket Systems Are On, Master Arm Is ON"), message_timeout = 100})
 push_start_command(dt, {message = _("  Main ADF Tuned To FARP SHARON (260kHz)"), message_timeout = 100})
 push_start_command(dt, {message = _("  Reserve ADF Tuned To FARP BATWATCH (450kHz)"), message_timeout = 100})
-push_start_command(dt, {message = _("  A  ARROW     - 600kHz - 15nm 012 N"), message_timeout = 100})
-push_start_command(dt, {message = _("  B  GLORY       - 290kHz - 17nm 076 E"), message_timeout = 100})
+push_start_command(dt, {message = _("  A  ARROW      - 600kHz - 15nm 012 N"), message_timeout = 100})
+push_start_command(dt, {message = _("  B  GLORY        - 290kHz - 17nm 076 E"), message_timeout = 100})
 push_start_command(dt, {message = _("  C  WARHORSE - 480kHz - 32nm 081 E"), message_timeout = 100})
 push_start_command(dt, {message = _("      BAYWATCH - 450kHz - 17nm 213 SW"), message_timeout = 100})
 push_start_command(dt, {message = _("================================="), message_timeout = 100})
