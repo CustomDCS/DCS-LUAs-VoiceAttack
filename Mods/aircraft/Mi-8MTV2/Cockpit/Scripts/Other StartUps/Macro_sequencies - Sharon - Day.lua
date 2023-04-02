@@ -226,21 +226,6 @@ push_start_command(dt, {device = devices.EXT_CARGO_EQUIPMENT, action = device_co
 push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_8, value = 0.1}) -- Fuel Meter Switch, Set To ALL
 
 
--- Tune ADF
-
--- Main - Set To 700kHz
-
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_6, value = -0.5}) -- ARC 9 10KHZ DIAL
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_5, value = 0.25}) -- ARC 9 100KHZ DIAL
-
--- Reserve - Set To 260kHz
-
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_9, value = 0.6}) -- ARC 9 10KHZ DIAL
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_8, value = 0.05}) -- ARC 9 100KHZ DIAL
-
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_11, value = 1.0}) -- Main/Reserve Switch - Set To Main
-
-
 -- Set QNH To FARP Height - Not Automatic - Set to SHARON
 
 for i = 1, 100, 1 do
@@ -252,6 +237,26 @@ for i = 1, 100, 1 do
 end
 
 
+-- Radio Main Selector Rotary
+
+push_start_command(12, {device = devices.SPU_7, action = device_commands.Button_3, value = 0.0}) -- Radio Selector Rotary - R-863
+
+
+-- Tune ADF
+
+-- Reserve - Set To 450kHz
+
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_6, value = 0.5}) -- ARC 9 10KHZ DIAL
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_5, value = 0.15}) -- ARC 9 100KHZ DIAL
+
+-- Main - Set To 260kHz
+
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_9, value = 0.6}) -- ARC 9 10KHZ DIAL
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_8, value = 0.05}) -- ARC 9 100KHZ DIAL
+
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_11, value = 1.0}) -- Main/Reserve Switch - Set To Main
+
+
 -- Information Message - Current Set Up - 125.7sec to Horn
 
 push_start_command(dt, {message = _(" "), message_timeout = 100})
@@ -261,11 +266,11 @@ push_start_command(dt, {message = _("  Radio Set To ICS To Allow Rearm And Refue
 push_start_command(dt, {message = _("  The Rocket Systems Are On, Master Arm Is OFF"), message_timeout = 100})
 --push_start_command(dt, {message = _("  The Rocket Systems Are On, Master Arm Is ON"), message_timeout = 100})
 push_start_command(dt, {message = _("  Main ADF Tuned To FARP SHARON (260kHz)"), message_timeout = 100})
-push_start_command(dt, {message = _("  Reserve ADF Tuned To FARP ARROW (600kHz)"), message_timeout = 100})
-push_start_command(dt, {message = _("      ARROW     - 600kHz - 15nm 012 N"), message_timeout = 100})
-push_start_command(dt, {message = _("  A  TAJI           - 270kHz - 29nm 042 NE"), message_timeout = 100})
-push_start_command(dt, {message = _("  B  GLORY       - 290kHz - 17nm 076 E"), message_timeout = 100})
-push_start_command(dt, {message = _("  C  BLKHORSE - 700kHz - 47nm 075 E"), message_timeout = 100})
+push_start_command(dt, {message = _("  Reserve ADF Tuned To FARP BATWATCH (450kHz)"), message_timeout = 100})
+push_start_command(dt, {message = _("  A  ARROW      - 600kHz - 15nm 012 N"), message_timeout = 100})
+push_start_command(dt, {message = _("  B  GLORY        - 290kHz - 17nm 076 E"), message_timeout = 100})
+push_start_command(dt, {message = _("  C  WARHORSE - 480kHz - 32nm 081 E"), message_timeout = 100})
+push_start_command(dt, {message = _("      BAYWATCH - 450kHz - 17nm 213 SW"), message_timeout = 100})
 push_start_command(dt, {message = _("================================="), message_timeout = 100})
 push_start_command(dt, {message = _(" "), message_timeout = 100})
 
@@ -400,6 +405,7 @@ push_start_command(dt, {message = _("=================="), message_timeout = 14}
 push_start_command(12, {device = devices.SPU_7, action = device_commands.Button_4, value = 0.0}) -- Radio Set to Radio
 
 
+
 -- Auto Pilot
 
 push_start_command(0.1, {device = devices.AUTOPILOT, action = device_commands.Button_2, value = 1.0}) -- Press
@@ -410,7 +416,7 @@ push_start_command(1.0, {message = _(" "), message_timeout = 10})
 push_start_command(dt, {message = _("================================"), message_timeout = 10})
 push_start_command(dt, {message = _("  Autopilot Pitch/Roll Channel - ON"), message_timeout = 10})
 push_start_command(dt, {message = _("  ICS Off"), message_timeout = 10})
-push_start_command(dt, {message = _("  PTT for SRS will Now Transmit On 250kHz AM"), message_timeout = 10})
+push_start_command(dt, {message = _("  PTT for SRS will Now Transmit On 250AM"), message_timeout = 10})
 push_start_command(dt, {message = _("  99.8% Chance You Are Ready To Fly"), message_timeout = 10})
 push_start_command(dt, {message = _("  Auto Start Complete"), message_timeout = 10})
 push_start_command(dt, {message = _("================================"), message_timeout = 10})
@@ -481,6 +487,11 @@ push_stop_command(dt, {message = _(" "), message_timeout = 52})
 push_stop_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_17, value = 1.0}) -- Parking Brake - ON
 
 
+-- Audio Warnings
+
+push_stop_command(dt, {device = devices.VMS, action = device_commands.Button_6, value = 0.0}) -- Bitchin Betty - OFF
+
+
 -- Cage Gyros
 
 push_stop_command(0.1, {device = devices.AGB_3K_LEFT, action = device_commands.Button_2, value = 1.0}) -- Press - Cage Left Gyro
@@ -528,11 +539,6 @@ push_stop_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_command
 
 push_stop_command(0.1, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_7, value = 1.0}) -- Press - APU Stop Button
 push_stop_command(0.2, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_7, value = 0.0}) -- Release - APU Start Button
-
-
--- Audio Warnings
-
-push_stop_command(dt, {device = devices.VMS, action = device_commands.Button_6, value = 0.0}) -- Bitchin Betty - OFF
 
 
 -- Fuel Shutoff Switches
