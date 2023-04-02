@@ -54,7 +54,7 @@ push_start_command(dt, {message = _(" "), message_timeout = 120})
 push_start_command(dt, {message = _("=================================================="), message_timeout = 120})
 push_start_command(dt, {message = _("  CustomDCS.com Super Quick Autostart Sequence Is Running (2m 10sec)"), message_timeout = 120})
 push_start_command(dt, {message = _("          This Auto Start is Set For FARP SHARON"), message_timeout = 120})
-push_start_command(dt, {message = _("       Night Mode - Doppler is Off For Night Vision"), message_timeout = 120}) -- Text For Night Mode
+--push_start_command(dt, {message = _("       Night Mode - Doppler is Off For Night Vision"), message_timeout = 120}) -- Text For Night Mode
 push_start_command(dt, {message = _("=================================================="), message_timeout = 120})
 
 
@@ -118,18 +118,18 @@ push_start_command(0.2, {device = devices.ENGINE_INTERFACE, action = device_comm
 
 -- Lights - Brightness Knobs - All To MAX - Day Mode
 
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_11, value = 0.5}) -- 5.5V Lights Brightness Rheostat
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_10, value = 0.5}) -- Central Red Lights Brightness Group 2 Rheostat
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_9, value = 0.5}) -- Central Red Lights Brightness Group 1 Rheostat
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_8, value = 0.5}) -- Right Red Lights Brightness Group 2 Rheostat
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_7, value = 0.5}) -- Right Red Lights Brightness Group 1 Rheostat
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_6, value = 0.5}) -- Left Red Lights Brightness Group 2 Rheostat
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_5, value = 0.5}) -- Left Red Lights Brightness Group 1 Rheostat
-push_start_command(dt, {device = devices.RECORDER_P503B, action = device_commands.Button_2, value = 0.5}) -- Recorder P-503B Backlight Brightness Knob
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_23, value = 0.5}) -- Cargo Cabin Common Lights Switch
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_2, value = -1.0}) -- Left Ceiling Light Switch
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_3, value = -1.0}) -- Right Ceiling Light Switch
-push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_4, value = 0.5}) -- 5.5V Lights Switch
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_11, value = 1.0}) -- 5.5V Lights Brightness Rheostat
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_10, value = 1.0}) -- Central Red Lights Brightness Group 2 Rheostat
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_9, value = 1.0}) -- Central Red Lights Brightness Group 1 Rheostat
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_8, value = 1.0}) -- Right Red Lights Brightness Group 2 Rheostat
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_7, value = 1.0}) -- Right Red Lights Brightness Group 1 Rheostat
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_6, value = 1.0}) -- Left Red Lights Brightness Group 2 Rheostat
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_5, value = 1.0}) -- Left Red Lights Brightness Group 1 Rheostat
+push_start_command(dt, {device = devices.RECORDER_P503B, action = device_commands.Button_2, value = 1.0}) -- Recorder P-503B Backlight Brightness Knob
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_23, value = 1.0}) -- Cargo Cabin Common Lights Switch
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_2, value = 1.0}) -- Left Ceiling Light Switch
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_3, value = 1.0}) -- Right Ceiling Light Switch
+push_start_command(dt, {device = devices.LIGHT_SYSTEM, action = device_commands.Button_4, value = 1.0}) -- 5.5V Lights Switch
 push_start_command(dt, {device = devices.SYS_CONTROLLER, action = device_commands.Button_6, value = 1.0}) -- Transparent Switch - Warning Lights To Night
 push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_12, value = 1.0}) -- ANO Switch - NAV Lights - Bright
 push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_13, value = 1.0}) -- Formation Lights - BRIGHT
@@ -170,7 +170,7 @@ push_start_command(dt, {device = devices.SPUU_52, action = device_commands.Butto
 
 -- Copilot's Triangular Panel
 
---push_start_command(dt, {device = devices.DISS_15, action = device_commands.Button_1, value = 1.0}) -- Doppler Navigator Power Switch
+push_start_command(dt, {device = devices.DISS_15, action = device_commands.Button_1, value = 1.0}) -- Doppler Navigator Power Switch
 push_start_command(dt, {device = devices.GMK1A, action = device_commands.Button_1, value = 1.0}) -- GMC Power Switch
 push_start_command(dt, {device = devices.AGB_3K_RIGHT, action = device_commands.Button_4, value = 1.0}) -- Right Attitude Indicator Power Switch
 push_start_command(dt, {device = devices.ARC_UD, action = device_commands.Button_4, value = 0.0}) -- ARC-UD, Channel Selector Switch
