@@ -53,7 +53,7 @@ alert_messages[RIGHT_ENGINE_START_FAULT] = { message = _("RIGHT ENGINE START FAU
 push_start_command(dt, {message = _(" "), message_timeout = 120})	
 push_start_command(dt, {message = _("=================================================="), message_timeout = 120})
 push_start_command(dt, {message = _("  CustomDCS.com Super Quick Autostart Sequence Is Running (2m 10sec)"), message_timeout = 120})
-push_start_command(dt, {message = _("          This Auto Start is Set For FARP SHARON"), message_timeout = 120})
+push_start_command(dt, {message = _("             This Auto Start is Set For FARP XXXXXX"), message_timeout = 120})
 push_start_command(dt, {message = _("=================================================="), message_timeout = 120})
 	
 	
@@ -73,137 +73,286 @@ push_start_command(0.3,{device = devices.ECS_INTERFACE,action =  ecs_commands.Se
 
 -- Collective
 
-push_start_command(0.1,{device = devices.ENGINE_INTERFACE, action = engine_commands.COLLECTIVE, value = -1.0,}) -- Collective Set To Down
+push_start_command(0.5,{device = devices.ENGINE_INTERFACE, action = engine_commands.COLLECTIVE, value = -1.0,}) -- Collective Set To Down
 
 
 -- Battery Switches
 
-push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.BatteryRight, value = 1.0}) -- Right Battery Switch ON
-push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.BatteryLeft, value = 1.0}) -- Left Battery Switch ON
+push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.BatteryRight, value = 1.0}) -- Right Battery Switch - ON
+push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.BatteryLeft, value = 1.0}) -- Left Battery Switch - ON
 
 
 --Network To Batteries Switch
 
 push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.NetworkToBatteriesCover, value = 1.0}) -- Network To Batteries Cover - OPEN
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  elec_commands.NetworkToBatteries, value = 1.0}) -- Network To Batteries Switch ON
+push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  elec_commands.NetworkToBatteries, value = 1.0}) -- Network To Batteries Switch - ON
 
 
 -- Circut Breakers
 
-push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.CB_FRAME_LEFT, value = 1.0}) -- Turn Left CBs ON
+push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.CB_FRAME_LEFT, value = 1.0}) -- Turn Left CBs - ON
 push_start_command(0.5,{device = devices.ELEC_INTERFACE,action =  elec_commands.CB_FRAME_LEFT, value = 0.0}) -- Release
 
+push_start_command(0.05,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
--- Voice Warnings
-
-push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0})
-push_start_command(0.5,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0})
-
-
--- Circut Breakers
-
-push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.CB_FRAME_RIGHT, value = 1.0}) -- Turn Right CBs ON
+push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.CB_FRAME_RIGHT, value = 1.0}) -- Turn Right CBs - ON
 push_start_command(0.5,{device = devices.ELEC_INTERFACE,action =  elec_commands.CB_FRAME_RIGHT, value = 0.0}) -- Release
 
 
 -- Voice Warnings
 
-push_start_command(0.0,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0})
-push_start_command(0.5,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0})
+push_start_command(0.0,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
+
+push_start_command(0.0,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
+
+push_start_command(0.0,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
 
 -- Rectifiers - Generators - Transformers - Invertors
 
-push_start_command(dt,{device = devices.ELEC_INTERFACE,action = elec_commands.RectifierLeft, value = 1.0,}) -- Left Rectifier Set To ON
-push_start_command(dt,{device = devices.ELEC_INTERFACE,action = elec_commands.RectifierRight, value = 1.0,}) -- Right Rectifier Set To ON
+push_start_command(dt,{device = devices.ELEC_INTERFACE,action = elec_commands.RectifierLeft, value = 1.0,}) -- Left Rectifier Set - ON
+push_start_command(dt,{device = devices.ELEC_INTERFACE,action = elec_commands.RectifierRight, value = 1.0,}) -- Right Rectifier Set - ON
 
-push_start_command(dt,{device = devices.ELEC_INTERFACE,action = elec_commands.ACGeneratorLeft, value = 1.0}) -- Left Generator Set To ON
-push_start_command(dt,{device = devices.ELEC_INTERFACE,action = elec_commands.ACGeneratorRight, value = 1.0}) -- Right Generator Set To ON
+push_start_command(dt,{device = devices.ELEC_INTERFACE,action = elec_commands.ACGeneratorLeft, value = 1.0}) -- Left Generator Set - ON
+push_start_command(dt,{device = devices.ELEC_INTERFACE,action = elec_commands.ACGeneratorRight, value = 1.0}) -- Right Generator Set - ON
 
-push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.Transformer115vMainBackup, value = 1.0}) -- Left Transformer Set To ON
-push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.Transformer36vMainBackup, value = 1.0}) -- Right Transformer Set To ON
+push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
-push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.Rotary115vConverterCover, value = 1.0}) -- Inverter PO-750A Cover To OPEN
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  elec_commands.Rotary115vConverter, value = 1.0}) -- Inverter PO-750A Cover Set To ON
+push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.Transformer115vMainBackup, value = 1.0}) -- Left Transformer Set - MAIN
+push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.Transformer36vMainBackup, value = 1.0}) -- Right Transformer Set - MAIN
 
-push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.Rotary36vConverterCover, value = 1.0}) -- Inverter PT-125Ts Cover To OPEN
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  elec_commands.Rotary36vConverter, value = 1.0}) -- Inverter PT-125Ts Set To ON
+push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.Rotary115vConverterCover, value = 1.0}) -- Inverter PO-750A Cover (115v)  - OPEN
+push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  elec_commands.Rotary115vConverter, value = 1.0}) -- Inverter PO-750A Cover Set (115v) - ON
 
-push_start_command(0.0,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0})
-push_start_command(0.5,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0})
+push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.Rotary36vConverterCover, value = 1.0}) -- Inverter PT-125Ts Cover (36v) - OPEN
+push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  elec_commands.Rotary36vConverter, value = 1.0}) -- Inverter PT-125Ts Set (36v) - ON
+
+push_start_command(0.0,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.5,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
 
 -- Instrument Backing Lights
 
-push_start_command(dt,{device = devices.INT_LIGHTS_SYSTEM,action =  int_lights_commands.RedLightsPilotInstrumentPanelRightPanel_1, value = 1.0,}) -- Red Lights Right And Pilot Panel Set To MAX
-push_start_command(dt,{device = devices.INT_LIGHTS_SYSTEM,action =  int_lights_commands.RedLightsPilotInstrumentPanelRightPanel_2, value = 1.0,}) -- Red Lights Right And Pilot Panel Set To MAX
-push_start_command(dt,{device = devices.INT_LIGHTS_SYSTEM,action =  int_lights_commands.RedLightsPilotLeftPanel_1, value = 1.0}) -- Red Lights Left Pilot Panel Set To MAX
-push_start_command(dt,{device = devices.INT_LIGHTS_SYSTEM,action =  int_lights_commands.RedLightsPilotLeftPanel_2, value = 1.0}) -- Red Lights Left Pilot Panel Set To MAX
-push_start_command(dt,{device = devices.INT_LIGHTS_SYSTEM,action =  int_lights_commands.RedLightsOperatorPanel_1, value = 1.0}) -- Red Lights Left And Operator Panel Set To MAX
-push_start_command(dt,{device = devices.INT_LIGHTS_SYSTEM,action =  int_lights_commands.Transformer36vMainBackup, value = 1.0}) -- Red Lights Left And Operator Panel Set To MAX
-push_start_command(dt,{device = devices.INT_LIGHTS_SYSTEM,action =  int_lights_commands.RedLightsPilotBuiltInRedLights, value = 1.0}) -- Builtin Red Lights Transformer Set To MAX
+push_start_command(dt,{device = devices.INT_LIGHTS_SYSTEM,action =  int_lights_commands.RedLightsPilotInstrumentPanelRightPanel_1, value = 1.0,}) -- Red Lights Right And Pilot Panel Set - MAX
+push_start_command(dt,{device = devices.INT_LIGHTS_SYSTEM,action =  int_lights_commands.RedLightsPilotInstrumentPanelRightPanel_2, value = 1.0,}) -- Red Lights Right And Pilot Panel Set - MAX
+push_start_command(dt,{device = devices.INT_LIGHTS_SYSTEM,action =  int_lights_commands.RedLightsPilotLeftPanel_1, value = 1.0}) -- Red Lights Left Pilot Panel Set - MAX
+push_start_command(dt,{device = devices.INT_LIGHTS_SYSTEM,action =  int_lights_commands.RedLightsPilotLeftPanel_2, value = 1.0}) -- Red Lights Left Pilot Panel Set - MAX
+push_start_command(dt,{device = devices.INT_LIGHTS_SYSTEM,action =  int_lights_commands.RedLightsOperatorPanel_1, value = 1.0}) -- Red Lights Left And Operator Panel Set - MAX
+push_start_command(dt,{device = devices.INT_LIGHTS_SYSTEM,action =  int_lights_commands.Transformer36vMainBackup, value = 1.0}) -- Red Lights Left And Operator Panel Set - MAX
+push_start_command(dt,{device = devices.INT_LIGHTS_SYSTEM,action =  int_lights_commands.RedLightsPilotBuiltInRedLights, value = 1.0}) -- Builtin Red Lights Transformer Set - MAX
 
 
 -- Voice Warnings
 
-push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0})
-push_start_command(0.5,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0})
+push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
+push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
--- Voice Warnings
+push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
-push_start_command(0.4,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0})
-push_start_command(0.5,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0})
+push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
+
+push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
 
 -- Fuel Cutoff Switches
 
-push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveTank1, value = 1.0}) -- Tank 1 Cutoff Switch Set To ON
-push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveTank2, value = 1.0}) -- Tank 2 Cutoff Switch Set To ON
-push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.Tank4Pump, value = 1.0}) -- Tank Pump 4 Set To ON
-push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.Tank5Pump, value = 1.0}) -- Tank Pump 5 Set To ON
-push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.Tank1Pump, value = 1.0}) -- Tank Pump 1 Set To ON
-push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.Tank2Pump, value = 1.0}) -- Tank Pump 2 Set To ON
-push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveDelimiter, value = 1.0}) -- Fuel Delimiter Valve Set To ON
+push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveTank1, value = 1.0}) -- Tank 1 Cutoff Switch Set - ON
+push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveTank2, value = 1.0}) -- Tank 2 Cutoff Switch Set - ON
+
+push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.Tank4Pump, value = 1.0}) -- Tank Pump 4 Set - ON
+push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.Tank5Pump, value = 1.0}) -- Tank Pump 5 Set - ON
+push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.Tank1Pump, value = 1.0}) -- Tank Pump 1 Set - ON
+push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.Tank2Pump, value = 1.0}) -- Tank Pump 2 Set - ON
+
+push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveDelimiter, value = 1.0}) -- Fuel Delimiter Valve Set - ON
 
 
 -- Voice Warnings
 
-push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0})
-push_start_command(0.5,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0})
+push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
+
+push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
+
+push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
+
+push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
 
 -- APU Start START 15sec
 
-push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_Launch_Method, value = -1.0}) -- APU Selector Switch To START
+push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_Launch_Method, value = -1.0}) -- APU Selector Switch - START
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_StartUp, value = 1.0}) -- APU Start Button - Press
 push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_StartUp, value = 0.0}) -- APU Start Button - Release
 
--- Voice Warnings
-
-push_start_command(0.4,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0})
-push_start_command(0.4,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0})
-
 
 -- Voice Warnings
 
-push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0})
-push_start_command(0.4,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0})
+push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
+
+push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
 
--- Voice Warnings
+-- Lights And Radio Switches
 
-push_start_command(4.5,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0})
-push_start_command(0.5,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0})
+push_start_command(dt,{device = devices.SPU_8,action =  SPU_8_Mi24_commands.CMD_SPU8_NETWORK_1, value = 1.0}) -- Switch SPU-8 NET-1 - ON
+push_start_command(dt,{device = devices.SPU_8,action =  SPU_8_Mi24_commands.CMD_SPU8_NETWORK_2, value = 1.0}) -- Switch SPU-8 NET-2 - ON
+push_start_command(dt,{device = devices.R_863,action =  r863_commands.POWER, value = 1.0}) -- R-863 Power Switch - ON
+push_start_command(dt,{device = devices.JADRO_1I,action =  jadro_commands.POWER, value = 1.0}) -- JADRO Power Switch - ON
+push_start_command(dt,{device = devices.EUCALYPT_M24,action =  eucalypt_commands.POWER_ON_OFF2, value = 1.0}) -- R-828 Power Switch - ON
+push_start_command(dt,{device = devices.RADAR_ALTIMETER,action =  ralt_commands.POWER, value = 1.0}) -- RADALT Power Switch - ON
+push_start_command(dt,{device = devices.DISS_15,action =  diss_commands.POWER, value = 1.0}) -- Doppler System Switch - ON
+push_start_command(dt,{device = devices.MGV1SU_1,action =  mgv1su_commands.POWER, value = 1.0}) -- Gyro 1 Power Switch - ON
+push_start_command(dt,{device = devices.MGV1SU_2,action =  mgv1su_commands.POWER, value = 1.0}) -- Gyro 2 Power Switch - ON
+push_start_command(dt,{device = devices.GREBEN,action =  greben_commands.POWER, value = 1.0}) -- Greben Power Switch - ON
+push_start_command(dt,{device = devices.SPO_10,action =  SPO_commands.Command_SPO_POWER, value = 1.0}) -- RWR Power Switch - ON
+push_start_command(dt,{device = devices.IFF,action =  IFF_6201_commands.CMD_IFF_Power_Sw, value = 1.0}) -- IFF Power Switch - ON
+push_start_command(dt,{device = devices.CPT_MECH,action =  cockpit_mechanics_commands.Command_CPT_MECH_FAN_PILOT, value = 1.0}) -- Pilots Fan Power Switch - ON
+push_start_command(dt,{device = devices.EXT_LIGHTS_SYSTEM,action =  ext_lights_commands.StrobeLight, value = 1.0}) -- Strobe Light Power Switch - ON
+push_start_command(dt,{device = devices.EXT_LIGHTS_SYSTEM,action =  ext_lights_commands.TipLights, value = 1.0}) -- Blade Tip Lights Power Switch - ON
+push_start_command(dt,{device = devices.EXT_LIGHTS_SYSTEM,action =  ext_lights_commands.FormationLights, value = 1.0}) -- Formation Lights Power Switch - BRIGHT
+push_start_command(dt,{device = devices.MAP_DISPLAY,action =  map_display_commands.Power, value = 1.0}) -- Map Power Switch - ON
 
+push_start_command(0.1,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
+
+push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
+
+push_start_command(4.1,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
 -- APU Generator Switch
 
-push_start_command(11,{device = devices.ELEC_INTERFACE,action =  elec_commands.DCGenerator, value = 1.0}) -- APU Gen Set To ON
+push_start_command(10	,{device = devices.ELEC_INTERFACE,action =  elec_commands.DCGenerator, value = 1.0}) -- APU Gen Set - ON
+
+
+-- Fuel Control Valves
+
+push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveLeftEngineCover, value = 1.0}) -- Left Engine Fire Valve Cover - OPEN
+push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveLeftEngine, value = 1.0}) -- Left Engine Fire Valve - ON
+push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveLeftEngineCover, value = 0.0}) -- Left Engine Fire Valve Cover - CLOSE
+
+push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveRightEngineCover, value = 1.0}) -- Right Engine Fire Valve Cover - OPEN
+push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveRightEngine, value = 1.0}) -- Right Engine Fire Valve - ON
+push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveRightEngineCover, value = 0.0}) -- Right Engine Fire Valve Cover - CLOSE
+
+
+-- Fuel Shutoff Valves
+
+push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.LEVER_Left_Engine_Lock, value = 0.0}) -- Left Engine Fuel Shutoff Valve - ON
+push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.LEVER_Right_Engine_Lock, value = 0.0}) -- Right Engine Fuel Shutoff Valve - ON
+
+
+-- Rotor Brake
+
+push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.LEVER_Rotor_Lock, value = 0.0}) -- Rotor Brake - OFF
+
+
+-- Throttle Up
+
+push_start_command(0.1, {action = Keys.iCommand_ThrottleIncrease}) -- Collective Throttle To MAX
+push_start_command(1.3, {action = Keys.iCommand_ThrottleStop}) -- MAX Value
+
+
+-- Left Engine Start TIME 48sec
+
+push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Launch_Method, value = 0.0}) -- Mode Selector Switch - START
+push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Select, value = 1.0}) -- Engine Select Switch - LEFT
+
+push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 1.0}) -- Engine Start Button - PRESS
+push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 0.0}) -- Engine Start Button - RELEASE
+push_start_command(0.1,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 1.0}) -- Engine Start Button - PRESS
+push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 0.0}) -- Engine Start Button - RELEASE
+
+
+-- Cage Gyros
+
+push_start_command(35,{device = devices.MGV1SU_1,action =  mgv1su_commands.CAGE, value = 1.0}) -- Left Gyro Cage - PRESS
+push_start_command(1.0,{device = devices.MGV1SU_1,action =  mgv1su_commands.CAGE, value = 0.0}) -- Left Gyro Cage - RELEASE
+
+push_start_command(dt,{device = devices.MGV1SU_2,action =  mgv1su_commands.CAGE, value = 1.0}) -- Right Gyro Cage - PRESS
+push_start_command(1.0,{device = devices.MGV1SU_2,action =  mgv1su_commands.CAGE, value = 0.0}) -- Right Gyro Cage - RELEASE
+
+
+-- Weapons Systems
+
+push_start_command(dt,{device = devices.INT_LIGHTS_SYSTEM,action =  int_lights_commands.SpecialEquipmentPanelRedLights, value = 1.0}) -- Armament Panel Red Lights Switch - ON
+push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_FKP_CAMERA, value = 1.0}) -- Weapon Camera - ON
+push_start_command(dt,{device = devices.I9K113,action =  i9K113_commands.Command_POWER_PN, value = 1.0}) -- Sight Power - ON
+push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_NPU_CHAIN, value = 1.0}) -- Burst Length - MED
+push_start_command(dt,{device = devices.ASP_17V,action =  asp_commands.Range_Auto_Manual, value = 1.0}) -- Sight AUTO/MANUAL - AUTO
+push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_SWITCHER_FIRE_CONTROL, value = 1.0}) -- Pilot Master Arm - ON
+push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_TEMP_NPU30, value = 1.0}) -- Cannon Fire Rate - FAST
+push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_EMERG_EXPLODE_COVER, value = 1.0}) -- Explosion on Jettison Cover - OPEN
+push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_EMERG_RELEASE_COVER, value = 1.0}) -- Jettison Pylons Cover - OPEN
+push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_EMERG_RELEASE_PU_COVER, value = 1.0}) -- Jettison Launcher Cover - OPEN
+push_start_command(dt,{device = devices.I9K113,action =  i9K113_commands.Command_9k113_Backlight, value = 1.0}) -- CPG Backlight Switch - ON
+--push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_SWITCHER_SAFE_WEAP, value = 1.0}) -- Master ARM - ON
+push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_URS_POWER, value = 1.0}) -- Missiles Power - ON
+push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_PUS_ARMING, value = 1.0}) -- Arm Rockets
+push_start_command(dt,{device = devices.PKP72M_INTERFACE,action =  pkp72m_interface_commands.PKP72MoperatorSwitch, value = 1.0}) -- ADI Power Switch - ON
+push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_POWER_SHO_SWITCHER, value = 1.0}) -- SCHO Power Switch - ON
+push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_CHECK_LAMPS_9C475, value = 1.0}) -- SCHO Lamps Check Switch - ON
+push_start_command(dt,{device = devices.ECS_INTERFACE,action =  ecs_commands.HeatingAirFlowSight, value = 1.0}) -- Sight Fan Power Switch - ON
+push_start_command(dt,{device = devices.CPT_MECH,action =  cockpit_mechanics_commands.Command_CPT_MECH_FAN_OPERATOR, value = 1.0}) -- Co Pilots Fan Power Switch - ON
+push_start_command(dt,{device = devices.CPT_MECH,action =  cockpit_mechanics_commands.Command_CPT_MECH_PitotTotalAndAoASideslip, value = 1.0}) -- Heating DUAS Power Switch - ON
+
+
+-- Right Engine Start TIME 48sec
+
+push_start_command(15,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Launch_Method, value = 0.0}) -- Mode Selector Switch To START
+push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Select, value = -1.0}) -- Engine Select Switch - RIGHT
+
+push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 1.0}) -- Engine Start Button - PRESS
+push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 0.0}) -- Engine Start Button - RELEASE
+push_start_command(0.1,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 1.0}) -- Engine Start Button - PRESS
+push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 0.0}) -- Engine Start Button - RELEASE
+
+
+-- APU Stop
+
+push_start_command(46,{device = devices.ELEC_INTERFACE,action =  elec_commands.DCGenerator, value = 0.0}) -- APU Gen Set - OFF
+push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.Transformer115vMainBackup, value = 0.0}) -- Left Transformer Set - AUTO
+push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.Transformer36vMainBackup, value = 0.0}) -- Right Transformer Set - AUTO
+
+push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_Stop, value = 1.0}) -- APU Stop Button - Press
+push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_Stop, value = 0.0}) -- APU Stop Button - Release
+
+push_start_command(2.0,{device = devices.ELEC_INTERFACE,action =  elec_commands.Transformer115vMainBackup, value = 1.0}) -- Left Transformer Set - MAIN
+push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.Transformer36vMainBackup, value = 1.0}) -- Right Transformer Set - MAIN
+
+
+-- Invreters
+
+push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.Rotary115vConverterCover, value = 0.0}) -- Inverter PO-750A Cover (115v) - CLOSED
+push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.Rotary36vConverterCover, value = 0.0}) -- Inverter PT-125Ts Cover (36v) - CLOSED
+push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.NetworkToBatteriesCover, value = 0.0}) -- Network To Batteries Cover - CLOSED
+
+
+-- Auto Pilot
+
+push_start_command(0.1,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonKon, value = 1.0}) -- Autopilot K Channel (ROLL) - ON
+push_start_command(0.1,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonTon, value = 1.0}) -- Autopilot T Channel (PITCH) - ON 
 
 
 
-
-
+push_start_command(dt, {message = _("......... "), message_timeout = 5})	
 
 
