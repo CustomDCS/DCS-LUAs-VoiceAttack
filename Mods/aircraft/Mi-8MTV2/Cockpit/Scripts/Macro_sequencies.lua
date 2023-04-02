@@ -237,6 +237,11 @@ for i = 1, 100, 1 do
 end
 
 
+-- Radio Main Selector Rotary
+
+push_start_command(12, {device = devices.SPU_7, action = device_commands.Button_3, value = 0.0}) -- Radio Selector Rotary - R-863
+
+
 -- Tune ADF
 
 -- Reserve - Set To 450kHz
@@ -400,6 +405,7 @@ push_start_command(dt, {message = _("=================="), message_timeout = 14}
 push_start_command(12, {device = devices.SPU_7, action = device_commands.Button_4, value = 0.0}) -- Radio Set to Radio
 
 
+
 -- Auto Pilot
 
 push_start_command(0.1, {device = devices.AUTOPILOT, action = device_commands.Button_2, value = 1.0}) -- Press
@@ -410,7 +416,7 @@ push_start_command(1.0, {message = _(" "), message_timeout = 10})
 push_start_command(dt, {message = _("================================"), message_timeout = 10})
 push_start_command(dt, {message = _("  Autopilot Pitch/Roll Channel - ON"), message_timeout = 10})
 push_start_command(dt, {message = _("  ICS Off"), message_timeout = 10})
-push_start_command(dt, {message = _("  PTT for SRS will Now Transmit On 250kHz AM"), message_timeout = 10})
+push_start_command(dt, {message = _("  PTT for SRS will Now Transmit On 250AM"), message_timeout = 10})
 push_start_command(dt, {message = _("  99.8% Chance You Are Ready To Fly"), message_timeout = 10})
 push_start_command(dt, {message = _("  Auto Start Complete"), message_timeout = 10})
 push_start_command(dt, {message = _("================================"), message_timeout = 10})
@@ -481,6 +487,11 @@ push_stop_command(dt, {message = _(" "), message_timeout = 52})
 push_stop_command(dt, {device = devices.CPT_MECH, action = device_commands.Button_17, value = 1.0}) -- Parking Brake - ON
 
 
+-- Audio Warnings
+
+push_stop_command(dt, {device = devices.VMS, action = device_commands.Button_6, value = 0.0}) -- Bitchin Betty - OFF
+
+
 -- Cage Gyros
 
 push_stop_command(0.1, {device = devices.AGB_3K_LEFT, action = device_commands.Button_2, value = 1.0}) -- Press - Cage Left Gyro
@@ -528,11 +539,6 @@ push_stop_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_command
 
 push_stop_command(0.1, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_7, value = 1.0}) -- Press - APU Stop Button
 push_stop_command(0.2, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_7, value = 0.0}) -- Release - APU Start Button
-
-
--- Audio Warnings
-
-push_stop_command(dt, {device = devices.VMS, action = device_commands.Button_6, value = 0.0}) -- Bitchin Betty - OFF
 
 
 -- Fuel Shutoff Switches
