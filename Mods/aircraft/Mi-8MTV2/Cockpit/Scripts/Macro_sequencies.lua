@@ -278,7 +278,7 @@ push_start_command(0.0, {message = _(" "), message_timeout = mto})
 
 -- Taxi Light
 
-push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_17, value = 1.0}) -- Taxi Light - ON
+--push_start_command(dt, {device = devices.NAVLIGHT_SYSTEM, action = device_commands.Button_17, value = 1.0}) -- Taxi Light - ON
 
 
 -- Power levers and throttle
@@ -608,8 +608,8 @@ push_stop_command(dt, {message = _(" "), message_timeout = 8.0})
 
 -- Blister Windows
 
-push_stop_command(8.1, {device = devices.CPT_MECH, action = device_commands.Button_15, value = -1.0}) -- Pilots Window - OPEN
-push_stop_command(0.1, {device = devices.CPT_MECH, action = device_commands.Button_16, value = -1.0}) -- Co Pilots Window - OPEN
+push_stop_command(7.9, {device = devices.CPT_MECH, action = device_commands.Button_15, value = 1.0}) -- Pilots Window - OPEN
+push_stop_command(0.1, {device = devices.CPT_MECH, action = device_commands.Button_16, value = 1.0}) -- Co Pilots Window - OPEN
 
 push_stop_command(dt, {message = _(" "), message_timeout = mto})
 push_stop_command(dt, {message = _("============================================"), message_timeout = mto})
