@@ -59,9 +59,21 @@ push_start_command(dt, {message = _("===========================================
 push_start_command(dt, {message = _(" "), message_timeout = 120})		
 
 
+-- Barometric Pressure Set
+
+for i = 1, 53.0, 1 do
+	push_start_command(0.01, {device = devices.BAROALT_P, action = baroaltimeter_commands.CMD_ADJUST_PRESSURE, value = 1}) -- Set QNH - Pilot
+end
+
+for i = 1, 20, 1 do
+	push_start_command(0.01, {device = devices.RADAR_ALTIMETER, action = ralt_commands.ROTARY, value = -1}) -- RADALT Set To 0m
+end
+
+
 -- Hide Seat
 
 push_start_command(dt,{device = devices.CPT_MECH, action =  cockpit_mechanics_commands.Command_CPT_MECH_Elements_Hide, value = 1.0}) -- Turn Seat OFF
+
 
 -- Close Doors
 
@@ -84,7 +96,7 @@ push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.B
 push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.BatteryLeft, value = 1.0}) -- Left Battery Switch - ON
 
 
---Network To Batteries Switch
+-- Network To Batteries Switch
 
 push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.NetworkToBatteriesCover, value = 1.0}) -- Network To Batteries Cover - OPEN
 push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  elec_commands.NetworkToBatteries, value = 1.0}) -- Network To Batteries Switch - ON
@@ -217,6 +229,9 @@ push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_
 push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
 
+
+
+
 -- Lights And Radio Switches
 
 push_start_command(dt,{device = devices.SPU_8,action =  SPU_8_Mi24_commands.CMD_SPU8_NETWORK_1, value = 1.0}) -- Switch SPU-8 NET-1 - ON
@@ -306,7 +321,7 @@ push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot
 push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_EMERG_RELEASE_COVER, value = 1.0}) -- Jettison Pylons Cover - OPEN
 push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_EMERG_RELEASE_PU_COVER, value = 1.0}) -- Jettison Launcher Cover - OPEN
 push_start_command(dt,{device = devices.I9K113,action =  i9K113_commands.Command_9k113_Backlight, value = 1.0}) -- CPG Backlight Switch - ON
---push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_SWITCHER_SAFE_WEAP, value = 1.0}) -- CPG Master ARM - ON
+push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_SWITCHER_SAFE_WEAP, value = 1.0}) -- CPG Master ARM - ON
 push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_URS_POWER, value = 1.0}) -- Missiles Power - ON
 push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_PUS_ARMING, value = 1.0}) -- Arm Rockets
 push_start_command(dt,{device = devices.PKP72M_INTERFACE,action =  pkp72m_interface_commands.PKP72MoperatorSwitch, value = 1.0}) -- ADI Power Switch - ON
@@ -363,7 +378,8 @@ push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_comma
 
 -- Auto Pilot
 
-push_start_command(0.5,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonKon, value = 1.0}) -- Autopilot K Channel (ROLL) - ON
+push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_SWITCHER_SAFE_WEAP, value = 1.0}) -- CPG Master ARM - ON
+push_start_command(5.0,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonKon, value = 1.0}) -- Autopilot K Channel (ROLL) - ON
 push_start_command(0.1,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonTon, value = 1.0}) -- Autopilot T Channel (PITCH) - ON 
 push_start_command(0.1,{device = devices.SPUU_52,action =  spuu_commands.On_Off, value = 1.0}) -- SPUU Power Switch - ON
 
