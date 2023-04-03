@@ -258,6 +258,7 @@ push_start_command(dt,{device = devices.EXT_LIGHTS_SYSTEM,action =  ext_lights_c
 push_start_command(dt,{device = devices.EXT_LIGHTS_SYSTEM,action =  ext_lights_commands.TipLights, value = 1.0}) -- Blade Tip Lights Power Switch - ON
 push_start_command(dt,{device = devices.EXT_LIGHTS_SYSTEM,action =  ext_lights_commands.FormationLights, value = 1.0}) -- Formation Lights Power Switch - BRIGHT
 push_start_command(dt,{device = devices.MAP_DISPLAY,action =  map_display_commands.Power, value = 1.0}) -- Map Power Switch - ON
+push_start_command(dt,{device = devices.EXT_CARGO_EQUIPMENT,action =  ext_cargo_equipment_commands.CMD_AutoReleaseSw, value = 1.0}) -- External Cargo Hook - AUTOMATIC
 
 push_start_command(0.1,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
 push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
@@ -324,7 +325,7 @@ push_start_command(dt,{device = devices.ASP_17V,action = asp_commands.Power, val
 push_start_command(dt,{device = devices.ASP_17V,action = asp_commands.Power, value = 1.0}) -- CPG Sight Power Switch - ON
 push_start_command(dt,{device = devices.ASP_17V,action = asp_commands.Manual_Auto, value = 1.0}) -- Sight Mode Switch - AUTO
 push_start_command(dt,{device = devices.ASP_17V,action = asp_commands.Sync_Async, value = 1.0}) -- Sight Sync Switch - SYNC
-push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_NPU_CHAIN, value = -1.0}) -- Burst Length - MED
+push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_NPU_CHAIN, value = 0.0}) -- Burst Length - LONG
 push_start_command(dt,{device = devices.ASP_17V,action =  asp_commands.Range_Auto_Manual, value = 1.0}) -- Sight AUTO/MANUAL - AUTO
 push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_SWITCHER_FIRE_CONTROL, value = 1.0}) -- Pilot Master Arm - ON
 push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_TEMP_NPU30, value = 1.0}) -- Cannon Fire Rate - FAST
