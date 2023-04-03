@@ -116,6 +116,8 @@ function AutoStartSelection ($airframes, $installPath) {
 
       Copy-Item $relPath -Destination $destPath
 
+      $wsh = New-Object -ComObject Wscript.Shell
+      $wsh.Popup([string]::Format("New script for {0} deployed successfully!",$airframes[$e.Index]))
       Write-Host "success!"
       Write-Host "Happy fast start-up!  (You can now close the dialog)"
 
