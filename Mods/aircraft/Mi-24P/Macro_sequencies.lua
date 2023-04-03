@@ -59,6 +59,31 @@ push_start_command(0.0, {message = _("==========================================
 push_start_command(0.0, {message = _(" "), message_timeout = 125})		
 
 
+-- Hide Seat
+
+push_start_command(dt,{device = devices.CPT_MECH, action =  cockpit_mechanics_commands.Command_CPT_MECH_Elements_Hide, value = 1.0}) -- Turn Seat OFF
+
+
+-- Close Doors
+
+push_start_command(dt,{device = devices.CPT_MECH, action =  cockpit_mechanics_commands.Command_CPT_MECH_GENERAL_DOORS_CLOSE, value = 0.0}) -- Closes The Doors
+
+
+-- Sight Reflector
+
+push_start_command(dt,{device = devices.ASP_17V,action =  asp_commands.Reflector_Fix, value = 1.0}) -- Sight Reflector - UNFIX
+
+push_start_command(dt,{device = devices.ASP_17V,action =  asp_commands.Reflector_Move, value = 0.0}) -- Sight Reflector - MOVE
+push_start_command(dt,{device = devices.ASP_17V,action =  asp_commands.Reflector_Move, value = 0.0}) -- Sight Reflector - MOVE
+push_start_command(dt,{device = devices.ASP_17V,action =  asp_commands.Reflector_Move, value = 0.0}) -- Sight Reflector - MOVE
+push_start_command(dt,{device = devices.ASP_17V,action =  asp_commands.Reflector_Move, value = 0.0}) -- Sight Reflector - MOVE
+push_start_command(dt,{device = devices.ASP_17V,action =  asp_commands.Reflector_Move, value = 0.0}) -- Sight Reflector - MOVE
+push_start_command(dt,{device = devices.ASP_17V,action =  asp_commands.Reflector_Move, value = 0.0}) -- Sight Reflector - MOVE
+push_start_command(dt,{device = devices.ASP_17V,action =  asp_commands.Reflector_Move, value = 0.0}) -- Sight Reflector - MOVE
+
+push_start_command(dt,{device = devices.ASP_17V,action =  asp_commands.Reflector_Fix, value = 0.0}) -- Sight Reflector - FIX
+
+
 -- Parking Brake
 
 push_start_command(dt,{device = devices.CPT_MECH, action =  cockpit_mechanics_commands.Command_CPT_MECH_ParkingBrake, value = 1.0}) -- Parking Brake - ON
@@ -107,16 +132,6 @@ end
 for i = 1, 1, 1 do
 	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.MODE, value = 0.1}) -- ADF MODE Switch - COMP - WORKS
 end
-
-
--- Hide Seat
-
-push_start_command(dt,{device = devices.CPT_MECH, action =  cockpit_mechanics_commands.Command_CPT_MECH_Elements_Hide, value = 1.0}) -- Turn Seat OFF
-
-
--- Close Doors
-
-push_start_command(dt,{device = devices.CPT_MECH, action =  cockpit_mechanics_commands.Command_CPT_MECH_GENERAL_DOORS_CLOSE, value = 0.0}) -- Closes The Doors
 
 
 -- Door Seal Rotary
@@ -398,6 +413,7 @@ push_start_command(dt,{device = devices.CPT_MECH,action =  cockpit_mechanics_com
 
 
 
+
 -- Right Engine Start TIME 48sec
 
 push_start_command(48, {message = _("  Right Engine START"), message_timeout = 40})
@@ -445,19 +461,19 @@ push_start_command(0.0,{device = devices.ELEC_INTERFACE,action =  elec_commands.
 push_start_command(0.0,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_Stop, value = 1.0}) -- APU Stop Button - Press
 push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_Stop, value = 0.0}) -- APU Stop Button - Release
 
-push_start_command(2, {message = _(" "), message_timeout = 11})
-push_start_command(0.0, {message = _("  Stabilizing Engine RPM"), message_timeout = 11})
-push_start_command(0.0, {message = _(" "), message_timeout = 11})
+push_start_command(2, {message = _(" "), message_timeout = 10.4})
+push_start_command(0.0, {message = _("  Stabilizing Engine RPM"), message_timeout = 10.4})
+push_start_command(0.0, {message = _(" "), message_timeout = 10.4})
 
 
 -- Auto Pilot
 
-push_start_command(7.0,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_SWITCHER_SAFE_WEAP, value = 1.0}) -- CPG Master ARM - ON
-push_start_command(0.1,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_SWITCHER_SAFE_WEAP, value = 0.0})
+
 push_start_command(0.1,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonKon, value = 1.0}) -- Autopilot K Channel (ROLL) - ON
-push_start_command(0.1,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonKon, value = 0.0})
+push_start_command(0.1,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonKon, value = 0.0}) -- Release
 push_start_command(0.1,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonTon, value = 1.0}) -- Autopilot T Channel (PITCH) - ON 
-push_start_command(0.1,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonTon, value = 0.0})
+push_start_command(0.1,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonTon, value = 0.0}) -- Release
+
 push_start_command(0.1,{device = devices.SPUU_52,action =  spuu_commands.On_Off, value = 1.0}) -- SPUU Power Switch - ON
 
 
@@ -466,11 +482,18 @@ push_start_command(0.1,{device = devices.SPUU_52,action =  spuu_commands.On_Off,
 push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_SWITCHER_SAFE_WEAP, value = 1.0}) -- CPG Master ARM - ON
 
 
+-- Main Radio Selector Switch
+
+push_start_command(dt,{device = devices.SPU_8, action =  SPU_8_Mi24_commands.CMD_SPU8_P_ICS_RADIO, value = 1.0}) -- Main Radio - RADIO
+
+
 -- Finish Message
 
-push_start_command(5.0, {message = _(" "), message_timeout = 15})
-push_start_command(dt, {message = _("WIP Auto Start Has Finished"), message_timeout = 15})	
-push_start_command(dt, {message = _(" "), message_timeout = 15})
+push_start_command(11.0, {message = _(" "), message_timeout = 10})
+push_start_command(dt, {message = _("=================================================="), message_timeout = 10})	
+push_start_command(dt, {message = _("CustomDCS.com Super Quick Autostart Sequence Has Finished"), message_timeout = 10})
+push_start_command(dt, {message = _("=================================================="), message_timeout = 10})
+push_start_command(dt, {message = _(" "), message_timeout = 10})
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------
