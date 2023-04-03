@@ -108,8 +108,8 @@ push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_command
 
 -- APU - START 10.2sec
 
-push_start_command(dt, {message = _(" "), message_timeout = mto})
-push_start_command(dt, {message = _("  APU Start"), message_timeout = mto})
+push_start_command(dt, {message = _(" "), message_timeout = 6})
+push_start_command(dt, {message = _("  APU Start"), message_timeout = 6})
 push_start_command(dt, {message = _(" "), message_timeout = 6})
 
 push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_12, value = 1.0}) -- APU Start Mode Switch To START
@@ -260,25 +260,26 @@ push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_
 
 -- Information Message - Current Set Up - 125.7sec to Horn
 
-push_start_command(dt, {message = _(" "), message_timeout = 100})
-push_start_command(dt, {message = _("================================="), message_timeout = 100})
-push_start_command(dt, {message = _("  Altimeter Set To FARP SHARON"), message_timeout = 100})
-push_start_command(dt, {message = _("  Radio Set To ICS To Allow Rearm And Refuel"), message_timeout = 100})
-push_start_command(dt, {message = _("  The Rocket Systems Are On, Master Arm Is OFF"), message_timeout = 100})
-push_start_command(dt, {message = _("  Main ADF Tuned To FARP SHARON (260kHz)"), message_timeout = 100})
-push_start_command(dt, {message = _("  Reserve ADF Tuned To FARP BATWATCH (450kHz)"), message_timeout = 100})
-push_start_command(dt, {message = _("  A  ARROW      - 600kHz - 012 For 15"), message_timeout = 100})
-push_start_command(dt, {message = _("  B  GLORY        - 290kHz - 076 For 17"), message_timeout = 100})
-push_start_command(dt, {message = _("  C  WARHORSE - 480kHz - 081 For 32"), message_timeout = 100})
-push_start_command(dt, {message = _("      BAYWATCH - 450kHz - 213 For 17"), message_timeout = 100})
-push_start_command(dt, {message = _("================================="), message_timeout = 100})
-push_start_command(dt, {message = _(" "), message_timeout = 100})
+push_start_command(dt, {message = _(" "), message_timeout = 105})
+push_start_command(dt, {message = _("================================="), message_timeout = 105})
+push_start_command(dt, {message = _("  Altimeter Set To FARP SHARON"), message_timeout = 105})
+push_start_command(dt, {message = _("  Radio Set To ICS To Allow Rearm And Refuel"), message_timeout = 105})
+push_start_command(dt, {message = _("  The Rocket Systems Are On, Master Arm Is OFF"), message_timeout = 105})
+push_start_command(dt, {message = _("  Reserve ADF Tuned To FARP BATWATCH (450kHz)"), message_timeout = 105})
+push_start_command(dt, {message = _("  Main ADF Tuned To FARP SHARON (260kHz)"), message_timeout = 105})
+push_start_command(dt, {message = _("  ADF Set To MAIN"), message_timeout = 105})
+push_start_command(dt, {message = _("  A  ARROW      - 600kHz - 012 For 15"), message_timeout = 105})
+push_start_command(dt, {message = _("  B  GLORY        - 290kHz - 076 For 17"), message_timeout = 105})
+push_start_command(dt, {message = _("  C  WARHORSE - 480kHz - 081 For 32"), message_timeout = 105})
+push_start_command(dt, {message = _("      BAYWATCH - 450kHz - 213 For 17"), message_timeout = 105})
+push_start_command(dt, {message = _("================================="), message_timeout = 105})
+push_start_command(dt, {message = _(" "), message_timeout = 105})
 
 
 -- Wait For APU Start
 
-push_start_command(11.0, {message = _("  APU Running"), message_timeout = mto})
-push_start_command(0.0, {message = _(" "), message_timeout = mto})
+push_start_command(11.0, {message = _("  APU Running"), message_timeout = 4})
+push_start_command(0.0, {message = _(" "), message_timeout = 4})
 
 
 -- Taxi Light
@@ -325,7 +326,7 @@ push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_comma
 
 -- Left Engine - START 50sec
 
-push_start_command(dt, {message = _("  Left Engine Start"), message_timeout = 44.0})
+push_start_command(dt, {message = _("  Left Engine Start"), message_timeout = 44})
 push_start_command(dt, {message = _(" "), message_timeout = 44})
 
 push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_9, value = 1.0}) -- Fuel Cutoff Lever - Left
@@ -363,8 +364,8 @@ push_start_command(43.8, {message = _("  Left Engine Running"), message_timeout 
 
 -- Right Engine START 57.2sec
 
-push_start_command(dt, {message = _(" "), message_timeout = 35})
-push_start_command(dt, {message = _("  Right Engine Start"), message_timeout = 35.0})
+push_start_command(dt, {message = _(" "), message_timeout = 4})
+push_start_command(dt, {message = _("  Right Engine Start"), message_timeout = 35})
 push_start_command(dt, {message = _(" "), message_timeout = 35})
 
 push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_10, value = 1.0}) -- Fuel Cutoff Lever - Right
@@ -375,16 +376,16 @@ push_start_command(1.0, {device = devices.ENGINE_INTERFACE, action = device_comm
 
 -- Cage Gyros
 
-push_start_command(22, {message = _("  Cage/Uncage Gyros 30sec To Align"), message_timeout = 30})
-push_start_command(dt, {message = _(" "), message_timeout = 30})
+push_start_command(23, {message = _("  Cage/Uncage Gyros 30sec To Align"), message_timeout = 20})
+push_start_command(dt, {message = _(" "), message_timeout = 20})
 
 push_start_command(0.1, {device = devices.AGB_3K_LEFT, action = device_commands.Button_2, value = 1.0}) -- Press - Cage Left Gyro
 push_start_command(0.8, {device = devices.AGB_3K_LEFT, action = device_commands.Button_2, value = 0.0}) -- Release - Uncage Left Gyro
 push_start_command(0.1, {device = devices.AGB_3K_RIGHT, action = device_commands.Button_2, value = 1.0}) -- Press - Cage Right Gryo
 push_start_command(0.8, {device = devices.AGB_3K_RIGHT, action = device_commands.Button_2, value = 0.0}) -- Release - Uncage Right Gyro
 
-push_start_command(22, {message = _("  Right Engine Running"), message_timeout = 8})
-push_start_command(dt, {message = _(" "), message_timeout = 16})
+push_start_command(21, {message = _("  Right Engine Running"), message_timeout = 4})
+push_start_command(dt, {message = _(" "), message_timeout = 8})
 
 
 -- APU Stop
@@ -394,21 +395,21 @@ push_start_command(dt, {message = _("  Stopping APU - Aprox 3min For Cool Down")
 push_start_command(0.1, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_7, value = 1.0}) -- Press - APU Stop Button
 push_start_command(0.2, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_7, value = 0.0}) -- Release - APU Start Button
 
-push_start_command(1.0, {message = _(" "), message_timeout = 14})
-push_start_command(dt, {message = _("=================="), message_timeout = 14})
-push_start_command(dt, {message = _("  Stabilizing Engine RPM"), message_timeout = 14})
-push_start_command(dt, {message = _("=================="), message_timeout = 14})
+push_start_command(1.0, {message = _(" "), message_timeout = 8})
+push_start_command(dt, {message = _("=================="), message_timeout = 8})
+push_start_command(dt, {message = _("  Stabilizing Engine RPM"), message_timeout = 8})
+push_start_command(dt, {message = _("=================="), message_timeout = 8})
 
 
 -- Radios
 
-push_start_command(12, {device = devices.SPU_7, action = device_commands.Button_4, value = 0.0}) -- Radio Set to Radio
+push_start_command(dt, {device = devices.SPU_7, action = device_commands.Button_4, value = 0.0}) -- Radio Set to Radio
 
 
 
 -- Auto Pilot
 
-push_start_command(0.1, {device = devices.AUTOPILOT, action = device_commands.Button_2, value = 1.0}) -- Press
+push_start_command(dt, {device = devices.AUTOPILOT, action = device_commands.Button_2, value = 1.0}) -- Press
 push_start_command(0.1, {device = devices.AUTOPILOT, action = device_commands.Button_2, value = 0.0}) -- Release
 push_start_command(dt, {device = devices.VMS, action = device_commands.Button_6, value = 1.0}) -- Bitchin Betty - ON
 
@@ -425,7 +426,7 @@ push_start_command(dt, {message = _(" "), message_timeout = 10})
 
 -- Toot the Horn
 
-push_start_command(0.30, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Press
+push_start_command(10, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Press
 push_start_command(0.20, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 0.0}) -- Release
 push_start_command(0.30, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 1.0}) -- Press
 push_start_command(0.20, {device = devices.MISC_SYSTEMS_INTERFACE, action = device_commands.Button_1, value = 0.0}) -- Release
