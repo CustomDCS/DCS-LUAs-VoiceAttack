@@ -81,8 +81,10 @@ function AutoStartSelection ([string[]] $airframes, $installPath) {
   $aircraft = $airframes[0]
   $checkboxes = @()
   
-  #foreach($aircraft in $airframes)
-  #{
+  
+
+  foreach($aircraft in $airframes)
+  {
       # create your checkbox 
       $checkbox1 = new-object System.Windows.Forms.checkbox
       $checkbox1.Location = new-object System.Drawing.Size(30,30)
@@ -116,16 +118,15 @@ function AutoStartSelection ([string[]] $airframes, $installPath) {
           Write-Host "Not implemented yet, sorry!"
         }
       })
-      $Form.Controls.Add($checkbox1) #remove this
+      #$Form.Controls.Add($checkbox1) #remove this
 
-  #    $checkboxes += $checkbox1   
-  #}
+      $checkboxes += $checkbox1   
+  }
 
-  #foreach($checkbox in $checkboxes)
-  #{
-  #  $Form.Controls.Add($checkbox)
-  #}
-
+  foreach($checkbox in $checkboxes)
+  {
+    $Form.Controls.Add($checkbox)
+  }
 
   # Add a close button
   $OKButton = new-object System.Windows.Forms.Button
@@ -161,6 +162,6 @@ else {
 }
 
 # get list of airframes
-#$airframes = (Get-ChildItem -Path "Mods\aircraft" -Directory).Name
-$airframes = @("Mi-8MTV2")
+$airframes = (Get-ChildItem -Path "Mods\aircraft" -Directory).Name
+#$airframes = @("Mi-8MTV2")
 AutoStartSelection -airframes $airframes, $installPath
