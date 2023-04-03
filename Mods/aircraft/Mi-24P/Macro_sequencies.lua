@@ -50,13 +50,13 @@ alert_messages[RIGHT_ENGINE_START_FAULT] = { message = _("RIGHT ENGINE START FAU
 -- Function to collect all the start sequence commands.
 
 
-push_start_command(0.001, {message = _(" "), message_timeout = 130})
-push_start_command(0.001, {message = _("=================================================="), message_timeout = 130})
-push_start_command(0.001, {message = _("  CustomDCS.com Super Quick Autostart Sequence Is Running (2m 20sec)"), message_timeout = 130})
-push_start_command(0.001, {message = _("                    This Auto Start is Set For FARP XXXXXX"), message_timeout = 130})
---push_start_command(0.001, {message = _("                         Master ARM Is OFF"), message_timeout = 130})
-push_start_command(0.001, {message = _("=================================================="), message_timeout = 130})
-push_start_command(0.001, {message = _(" "), message_timeout = 130})	
+push_start_command(dt, {message = _(" "), message_timeout = 130})	
+push_start_command(dt, {message = _("=================================================="), message_timeout = 130})
+push_start_command(dt, {message = _("  CustomDCS.com Super Quick Autostart Sequence Is Running (2m 20sec)"), message_timeout = 130})
+push_start_command(dt, {message = _("                 This Auto Start is Set For FARP XXXXXX"), message_timeout = 130})
+--push_start_command(dt, {message = _("                         Master ARM Is OFF"), message_timeout = 130})
+push_start_command(dt, {message = _("=================================================="), message_timeout = 130})
+push_start_command(dt, {message = _(" "), message_timeout = 120})		
 
 
 -- Parking Brake
@@ -154,10 +154,7 @@ push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.R
 push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  elec_commands.Rotary36vConverter, value = 1.0}) -- Inverter PT-125Ts Set (36v) - ON
 
 push_start_command(0.0,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
-push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
-
-push_start_command(0.0,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
-push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
+push_start_command(0.5,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
 
 -- Instrument Backing Lights
@@ -191,7 +188,7 @@ push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24
 
 -- Fire Extinguisher Circuts
 
-push_start_command(dt,{device = devices.FIRE_EXTING_INTERFACE,action =  fire_commands.SensorControl, value = 1.0}) -- Extinguisher Control Switch - EXTING
+push_start_command(dt,{device = devices.FIRE_EXTING_INTERFACE,action =  fire_commands.SensorControl, value = 1.0}) -- Extinguisher Control Switch - EXING
 push_start_command(dt,{device = devices.FIRE_EXTING_INTERFACE,action =  fire_commands.Power, value = 1.0}) -- Fire Extinguisher Power - ON
 
 
@@ -224,9 +221,6 @@ push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24
 
 
 -- APU Start START 15sec
-
-push_start_command(0.001, {message = _("  APU Start"), message_timeout = 10})
-push_start_command(0.001, {message = _(" "), message_timeout = 10})
 
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_Launch_Method, value = -1.0}) -- APU Selector Switch - START
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_StartUp, value = 1.0}) -- APU Start Button - Press
@@ -307,9 +301,6 @@ push_start_command(1.3,{action = Keys.iCommand_ThrottleStop}) -- MAX Value
 
 -- Left Engine Start TIME 48sec
 
-push_start_command(0.001, {message = _("  Left Engine Start"), message_timeout = 30})
-push_start_command(0.001, {message = _(" "), message_timeout = 30})
-
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Launch_Method, value = 0.0}) -- Mode Selector Switch - START
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Select, value = 1.0}) -- Engine Select Switch - LEFT
 
@@ -348,9 +339,6 @@ push_start_command(dt,{device = devices.CPT_MECH,action =  cockpit_mechanics_com
 
 -- Right Engine Start TIME 48sec
 
-push_start_command(0.001, {message = _("  Right Engine Start"), message_timeout = 30})
-push_start_command(0.001, {message = _(" "), message_timeout = 30})
-
 push_start_command(48,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Launch_Method, value = 0.0}) -- Mode Selector Switch To START
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Select, value = -1.0}) -- Engine Select Switch - RIGHT
 
@@ -375,9 +363,6 @@ push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  elec_commands.
 
 -- Cage Gyros
 
-push_start_command(0.001, {message = _("  Cage/Uncage Gyros - 30sec To Align"), message_timeout = 30})
-push_start_command(0.001, {message = _(" "), message_timeout = 30})
-
 push_start_command(1.0,{device = devices.MGV1SU_1,action =  mgv1su_commands.CAGE, value = 1.0}) -- Left Gyro Cage - PRESS
 push_start_command(1.0,{device = devices.MGV1SU_1,action =  mgv1su_commands.CAGE, value = 0.0}) -- Left Gyro Cage - RELEASE
 
@@ -387,10 +372,7 @@ push_start_command(1.0,{device = devices.MGV1SU_2,action =  mgv1su_commands.CAGE
 
 -- APU Stop
 
-push_start_command(0.001, {message = _("  APU Stop"), message_timeout = 10})
-push_start_command(0.001, {message = _(" "), message_timeout = 2.9})
-
-push_start_command(1.0,{device = devices.ELEC_INTERFACE,action =  elec_commands.DCGenerator, value = 0.0}) -- APU Gen Set - OFF
+push_start_command(22,{device = devices.ELEC_INTERFACE,action =  elec_commands.DCGenerator, value = 0.0}) -- APU Gen Set - OFF
 
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_Stop, value = 1.0}) -- APU Stop Button - Press
 push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_Stop, value = 0.0}) -- APU Stop Button - Release
@@ -398,7 +380,7 @@ push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_comma
 
 -- Auto Pilot
 
-push_start_command(1.0,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_SWITCHER_SAFE_WEAP, value = 1.0}) -- CPG Master ARM - ON
+push_start_command(7.0,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_SWITCHER_SAFE_WEAP, value = 1.0}) -- CPG Master ARM - ON
 push_start_command(0.1,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_SWITCHER_SAFE_WEAP, value = 0.0})
 push_start_command(0.1,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonKon, value = 1.0}) -- Autopilot K Channel (ROLL) - ON
 push_start_command(0.1,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonKon, value = 0.0})
@@ -406,11 +388,11 @@ push_start_command(0.1,{device = devices.AUTOPILOT,action =  autopilot_commands.
 push_start_command(0.1,{device = devices.AUTOPILOT,action =  autopilot_commands.ButtonTon, value = 0.0})
 push_start_command(0.1,{device = devices.SPUU_52,action =  spuu_commands.On_Off, value = 1.0}) -- SPUU Power Switch - ON
 
+push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_SWITCHER_SAFE_WEAP, value = 1.0}) -- CPG Master ARM - ON
+
 push_start_command(5.0, {message = _(" "), message_timeout = 15})
-push_start_command(0.001, {message = _("-------------------------------------------------------"), message_timeout = 15})
-push_start_command(0.001, {message = _("                                  WIP Auto Start Has Finished"), message_timeout = 15})
-push_start_command(0.001, {message = _("-------------------------------------------------------"), message_timeout = 15})	
-push_start_command(0.001, {message = _(" "), message_timeout = 15})
+push_start_command(dt, {message = _("WIP Auto Start Has Finished"), message_timeout = 15})	
+push_start_command(dt, {message = _(" "), message_timeout = 15})
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------
@@ -520,7 +502,7 @@ push_stop_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands
 
 -- Open Doors
 
-push_stop_command(32,{device = devices.CPT_MECH, action =  cockpit_mechanics_commands.Command_CPT_MECH_GENERAL_DOORS_CLOSE, value = 1.0}) -- Opens The Doors
+push_stop_command(34,{device = devices.CPT_MECH, action =  cockpit_mechanics_commands.Command_CPT_MECH_GENERAL_DOORS_CLOSE, value = 1.0}) -- Opens The Doors
 
 
 
