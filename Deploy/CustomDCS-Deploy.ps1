@@ -95,7 +95,7 @@ function AutoStartSelection ($airframes, $installPath) {
   $checkedlistbox.Add_ItemCheck({
     param($sender,$e)
     Write-Host $e.CurrentValue
-    if($e.CurrentValue -eq "Checked")
+    if($e.CurrentValue -eq "Unchecked")
     {
       Write-Host ([string]::Format($macroSequenciesRelPath, $airframes[$e.Index]))
 
