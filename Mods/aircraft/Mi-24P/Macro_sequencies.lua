@@ -222,6 +222,9 @@ push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24
 
 -- APU Start START 15sec
 
+push_start_command(dt, {message = _("  APU Start"), message_timeout = 10})
+push_start_command(dt, {message = _(" "), message_timeout = 10})
+
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_Launch_Method, value = -1.0}) -- APU Selector Switch - START
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_StartUp, value = 1.0}) -- APU Start Button - Press
 push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_StartUp, value = 0.0}) -- APU Start Button - Release
@@ -238,7 +241,7 @@ push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24
 
 -- Lights And Radio Switches
 
-push_start_command(dt,{device = devices.SPU_8,action =  SPU_8_Mi24_commands.CMD_SPU8_NETWORK_1, value = 1.0}) -- Switch SPU-8 NET-1 - ON
+push_start_command(0.1,{device = devices.SPU_8,action =  SPU_8_Mi24_commands.CMD_SPU8_NETWORK_1, value = 1.0}) -- Switch SPU-8 NET-1 - ON
 push_start_command(dt,{device = devices.SPU_8,action =  SPU_8_Mi24_commands.CMD_SPU8_NETWORK_2, value = 1.0}) -- Switch SPU-8 NET-2 - ON
 push_start_command(dt,{device = devices.R_863,action =  r863_commands.POWER, value = 1.0}) -- R-863 Power Switch - ON
 push_start_command(dt,{device = devices.JADRO_1I,action =  jadro_commands.POWER, value = 1.0}) -- JADRO Power Switch - ON
@@ -301,6 +304,9 @@ push_start_command(1.3,{action = Keys.iCommand_ThrottleStop}) -- MAX Value
 
 -- Left Engine Start TIME 48sec
 
+push_start_command(dt, {message = _("  Left Engine START"), message_timeout = 40})
+push_start_command(dt, {message = _(" "), message_timeout = 40})
+
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Launch_Method, value = 0.0}) -- Mode Selector Switch - START
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Select, value = 1.0}) -- Engine Select Switch - LEFT
 
@@ -339,7 +345,10 @@ push_start_command(dt,{device = devices.CPT_MECH,action =  cockpit_mechanics_com
 
 -- Right Engine Start TIME 48sec
 
-push_start_command(48,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Launch_Method, value = 0.0}) -- Mode Selector Switch To START
+push_start_command(48, {message = _("  Right Engine START"), message_timeout = 40})
+push_start_command(dt, {message = _(" "), message_timeout = 40})
+
+push_start_command(0.1,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Launch_Method, value = 0.0}) -- Mode Selector Switch To START
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Select, value = -1.0}) -- Engine Select Switch - RIGHT
 
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 1.0}) -- Engine Start Button - PRESS
@@ -371,6 +380,9 @@ push_start_command(1.0,{device = devices.MGV1SU_2,action =  mgv1su_commands.CAGE
 
 
 -- APU Stop
+
+push_start_command(dt, {message = _("  APU Stop"), message_timeout = 10})
+push_start_command(dt, {message = _(" "), message_timeout = 10})
 
 push_start_command(22,{device = devices.ELEC_INTERFACE,action =  elec_commands.DCGenerator, value = 0.0}) -- APU Gen Set - OFF
 
