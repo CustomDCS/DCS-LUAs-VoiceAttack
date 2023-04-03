@@ -62,7 +62,7 @@ function Get-BackupPath ($path, [int] $i = 0) {
   return $path
 }
 
-function AutoStartSelection ([string[]] $airframes, $installPath) {
+function AutoStartSelection ($airframes, $installPath) {
   [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
   [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")
   
@@ -70,71 +70,88 @@ function AutoStartSelection ([string[]] $airframes, $installPath) {
 
   # Set the size of your form
   $Form = New-Object System.Windows.Forms.Form
+  #$Form.width = 500
+  #$Form.height = (200 + (50 * ($airframes.Count - 1)))  # should expand this depending on how many lines we need, based on number of items in $aircraft list
   $Form.width = 500
-  $Form.height = (200 + (50 * ($airframes.Count - 1)))  # should expand this depending on how many lines we need, based on number of items in $aircraft list
+  $Form.height = 600
   $Form.Text = "Choose your Auto-Starts below"
 
   # Set the font of the text to be used within the form
   $Font = New-Object System.Drawing.Font("Arial",12)
   $Form.Font = $Font
 
-  $aircraft = $airframes[0]
-  $checkboxes = @()
+  #$aircraft = $airframes[0]
+  #$checkboxes = @()
   
-  
+  $checkedlistbox=New-Object System.Windows.Forms.CheckedListBox
+  $checkedlistbox.Location = '10,10'
+  $checkedlistbox.Size = '200,300'
 
-  foreach($aircraft in $airframes)
-  {
-      # create your checkbox 
-      $checkbox1 = new-object System.Windows.Forms.checkbox
-      $checkbox1.Location = new-object System.Drawing.Size(30,30)
-      $checkbox1.Size = new-object System.Drawing.Size(250,50)
-      $checkbox1.Text = $aircraft  # this should come from the names of aircraft
-      $checkbox1.Checked = $false
+  $Form.Controls.Add($checkedlistbox)
+  $checkedListBox.DataSource = [collections.arraylist]$airframes
 
-      $checkbox1.Add_CheckStateChanged({
-        if($checkbox1.Checked)
-        {
-          Write-Host "Taking a backup of your current auto start..."
-          $installPath = Get-DCSInstallPath
-          $relPath = ([string]::Format($macroSequenciesRelPath,$aircraft))
-          #Write-Host $installPath
-          $destPath = ($installPath + $relPath)
-          #Write-Host $destPath
-          $backupPath = $destPath + "." + (get-date -Format "yy-MM-dd") + ".bak"
-          $backupPath = Get-BackupPath $backupPath
-          #Write-Host $macroSequenciesPath
-          Rename-Item $destPath -NewName $backupPath
-          Write-Host "Backup saved to: " $backupPath
+  $checkedListBox.DisplayMember = 'Name'
+  $checkedlistbox.CheckOnClick = $true
+  $checkedlistbox.Add_ItemCheck({
+    param($sender,$e)
+    Write-Host $e.CurrentValue
+    if($e.CurrentValue -eq "Checked")
+    {
+      Write-Host ([string]::Format($macroSequenciesRelPath, $airframes[$e.Index]))
 
-          Write-Host "Deploying new auto start..." -NoNewline
+      Write-Host "Taking a backup of your current auto start..."
+      $installPath = Get-DCSInstallPath
+      $relPath = ([string]::Format($macroSequenciesRelPath,$airframes[$e.Index])) # $aircraft
+      #Write-Host $installPath
+      $destPath = ($installPath + $relPath)
+      #Write-Host $destPath
+      $backupPath = $destPath + "." + (get-date -Format "yy-MM-dd") + ".bak"
+      $backupPath = Get-BackupPath $backupPath
+      #Write-Host $macroSequenciesPath
+      Rename-Item $destPath -NewName $backupPath
+      Write-Host "Backup saved to: " $backupPath
 
-          Copy-Item $relPath -Destination $destPath
+      Write-Host "Deploying new auto start..." -NoNewline
 
-          Write-Host "success!"
-          Write-Host "Happy fast start-up!  (You can now close the dialog)"
+      Copy-Item $relPath -Destination $destPath
 
-        } else {
-          Write-Host "Not implemented yet, sorry!"
-        }
-      })
-      #$Form.Controls.Add($checkbox1) #remove this
+      Write-Host "success!"
+      Write-Host "Happy fast start-up!  (You can now close the dialog)"
 
-      $checkboxes += $checkbox1   
-  }
+    } else {
+     Write-Host "Not implemented yet, sorry!"
+    }
+  })
 
-  foreach($checkbox in $checkboxes)
-  {
-    $Form.Controls.Add($checkbox)
-  }
+  # foreach($aircraft in $airframes)
+  # {
+  #     # create your checkbox 
+  #     $checkbox1 = new-object System.Windows.Forms.checkbox
+  #     $checkbox1.Location = new-object System.Drawing.Size(30,30)
+  #     $checkbox1.Size = new-object System.Drawing.Size(250,50)
+  #     $checkbox1.Text = $aircraft  # this should come from the names of aircraft
+  #     $checkbox1.Checked = $false
+
+  #     $checkbox1.Add_CheckStateChanged({
+
+  #     })
+  #     #$Form.Controls.Add($checkbox1) #remove this
+
+  #     $checkboxes += $checkbox1   
+  # }
+
+  # foreach($checkbox in $checkboxes)
+  # {
+  #   $Form.Controls.Add($checkbox)
+  # }
 
   # Add a close button
-  $OKButton = new-object System.Windows.Forms.Button
-  $OKButton.Location = new-object System.Drawing.Size(130,100)
-  $OKButton.Size = new-object System.Drawing.Size(100,40)
-  $OKButton.Text = "Close"
-  $OKButton.Add_Click({$Form.Close()})
-  $form.Controls.Add($OKButton)
+  # $OKButton = new-object System.Windows.Forms.Button
+  # $OKButton.Location = new-object System.Drawing.Size(130,100)
+  # $OKButton.Size = new-object System.Drawing.Size(100,40)
+  # $OKButton.Text = "Close"
+  # $OKButton.Add_Click({$Form.Close()})
+  # $form.Controls.Add($OKButton)
   
   # Activate the form
   $Form.Add_Shown({$Form.Activate()})
@@ -161,7 +178,19 @@ else {
   Write-Host "success!"
 }
 
+# $checkedlistbox_ItemCheck = [System.Windows.Forms.ItemCheckEventHandler]{
+# #Event Argument: $_ = [System.Windows.Forms.ItemCheckEventArgs]
+#   if($checkedlistbox.Items[$_.Index] -eq 'MyValue'){
+#     if ($_.NewValue -eq 'Checked'){
+#       $button.Enabled = $true
+#     }else{
+#       $button.Enabled = $false
+#     }
+#   }
+# }
+
 # get list of airframes
 $airframes = (Get-ChildItem -Path "Mods\aircraft" -Directory).Name
 #$airframes = @("Mi-8MTV2")
-AutoStartSelection -airframes $airframes, $installPath
+Write-Host $airframes
+AutoStartSelection -airframes $airframes #, $installPath
