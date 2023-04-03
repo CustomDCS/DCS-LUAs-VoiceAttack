@@ -72,12 +72,12 @@ function AutoStartSelection ($airframes, $installPath) {
   $Form = New-Object System.Windows.Forms.Form
   #$Form.width = 500
   #$Form.height = (200 + (50 * ($airframes.Count - 1)))  # should expand this depending on how many lines we need, based on number of items in $aircraft list
-  $Form.width = 500
-  $Form.height = 600
+  $Form.width = 360
+  $Form.height = 310
   $Form.Text = "Choose your Auto-Starts below"
 
   # Set the font of the text to be used within the form
-  $Font = New-Object System.Drawing.Font("Arial",12)
+  $Font = New-Object System.Drawing.Font("Arial",10)
   $Form.Font = $Font
 
   #$aircraft = $airframes[0]
@@ -85,7 +85,7 @@ function AutoStartSelection ($airframes, $installPath) {
   
   $checkedlistbox=New-Object System.Windows.Forms.CheckedListBox
   $checkedlistbox.Location = '10,10'
-  $checkedlistbox.Size = '200,300'
+  $checkedlistbox.Size = '320,200'
 
   $Form.Controls.Add($checkedlistbox)
   $checkedListBox.DataSource = [collections.arraylist]$airframes
@@ -93,9 +93,10 @@ function AutoStartSelection ($airframes, $installPath) {
   $checkedListBox.DisplayMember = 'Name'
   $checkedlistbox.CheckOnClick = $true
   $checkedlistbox.Add_ItemCheck({
+
     param($sender,$e)
     Write-Host $e.CurrentValue
-    if($e.CurrentValue -eq "Unchecked")
+    if($e.CurrentValue -eq "unchecked") # Changed to unchecked
     {
       Write-Host ([string]::Format($macroSequenciesRelPath, $airframes[$e.Index]))
 
@@ -146,12 +147,12 @@ function AutoStartSelection ($airframes, $installPath) {
   # }
 
   # Add a close button
-  # $OKButton = new-object System.Windows.Forms.Button
-  # $OKButton.Location = new-object System.Drawing.Size(130,100)
-  # $OKButton.Size = new-object System.Drawing.Size(100,40)
-  # $OKButton.Text = "Close"
-  # $OKButton.Add_Click({$Form.Close()})
-  # $form.Controls.Add($OKButton)
+   $OKButton = new-object System.Windows.Forms.Button
+   $OKButton.Location = new-object System.Drawing.Size(130,210)
+   $OKButton.Size = new-object System.Drawing.Size(80,30)
+   $OKButton.Text = "Close"
+   $OKButton.Add_Click({$Form.Close()})
+   $form.Controls.Add($OKButton)
   
   # Activate the form
   $Form.Add_Shown({$Form.Activate()})
