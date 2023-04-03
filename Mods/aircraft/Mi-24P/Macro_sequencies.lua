@@ -74,6 +74,33 @@ for i = 1, 20, 1 do
 end
 
 
+-- TEST ADF
+
+-- Reserve 450kHz
+
+for i = 1, 1, 1 do
+	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.BACKUP_10KHz, value = 0.6}) -- ADF 10kHz
+end
+
+for i = 1, 1, 1 do
+	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.BACKUP_100KHz, value = 0.25}) -- ADF 100kHz
+end
+
+-- Primary 260kHz
+
+for i = 1, 1, 1 do
+	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.PRIMARY_10KHz, value = 0.7}) -- ADF 10kHz
+end
+
+for i = 1, 1, 1 do
+	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.PRIMARY_100KHz, value = 0.1}) -- ADF 100kHz
+end
+
+for i = 1, 1, 1 do
+	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.MODE, value = 0.1}) -- ADF MODE Switch - COMP - WORKS
+end
+
+
 -- Hide Seat
 
 push_start_command(dt,{device = devices.CPT_MECH, action =  cockpit_mechanics_commands.Command_CPT_MECH_Elements_Hide, value = 1.0}) -- Turn Seat OFF
@@ -205,21 +232,6 @@ push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_command
 push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_commands.ValveDelimiter, value = 1.0}) -- Fuel Delimiter Valve Set - ON
 
 
--- Voice Warnings
-
-push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
-push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
-
-push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
-push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
-
-push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
-push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
-
-push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
-push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
-
-
 -- APU Start START 15sec
 
 push_start_command(dt, {message = _("  APU Start"), message_timeout = 10})
@@ -231,6 +243,18 @@ push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_comma
 
 
 -- Voice Warnings
+
+push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
+
+push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
+
+push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
+
+push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
 push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
 push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
@@ -256,23 +280,21 @@ push_start_command(dt,{device = devices.IFF,action =  IFF_6201_commands.CMD_IFF_
 push_start_command(dt,{device = devices.CPT_MECH,action =  cockpit_mechanics_commands.Command_CPT_MECH_FAN_PILOT, value = 1.0}) -- Pilots Fan Power Switch - ON
 push_start_command(dt,{device = devices.EXT_LIGHTS_SYSTEM,action =  ext_lights_commands.StrobeLight, value = 1.0}) -- Strobe Light Power Switch - ON
 push_start_command(dt,{device = devices.EXT_LIGHTS_SYSTEM,action =  ext_lights_commands.TipLights, value = 1.0}) -- Blade Tip Lights Power Switch - ON
-push_start_command(dt,{device = devices.EXT_LIGHTS_SYSTEM,action =  ext_lights_commands.FormationLights, value = 1.0}) -- Formation Lights Power Switch - BRIGHT
-push_start_command(dt,{device = devices.MAP_DISPLAY,action =  map_display_commands.Power, value = 1.0}) -- Map Power Switch - ON
-push_start_command(dt,{device = devices.EXT_CARGO_EQUIPMENT,action =  ext_cargo_equipment_commands.CMD_AutoReleaseSw, value = 1.0}) -- External Cargo Hook - AUTOMATIC
-
-push_start_command(0.1,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
-push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
 push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
 push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
-push_start_command(4.1,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
+push_start_command(dt,{device = devices.EXT_LIGHTS_SYSTEM,action =  ext_lights_commands.FormationLights, value = 1.0}) -- Formation Lights Power Switch - BRIGHT
+push_start_command(dt,{device = devices.MAP_DISPLAY,action =  map_display_commands.Power, value = 1.0}) -- Map Power Switch - ON
+push_start_command(dt,{device = devices.EXT_CARGO_EQUIPMENT,action =  ext_cargo_equipment_commands.CMD_AutoReleaseSw, value = 1.0}) -- External Cargo Hook - AUTOMATIC
+
+push_start_command(4.0,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
 push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
 
 -- APU Generator Switch
 
-push_start_command(10,{device = devices.ELEC_INTERFACE,action =  elec_commands.DCGenerator, value = 1.0}) -- APU Gen Set - ON
+push_start_command(7,{device = devices.ELEC_INTERFACE,action =  elec_commands.DCGenerator, value = 1.0}) -- APU Gen Set - ON
 
 
 -- Fuel Control Valves
