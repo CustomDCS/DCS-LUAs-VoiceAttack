@@ -123,7 +123,7 @@ function AutoStartSelection ($airframes, $installPath) {
      Write-Host "Not implemented yet, sorry!"
     }
   })
-
+  
   # foreach($aircraft in $airframes)
   # {
   #     # create your checkbox 
@@ -157,6 +157,7 @@ function AutoStartSelection ($airframes, $installPath) {
   # Activate the form
   $Form.Add_Shown({$Form.Activate()})
   [void] $Form.ShowDialog() 
+  
 }
 
 $installPath = Get-DCSInstallPath
@@ -195,3 +196,4 @@ $airframes = (Get-ChildItem -Path "Mods\aircraft" -Directory).Name
 #$airframes = @("Mi-8MTV2")
 Write-Host $airframes
 AutoStartSelection -airframes $airframes #, $installPath
+[System.Windows.MessageBox]::Show("All changes have been implemented successfully")
