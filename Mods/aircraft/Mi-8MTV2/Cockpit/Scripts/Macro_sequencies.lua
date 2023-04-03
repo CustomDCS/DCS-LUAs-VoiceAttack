@@ -53,8 +53,8 @@ local function doStartSequence()
 push_start_command(dt, {message = _(" "), message_timeout = 120})	
 push_start_command(dt, {message = _("=================================================="), message_timeout = 120})
 push_start_command(dt, {message = _("  CustomDCS.com Super Quick Autostart Sequence Is Running (2m 10sec)"), message_timeout = 120})
-push_start_command(dt, {message = _("          This Auto Start is Set For FARP SHARON"), message_timeout = 120})
---push_start_command(dt, {message = _("       Night Mode - Doppler is Off For Night Vision"), message_timeout = 120}) -- Text For Night Mode
+push_start_command(dt, {message = _("                             This Auto Start is Set For FARP SHARON"), message_timeout = 120})
+push_start_command(dt, {message = _("                                                   -Mi-8MTV2-"), message_timeout = 120})
 push_start_command(dt, {message = _("=================================================="), message_timeout = 120})
 
 
@@ -108,8 +108,9 @@ push_start_command(dt, {device = devices.ELEC_INTERFACE, action = device_command
 
 -- APU - START 10.2sec
 
-push_start_command(0.0, {message = _(" "), message_timeout = mto})
-push_start_command(0.0, {message = _("  APU Start"), message_timeout = mto})
+push_start_command(dt, {message = _(" "), message_timeout = mto})
+push_start_command(dt, {message = _("  APU Start"), message_timeout = mto})
+push_start_command(dt, {message = _(" "), message_timeout = 6})
 
 push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_12, value = 1.0}) -- APU Start Mode Switch To START
 push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_26, value = 1.0}) -- Press
@@ -239,17 +240,17 @@ end
 
 -- Radio Main Selector Rotary
 
-push_start_command(12, {device = devices.SPU_7, action = device_commands.Button_3, value = 0.0}) -- Radio Selector Rotary - R-863
+push_start_command(dt, {device = devices.SPU_7, action = device_commands.Button_3, value = 0.0}) -- Radio Selector Rotary - R-863
 
 
 -- Tune ADF
 
--- Reserve - Set To 450kHz
+-- Reserve - Set To 450kHz BAYWATCH
 
 push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_6, value = 0.5}) -- ARC 9 10KHZ DIAL
 push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_5, value = 0.15}) -- ARC 9 100KHZ DIAL
 
--- Main - Set To 260kHz
+-- Main - Set To 260kHz SHARON
 
 push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_9, value = 0.6}) -- ARC 9 10KHZ DIAL
 push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_8, value = 0.05}) -- ARC 9 100KHZ DIAL
@@ -264,20 +265,19 @@ push_start_command(dt, {message = _("================================="), messag
 push_start_command(dt, {message = _("  Altimeter Set To FARP SHARON"), message_timeout = 100})
 push_start_command(dt, {message = _("  Radio Set To ICS To Allow Rearm And Refuel"), message_timeout = 100})
 push_start_command(dt, {message = _("  The Rocket Systems Are On, Master Arm Is OFF"), message_timeout = 100})
---push_start_command(dt, {message = _("  The Rocket Systems Are On, Master Arm Is ON"), message_timeout = 100})
 push_start_command(dt, {message = _("  Main ADF Tuned To FARP SHARON (260kHz)"), message_timeout = 100})
 push_start_command(dt, {message = _("  Reserve ADF Tuned To FARP BATWATCH (450kHz)"), message_timeout = 100})
-push_start_command(dt, {message = _("  A  ARROW      - 600kHz - 15nm 012 N"), message_timeout = 100})
-push_start_command(dt, {message = _("  B  GLORY        - 290kHz - 17nm 076 E"), message_timeout = 100})
-push_start_command(dt, {message = _("  C  WARHORSE - 480kHz - 32nm 081 E"), message_timeout = 100})
-push_start_command(dt, {message = _("      BAYWATCH - 450kHz - 17nm 213 SW"), message_timeout = 100})
+push_start_command(dt, {message = _("  A  ARROW      - 600kHz - 012 For 15"), message_timeout = 100})
+push_start_command(dt, {message = _("  B  GLORY        - 290kHz - 076 For 17"), message_timeout = 100})
+push_start_command(dt, {message = _("  C  WARHORSE - 480kHz - 081 For 32"), message_timeout = 100})
+push_start_command(dt, {message = _("      BAYWATCH - 450kHz - 213 For 17"), message_timeout = 100})
 push_start_command(dt, {message = _("================================="), message_timeout = 100})
 push_start_command(dt, {message = _(" "), message_timeout = 100})
 
 
 -- Wait For APU Start
 
-push_start_command(14.0, {message = _("  APU Running"), message_timeout = mto})
+push_start_command(11.0, {message = _("  APU Running"), message_timeout = mto})
 push_start_command(0.0, {message = _(" "), message_timeout = mto})
 
 
@@ -358,14 +358,14 @@ push_start_command(3.0, {device = devices.R_828, action = device_commands.Button
 
 -- Wait For Left Engine To Start
 
-push_start_command(43.8, {message = _("  Left Engine Running"), message_timeout = mto})
-push_start_command(dt, {message = _(" "), message_timeout = mto})
+push_start_command(43.8, {message = _("  Left Engine Running"), message_timeout = 4})
 
 
 -- Right Engine START 57.2sec
 
-push_start_command(dt, {message = _("  Right Engine Start"), message_timeout = 44.0})
-push_start_command(dt, {message = _(" "), message_timeout = 56})
+push_start_command(dt, {message = _(" "), message_timeout = 35})
+push_start_command(dt, {message = _("  Right Engine Start"), message_timeout = 35.0})
+push_start_command(dt, {message = _(" "), message_timeout = 35})
 
 push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_10, value = 1.0}) -- Fuel Cutoff Lever - Right
 push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = device_commands.Button_8, value = 1.0}) -- Start Selector
@@ -376,7 +376,7 @@ push_start_command(1.0, {device = devices.ENGINE_INTERFACE, action = device_comm
 -- Cage Gyros
 
 push_start_command(22, {message = _("  Cage/Uncage Gyros 30sec To Align"), message_timeout = 30})
-push_start_command(dt, {message = _(" "), message_timeout = 31.8})
+push_start_command(dt, {message = _(" "), message_timeout = 30})
 
 push_start_command(0.1, {device = devices.AGB_3K_LEFT, action = device_commands.Button_2, value = 1.0}) -- Press - Cage Left Gyro
 push_start_command(0.8, {device = devices.AGB_3K_LEFT, action = device_commands.Button_2, value = 0.0}) -- Release - Uncage Left Gyro
@@ -384,7 +384,7 @@ push_start_command(0.1, {device = devices.AGB_3K_RIGHT, action = device_commands
 push_start_command(0.8, {device = devices.AGB_3K_RIGHT, action = device_commands.Button_2, value = 0.0}) -- Release - Uncage Right Gyro
 
 push_start_command(22, {message = _("  Right Engine Running"), message_timeout = 8})
-push_start_command(dt, {message = _(" "), message_timeout = 12})
+push_start_command(dt, {message = _(" "), message_timeout = 16})
 
 
 -- APU Stop
@@ -478,6 +478,7 @@ doStopSequence()
 push_stop_command(dt, {message = _(" "), message_timeout = 52})
 push_stop_command(dt, {message = _("================================================"), message_timeout = 52})
 push_stop_command(dt, {message = _("  CustomDCS.com - Super Quick Autostop Sequence Is Running (55sec)"), message_timeout = 52})
+push_stop_command(dt, {message = _("                                              -Mi-8MTV2-"), message_timeout = 10})
 push_stop_command(dt, {message = _("================================================"), message_timeout = 52})
 push_stop_command(dt, {message = _(" "), message_timeout = 52})
 
@@ -617,10 +618,11 @@ push_stop_command(dt, {message = _(" "), message_timeout = 8.0})
 push_stop_command(7.9, {device = devices.CPT_MECH, action = device_commands.Button_15, value = 1.0}) -- Pilots Window - OPEN
 push_stop_command(0.1, {device = devices.CPT_MECH, action = device_commands.Button_16, value = 1.0}) -- Co Pilots Window - OPEN
 
-push_stop_command(dt, {message = _(" "), message_timeout = mto})
-push_stop_command(dt, {message = _("============================================"), message_timeout = mto})
-push_stop_command(dt, {message = _("  CustomDCS.com - Super Quick Autostop Sequence Is Complete"), message_timeout = mto})
-push_stop_command(dt, {message = _("============================================"), message_timeout = mto})
-push_stop_command(dt, {message = _(" "), message_timeout = mto})
+push_stop_command(dt, {message = _(" "), message_timeout = 5})
+push_stop_command(dt, {message = _("============================================"), message_timeout = 5})
+push_stop_command(dt, {message = _("  CustomDCS.com - Super Quick Autostop Sequence Is Complete"), message_timeout = 5})
+push_stop_command(dt, {message = _("                                           -Mi-8MTV2-"), message_timeout = 5})
+push_stop_command(dt, {message = _("============================================"), message_timeout = 5})
+push_stop_command(dt, {message = _(" "), message_timeout = 5})
 end
 doStopSequence()
