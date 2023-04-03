@@ -198,4 +198,3 @@ $airframes = (Get-ChildItem -Path "Mods\aircraft" -Directory).Name
 #$airframes = @("Mi-8MTV2")
 Write-Host $airframes
 AutoStartSelection -airframes $airframes #, $installPath
-[System.Windows.MessageBox]::Show("All changes have been implemented successfully")
