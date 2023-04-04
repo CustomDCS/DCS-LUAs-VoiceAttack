@@ -72,32 +72,74 @@ function AutoStartSelection ($airframes, $installPath) {
   $Form = New-Object System.Windows.Forms.Form
   #$Form.width = 500
   #$Form.height = (200 + (50 * ($airframes.Count - 1)))  # should expand this depending on how many lines we need, based on number of items in $aircraft list
-  $Form.width = 315
-  $Form.height = 310
+  $Form.width = 300
+  $Form.height = 430
   $Form.Text = "CustomDCS.com"
 
   $label = New-Object System.Windows.Forms.Label
-  $label.Location = '10,7'
+  $label.Location = '29,7'
   $label.Size = '280,20'
   $label.Text = 'Custom Auto Start Installer'
   $form.Controls.Add($label)
 
-  $label = New-Object System.Windows.Forms.Label
-  $label.Location = '10,38'
-  $label.Size = '280,20'
-  $label.Text = 'Please Select An Auto Start'
-  $form.Controls.Add($label)
+  $label1 = New-Object System.Windows.Forms.Label
+  $label1.Location = '30,38'
+  $label1.Size = '280,20'
+  $label1.Text = 'Select One Or More'
+  $form.Controls.Add($label1)
+
+
+
+  $label2 = New-Object System.Windows.Forms.Label
+  $label2.Location = '95,250'
+  $label2.Size = '280,20'
+  $label2.Text = '- Select All Auto Starts'
+  $form.Controls.Add($label2)
+
+  $label3 = New-Object System.Windows.Forms.Label
+  $label3.Location = '95,281'
+  $label3.Size = '280,20'
+  $label3.Text = '- Install All Selected Auto Starts'
+  $form.Controls.Add($label3)
+
+  $label4 = New-Object System.Windows.Forms.Label
+  $label4.Location = '95,331'
+  $label4.Size = '280,20'
+  $label4.Text = '- Uninstall All Auto Starts'
+  $form.Controls.Add($label4)
+
+  $label5 = New-Object System.Windows.Forms.Label
+  $label5.Location = '95,358'
+  $label5.Size = '280,20'
+  $label5.Text = '- Exit The Application'
+  $form.Controls.Add($label5)
 
   # Set the font of the text to be used within the form
-  $Font = New-Object System.Drawing.Font("Arial",10)
+
+  $Font = New-Object System.Drawing.Font("Arial",12)
+  $LabelFont = New-Object System.Drawing.Font("Arial",11)
+  $LabelFont1 = New-Object System.Drawing.Font("Arial",10)
+  $LabelFont2 = New-Object System.Drawing.Font("Arial",9)
+  $LabelFont3 = New-Object System.Drawing.Font("Arial",9)
+  $LabelFont4 = New-Object System.Drawing.Font("Arial",9)
+  $LabelFont5 = New-Object System.Drawing.Font("Arial",9)
+
+
   $Form.Font = $Font
+  $Label.font = $LabelFont
+  $Label1.font = $LabelFont1
+  $Label2.font = $LabelFont2
+  $Label3.font = $LabelFont3
+  $Label4.font = $LabelFont4
+  $Label5.font = $LabelFont5
+
 
   #$aircraft = $airframes[0]
   #$checkboxes = @()
   
   $checkedlistbox=New-Object System.Windows.Forms.CheckedListBox
-  $checkedlistbox.Location = '10,60'
-  $checkedlistbox.Size = '280,150'
+  $checkedlistbox.Location = '30,63'
+  $checkedlistbox.Size = '186,180'
 
   $Form.Controls.Add($checkedlistbox)
   $checkedListBox.DataSource = [collections.arraylist]$airframes
@@ -105,6 +147,8 @@ function AutoStartSelection ($airframes, $installPath) {
   $checkedListBox.DisplayMember = 'Name'
   $checkedlistbox.CheckOnClick = $true
   $checkedlistbox.Add_ItemCheck({
+
+
     param($sender,$e)
     Write-Host $e.CurrentValue
     if($e.CurrentValue -eq "unChecked")
@@ -168,18 +212,38 @@ function AutoStartSelection ($airframes, $installPath) {
   # $OKButton.Add_Click({$Form.Close()})
   # $form.Controls.Add($OKButton)
   
+
+  $SelectAllButton = New-Object System.Windows.Forms.Button
+  $UninstallButton = New-Object System.Windows.Forms.Button
   $SelectButton = New-Object System.Windows.Forms.Button
   $CancelButton = New-Object System.Windows.Forms.Button
 
-  $SelectButton.Text = 'OK'
-  $SelectButton.Location = '78,223'
+  $SelectAllButton.Text = 'Select All'
+  $SelectAllButton.Location = '15,245'
+
+  $SelectButton.Text = 'Install'
+  $SelectButton.Location = '15,276'
+
+  $uninstallButton.Text = 'Uninstall'
+  $UninstallButton.Location = '15,327'
 
   $CancelButton.Text = 'Close'
-  $CancelButton.Location = '155,223'
+  $CancelButton.Location = '15,354'
 
+  $ButtonFont = New-Object System.Drawing.Font("Arial",10)
+
+  $SelectButton.Font = $ButtonFont
+  $CancelButton.Font = $ButtonFont
+  $UninstallButton.font = $ButtonFont
+  $SelectAllButton.Font = $ButtonFont
+
+  $Form.AcceptButton = $SelectAllButton
+  $Form.CancelButton = $UninstallButton
   $Form.AcceptButton = $SelectButton
   $Form.CancelButton = $CancelButton
 
+  $Form.Controls.Add($SelectAllButton)
+  $Form.Controls.Add($UninstallButton)
   $Form.Controls.Add($SelectButton)
   $Form.Controls.Add($CancelButton)
 
