@@ -93,10 +93,9 @@ function AutoStartSelection ($airframes, $installPath) {
   $checkedListBox.DisplayMember = 'Name'
   $checkedlistbox.CheckOnClick = $true
   $checkedlistbox.Add_ItemCheck({
-
     param($sender,$e)
     Write-Host $e.CurrentValue
-    if($e.CurrentValue -eq "unchecked") # Changed to unchecked
+    if($e.CurrentValue -eq "Checked")
     {
       Write-Host ([string]::Format($macroSequenciesRelPath, $airframes[$e.Index]))
 
@@ -116,16 +115,17 @@ function AutoStartSelection ($airframes, $installPath) {
 
       Copy-Item $relPath -Destination $destPath
 
-      $wsh = New-Object -ComObject Wscript.Shell
-      $wsh.Popup([string]::Format("New script for {0} deployed successfully!",$airframes[$e.Index]))
       Write-Host "success!"
       Write-Host "Happy fast start-up!  (You can now close the dialog)"
+
+      $wsh = New-Object -ComObject Wscript.Shell
+      $wsh.Popup([string]::Format("New script for {0} deployed successfully!",$airframes[$e.Index]))
 
     } else {
      Write-Host "Not implemented yet, sorry!"
     }
   })
-  
+
   # foreach($aircraft in $airframes)
   # {
   #     # create your checkbox 
@@ -148,27 +148,34 @@ function AutoStartSelection ($airframes, $installPath) {
   #   $Form.Controls.Add($checkbox)
   # }
 
-  # Add OK Cancel Buttons
+  # Add a close button
+  # $OKButton = new-object System.Windows.Forms.Button
+  # $OKButton.Location = new-object System.Drawing.Size(130,100)
+  # $OKButton.Size = new-object System.Drawing.Size(100,40)
+  # $OKButton.Text = "Close"
+  # $OKButton.Add_Click({$Form.Close()})
+  # $form.Controls.Add($OKButton)
   
-   $OkButton = New-Object System.Windows.Forms.Button
-   $CancelButton = New-Object System.Windows.Forms.Button
-   
-   $OkButton.Text = 'OK'
-   $OkButton.Location = '56,215'
-   
-   $CancelButton.Text = 'Cancel'
-   $CancelButton.Location = '153,215'
-   
-   $Form.AcceptButton = $OkButton
-   $Form.CancelButton = $CancelButton
-   
-   $Form.Controls.Add($OkButton)
-   $Form.Controls.Add($CancelButton)
+  $SelectButton = New-Object System.Windows.Forms.Button
+  $CancelButton = New-Object System.Windows.Forms.Button
+
+  $SelectButton.Text = 'OK'
+  $SelectButton.Location = '105,220'
+
+  $CancelButton.Text = 'Cancel'
+  $CancelButton.Location = '180,220'
+
+  $Form.AcceptButton = $SelectButton
+  $Form.CancelButton = $CancelButton
+
+  $Form.Controls.Add($SelectButton)
+  $Form.Controls.Add($CancelButton)
+
+
 
   # Activate the form
   $Form.Add_Shown({$Form.Activate()})
   [void] $Form.ShowDialog() 
-  
 }
 
 $installPath = Get-DCSInstallPath
