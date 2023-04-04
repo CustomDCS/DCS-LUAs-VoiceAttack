@@ -148,14 +148,23 @@ function AutoStartSelection ($airframes, $installPath) {
   #   $Form.Controls.Add($checkbox)
   # }
 
-  # Add a close button
-   $OKButton = new-object System.Windows.Forms.Button
-   $OKButton.Location = new-object System.Drawing.Size(130,210)
-   $OKButton.Size = new-object System.Drawing.Size(80,30)
-   $OKButton.Text = "Close"
-   $OKButton.Add_Click({$Form.Close()})
-   $form.Controls.Add($OKButton)
+  # Add OK Cancel Buttons
   
+   $OkButton = New-Object System.Windows.Forms.Button
+   $CancelButton = New-Object System.Windows.Forms.Button
+   
+   $OkButton.Text = 'OK'
+   $OkButton.Location = '56,215'
+   
+   $CancelButton.Text = 'Cancel'
+   $CancelButton.Location = '153,215'
+   
+   $Form.AcceptButton = $OkButton
+   $Form.CancelButton = $CancelButton
+   
+   $Form.Controls.Add($OkButton)
+   $Form.Controls.Add($CancelButton)
+
   # Activate the form
   $Form.Add_Shown({$Form.Activate()})
   [void] $Form.ShowDialog() 
