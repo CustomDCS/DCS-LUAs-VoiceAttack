@@ -72,9 +72,21 @@ function AutoStartSelection ($airframes, $installPath) {
   $Form = New-Object System.Windows.Forms.Form
   #$Form.width = 500
   #$Form.height = (200 + (50 * ($airframes.Count - 1)))  # should expand this depending on how many lines we need, based on number of items in $aircraft list
-  $Form.width = 360
+  $Form.width = 315
   $Form.height = 310
-  $Form.Text = "Choose your Auto-Starts below"
+  $Form.Text = "CustomDCS.com"
+
+  $label = New-Object System.Windows.Forms.Label
+  $label.Location = '10,7'
+  $label.Size = '280,20'
+  $label.Text = 'Custom Auto Start Installer'
+  $form.Controls.Add($label)
+
+  $label = New-Object System.Windows.Forms.Label
+  $label.Location = '10,38'
+  $label.Size = '280,20'
+  $label.Text = 'Please Select An Auto Start'
+  $form.Controls.Add($label)
 
   # Set the font of the text to be used within the form
   $Font = New-Object System.Drawing.Font("Arial",10)
@@ -84,8 +96,8 @@ function AutoStartSelection ($airframes, $installPath) {
   #$checkboxes = @()
   
   $checkedlistbox=New-Object System.Windows.Forms.CheckedListBox
-  $checkedlistbox.Location = '10,10'
-  $checkedlistbox.Size = '320,200'
+  $checkedlistbox.Location = '10,60'
+  $checkedlistbox.Size = '280,150'
 
   $Form.Controls.Add($checkedlistbox)
   $checkedListBox.DataSource = [collections.arraylist]$airframes
@@ -160,10 +172,10 @@ function AutoStartSelection ($airframes, $installPath) {
   $CancelButton = New-Object System.Windows.Forms.Button
 
   $SelectButton.Text = 'OK'
-  $SelectButton.Location = '105,220'
+  $SelectButton.Location = '78,223'
 
-  $CancelButton.Text = 'Cancel'
-  $CancelButton.Location = '180,220'
+  $CancelButton.Text = 'Close'
+  $CancelButton.Location = '155,223'
 
   $Form.AcceptButton = $SelectButton
   $Form.CancelButton = $CancelButton
