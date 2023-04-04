@@ -117,6 +117,7 @@ function AutoStartSelection ($airframes, $installPath) {
   # Set the font of the text to be used within the form
 
   $Font = New-Object System.Drawing.Font("Arial",12)
+ 
   $LabelFont = New-Object System.Drawing.Font("Arial",11)
   $LabelFont1 = New-Object System.Drawing.Font("Arial",10)
   $LabelFont2 = New-Object System.Drawing.Font("Arial",9)
@@ -124,6 +125,7 @@ function AutoStartSelection ($airframes, $installPath) {
   $LabelFont4 = New-Object System.Drawing.Font("Arial",9)
   $LabelFont5 = New-Object System.Drawing.Font("Arial",9)
 
+  
 
   $Form.Font = $Font
   $Label.font = $LabelFont
@@ -134,10 +136,11 @@ function AutoStartSelection ($airframes, $installPath) {
   $Label5.font = $LabelFont5
 
 
+
   #$aircraft = $airframes[0]
   #$checkboxes = @()
   
-  $checkedlistbox=New-Object System.Windows.Forms.CheckedListBox
+  $checkedlistbox = New-Object System.Windows.Forms.CheckedListBox
   $checkedlistbox.Location = '30,63'
   $checkedlistbox.Size = '186,180'
 
@@ -148,10 +151,13 @@ function AutoStartSelection ($airframes, $installPath) {
   $checkedlistbox.CheckOnClick = $true
   $checkedlistbox.Add_ItemCheck({
 
+  #$SelectButton.add_Click( {$sender.ShowDialog()  } )
+  #$CancelButton.Add_Click({$Form.Close()})
 
-    param($sender,$e)
-    Write-Host $e.CurrentValue
-    if($e.CurrentValue -eq "unChecked")
+
+    #param($sender)
+    #Write-Host $e.CurrentValue
+    if($sender.CurrentValue -eq "Checked")
     {
       Write-Host ([string]::Format($macroSequenciesRelPath, $airframes[$e.Index]))
 
