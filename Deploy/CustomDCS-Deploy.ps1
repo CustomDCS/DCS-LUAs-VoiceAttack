@@ -237,7 +237,33 @@ function AutoStartSelection ($airframes, $installPath) {
   $UninstallButton.Location = '15,327'
   $UninstallButton.Add_Click({
     # uninstall logic goes here
-    Write-Host "Not implemented yet, sorry!"
+    $macroSequenciesRelPath = "Mods\aircraft\{0}\Cockpit\Scripts\Macro_sequencies.lua"
+    $macroSequenciesOrigRelPath = "Mods\aircraft\{0}\Cockpit\Scripts\Macro_sequencies-orig.lua"
+    # install each selected script
+    $i = 0    
+    foreach($aircraftToInstall in $checkedlistbox.checkeditems) {
+      # intstall logic goes here, name of aircraft (path) will be in $aircraftToInstall
+      Write-Host $aircraftToInstall
+      
+      $installPath = Get-DCSInstallPath
+      $relPath = ([string]::Format($macroSequenciesRelPath,$aircraftToInstall)) # $aircraft
+      #Write-Host $installPath
+      $destPath = ($installPath + $relPath)
+
+      Remove-Item $destPath
+
+      $origRelPath = ([string]::Format($macroSequenciesOrigRelPath,$aircraftToInstall)) # $aircraft
+      #Write-Host $installPath
+      #$destPath = ($installPath + $relPath)
+
+      Write-Host "Restoring ED auto start..." -NoNewline
+      Copy-Item $origRelPath -Destination $destPath
+
+      Write-Host "success!"
+      $i++
+    }
+    $wsh = New-Object -ComObject Wscript.Shell
+    $wsh.Popup([string]::Format("{0} new scripts deployed successfully`nHappy Hunting!",$i))
   })
 
   $CancelButton.Text = 'Cancel'
