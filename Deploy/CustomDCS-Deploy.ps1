@@ -5,7 +5,7 @@
 ## Script to backup the current Mi8 auto start script and replace with our custom one from the current repo
 $ErrorActionPreference = "Stop" # this is a debug setting, will stop on any error so that we can figure out what went wrong
 $macroSequenciesRelPath = "Mods\aircraft\{0}\Cockpit\Scripts\Macro_sequencies.lua"
-$Mi8MTV2 = "Mi-8MTV2"
+#$Mi8MTV2 = "Mi-8MTV2"
 
 Write-Host "`n** Custom DCS deployment script **`n"
 
@@ -193,14 +193,14 @@ function AutoStartSelection ($airframes, $installPath) {
       $i++
     }
     $wsh = New-Object -ComObject Wscript.Shell
-    $wsh.Popup([string]::Format("          Auto Start Scripting For
-    `n                        {0} Aircraft
-    `n Has Been Deployed Successfully`n                 Happy Hunting!",$i))
+    $wsh.Popup([string]::Format("         Auto Start Scripting For
+    `n                       {0} Aircraft
+    `n Has Been Deployed Successfully`n                Happy Hunting!",$i))
   })
 
   $uninstallButton.Text = 'Uninstall'
-  $UninstallButton.Location = '15,327'
-  $UninstallButton.Add_Click({
+  $uninstallButton.Location = '15,327'
+  $uninstallButton.Add_Click({
     # uninstall logic goes here
     $macroSequenciesRelPath = "Mods\aircraft\{0}\Cockpit\Scripts\Macro_sequencies.lua"
     $macroSequenciesOrigRelPath = "Mods\aircraft\{0}\Cockpit\Scripts\Macro_sequencies-orig.lua"
@@ -228,9 +228,9 @@ function AutoStartSelection ($airframes, $installPath) {
       $i++
     }
     $wsh = New-Object -ComObject Wscript.Shell
-    $wsh.Popup([string]::Format("                      Auto Start Scripting For
-    `n                                    {0} Aircraft
-    `n Has Been Restored To ED Original Successfully`n                             Happy Hunting!",$i))
+    $wsh.Popup([string]::Format("                     Auto Start Scripting For
+    `n                                  {0} Aircraft
+    `n Has Been Restored To ED Original Successfully`n                           Happy Hunting!",$i))
   })
 
   $CancelButton.Text = 'Close'
