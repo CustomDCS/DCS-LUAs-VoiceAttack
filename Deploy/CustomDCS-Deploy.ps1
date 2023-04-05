@@ -134,11 +134,6 @@ function AutoStartSelection ($airframes, $installPath) {
   $Label3.font = $LabelFont3
   $Label4.font = $LabelFont4
   $Label5.font = $LabelFont5
-
-
-
-  #$aircraft = $airframes[0]
-  #$checkboxes = @()
   
   $checkedlistbox = New-Object System.Windows.Forms.CheckedListBox
   $checkedlistbox.Location = '30,63'
@@ -150,13 +145,6 @@ function AutoStartSelection ($airframes, $installPath) {
   $checkedListBox.DisplayMember = 'Name'
   $checkedlistbox.CheckOnClick = $true
   $checkedlistbox.Add_ItemCheck({
-
-  #$SelectButton.add_Click( {$sender.ShowDialog()  } )
-  #$CancelButton.Add_Click({$Form.Close()})
-
-
-    #param($sender)
-    #Write-Host $e.CurrentValue
     if($sender.CurrentValue -eq "Checked")
     {
       Write-Host ([string]::Format($macroSequenciesRelPath, $airframes[$e.Index]))
@@ -221,36 +209,48 @@ function AutoStartSelection ($airframes, $installPath) {
 
   $SelectAllButton = New-Object System.Windows.Forms.Button
   $UninstallButton = New-Object System.Windows.Forms.Button
-  $SelectButton = New-Object System.Windows.Forms.Button
+  $InstallButton = New-Object System.Windows.Forms.Button
   $CancelButton = New-Object System.Windows.Forms.Button
 
   $SelectAllButton.Text = 'Select All'
   $SelectAllButton.Location = '15,245'
+  $SelectAllButton.Add_Click({
+    # check all the boxes
+  })
 
-  $SelectButton.Text = 'Install'
-  $SelectButton.Location = '15,276'
+  $InstallButton.Text = 'Install'
+  $InstallButton.Location = '15,276'
+  $InstallButton.Add_Click({
+    # install each selected script
+    foreach($aircraftToInstall in $checkedlistbox.SelectedItems) {
+      # intstall logic goes here, name of aircraft (path) will be in $aircraftToInstall
+    }
+  })
 
   $uninstallButton.Text = 'Uninstall'
   $UninstallButton.Location = '15,327'
+  $UninstallButton.Add_Click({
+    # uninstall logic goes here
+  })
 
-  $CancelButton.Text = 'Close'
+  $CancelButton.Text = 'Cancel'
   $CancelButton.Location = '15,354'
 
   $ButtonFont = New-Object System.Drawing.Font("Arial",10)
 
-  $SelectButton.Font = $ButtonFont
+  $InstallButton.Font = $ButtonFont
   $CancelButton.Font = $ButtonFont
   $UninstallButton.font = $ButtonFont
   $SelectAllButton.Font = $ButtonFont
 
-  $Form.AcceptButton = $SelectAllButton
-  $Form.CancelButton = $UninstallButton
-  $Form.AcceptButton = $SelectButton
+  #$Form.AcceptButton = $SelectAllButton  #these three aren't needed
+  #$Form.CancelButton = $UninstallButton
+  #$Form.AcceptButton = $InstallButton
   $Form.CancelButton = $CancelButton
 
   $Form.Controls.Add($SelectAllButton)
   $Form.Controls.Add($UninstallButton)
-  $Form.Controls.Add($SelectButton)
+  $Form.Controls.Add($InstallButton)
   $Form.Controls.Add($CancelButton)
 
 
