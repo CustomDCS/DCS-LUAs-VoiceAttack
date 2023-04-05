@@ -193,7 +193,9 @@ function AutoStartSelection ($airframes, $installPath) {
       $i++
     }
     $wsh = New-Object -ComObject Wscript.Shell
-    $wsh.Popup([string]::Format("{0} new scripts deployed successfully`nHappy Hunting!",$i))
+    $wsh.Popup([string]::Format("          Auto Start Scripting For
+    `n                        {0} Aircraft
+    `n Has Been Deployed Successfully`n                 Happy Hunting!",$i))
   })
 
   $uninstallButton.Text = 'Uninstall'
@@ -226,7 +228,9 @@ function AutoStartSelection ($airframes, $installPath) {
       $i++
     }
     $wsh = New-Object -ComObject Wscript.Shell
-    $wsh.Popup([string]::Format("{0} new scripts deployed successfully`nHappy Hunting!",$i))
+    $wsh.Popup([string]::Format("                      Auto Start Scripting For
+    `n                                    {0} Aircraft
+    `n Has Been Restored To ED Original Successfully`n                             Happy Hunting!",$i))
   })
 
   $CancelButton.Text = 'Close'
