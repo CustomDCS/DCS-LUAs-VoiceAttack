@@ -1,14 +1,9 @@
-
-
-
-
 ## Script to backup the current Mi8 auto start script and replace with our custom one from the current repo
-$ErrorActionPreference = "Stop" # this is a debug setting, will stop on any error so that we can figure out what went wrong
+#$ErrorActionPreference = "Stop" # this is a debug setting, will stop on any error so that we can figure out what went wrong
 $macroSequenciesRelPath = "Mods\aircraft\{0}\Cockpit\Scripts\Macro_sequencies.lua"
 #$Mi8MTV2 = "Mi-8MTV2"
 
 Write-Host "`n** Custom DCS deployment script **`n"
-
 function Get-Folder()
 {
     [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms") | Out-Null
@@ -29,7 +24,7 @@ function Get-DCSInstallPath {
   ##$installPath = $env:DCS_INSTALL_PATH # the environment variables don't seem to persist, so let's use the registry instead
   $path = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\DCS World OpenBeta_is1'
   if (!(Test-Path -Path $path)) {
-    # for some reason, even though he's on the beta, Zebra's path is different, might have to handle more weird cases?  
+    # for some reason, even though he's on the beta, Zebra's path is different, might have to handle more weird cases?
     # Hopefully the folder selection dialog should help here
     $path = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\DCS World_is1'
   }
@@ -43,7 +38,6 @@ function Get-DCSInstallPath {
     $installPath = Get-Folder
     Write-Host "If this keeps happening, please reach out to FlamerNZ..."
   }
-  
   return $installPath
 }
 
@@ -69,11 +63,14 @@ function AutoStartSelection ($airframes, $installPath) {
   # Set the size of your form
   $Form = New-Object System.Windows.Forms.Form
   #$Form.width = 500
-  #$Form.height = (200 + (50 * ($airframes.Count - 1)))  # should expand this depending on how many lines we need, based on number of items in $aircraft list
+  # should expand this depending on how many lines we need, based on number of items in $aircraft list
+  #$Form.height = (200 + (50 * ($airframes.Count - 1)))
+ 
   $Form.width = 290
   $Form.height = 580
   $Form.Text = "CustomDCS.com"
   $form.StartPosition = 'CenterScreen'
+  $Form.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#dedcdc")
 
   # Set up the lables
 
@@ -107,24 +104,6 @@ function AutoStartSelection ($airframes, $installPath) {
   $label4.Text = '     To Original ED Auto Start'
   $form.Controls.Add($label4)
 
-  #$label5 = New-Object System.Windows.Forms.Label
-  #$label5.Location = '95,312'
-  #$label5.Size = '280,15'
-  #$label5.Text = '- Uninstall Custom Auto Start'
-  #$form.Controls.Add($label5)
-
-  #$label6 = New-Object System.Windows.Forms.Label
-  #$label6.Location = '95,327'
-  #$label6.Size = '280,15'
-  #$label6.Text = '   And Revert To ED Auto Start'
-  #$form.Controls.Add($label6)
-
-  #$label7 = New-Object System.Windows.Forms.Label
-  #$label7.Location = '95,368'
-  #$label7.Size = '280,20'
-  #$label7.Text = '- Exit The Application'
-  #$form.Controls.Add($label7)
-
   # Set the font of the text to be used within the form
 
   $Font = New-Object System.Drawing.Font("Arial Black",12)
@@ -134,10 +113,6 @@ function AutoStartSelection ($airframes, $installPath) {
   $LabelFont2 = New-Object System.Drawing.Font("Arial Black",9)
   $LabelFont3 = New-Object System.Drawing.Font("Arial",9)
   $LabelFont4 = New-Object System.Drawing.Font("Arial",9)
-  #$LabelFont5 = New-Object System.Drawing.Font("Arial Black",9)
-  #$LabelFont6 = New-Object System.Drawing.Font("Arial Black",8)
-  #$LabelFont7 = New-Object System.Drawing.Font("Arial Black",10)
-
 
   $Form.Font = $Font
   $Label.font = $LabelFont
@@ -145,15 +120,15 @@ function AutoStartSelection ($airframes, $installPath) {
   $Label2.font = $LabelFont2
   $Label3.font = $LabelFont3
   $Label4.font = $LabelFont4
-  #$Label5.font = $LabelFont5
-  #$Label6.font = $LabelFont6
-  #$Label7.font = $LabelFont7
   
   $checkedlistbox = New-Object System.Windows.Forms.CheckedListBox
   $checkedlistbox.Location = '20,90'
   $checkedlistbox.Size = '235,185'
+  $checkedlistbox.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#faf8f7")
 
   $Form.Controls.Add($checkedlistbox)
+  
+
   $checkedListBox.DataSource = [collections.arraylist]$airframes
 
   $checkedListBox.DisplayMember = 'Name'
@@ -165,34 +140,34 @@ function AutoStartSelection ($airframes, $installPath) {
   $InstallButton = New-Object System.Windows.Forms.Button
   $CancelButton = New-Object System.Windows.Forms.Button
 
-
-  
   $SelectAllButton.Text = 'Select All'
   $SelectAllButton.Location = '20,285'
   $SelectAllButton.Size = '115,30'
+  $SelectAllButton.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#b3b3b3")
   $SelectAllButton.Add_Click({
     For ($i=0; $i -lt $CheckedListBox.Items.count;$i++) {
-      $CheckedListBox.SetItemchecked($i,$True) 
+      $CheckedListBox.SetItemchecked($i,$True)
     }
   })
 
   $UnselectAllButton.Text = 'Unselect All'
   $UnselectAllButton.Location = '140,285'
   $UnselectAllButton.Size = '115,30'
+  $UnselectAllButton.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#b3b3b3")
   $UnselectAllButton.Add_Click({
     For ($i=0; $i -lt $CheckedListBox.Items.count;$i++) {
       $CheckedListBox.SetItemchecked($i,$false) 
     }
   })
 
-
   $InstallButton.Text = 'Install Selected'
   $InstallButton.Location = '20,320'
   $InstallButton.Size = '235,35'
+  $InstallButton.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#b3b3b3")
   $InstallButton.Add_Click({
     $macroSequenciesRelPath = "Mods\aircraft\{0}\Cockpit\Scripts\Macro_sequencies.lua"
     # install each selected script
-    $i = 0    
+    $i = 0
     foreach($aircraftToInstall in $checkedlistbox.checkeditems) {
       # intstall logic goes here, name of aircraft (path) will be in $aircraftToInstall
       Write-Host $aircraftToInstall
@@ -224,19 +199,21 @@ function AutoStartSelection ($airframes, $installPath) {
 
   $uninstallButton.Text = 'Uninstall Selected'
   $uninstallButton.Location = '20,435'
-  $uninstallButton.Size = '235,35'
+  $uninstallButton.Size = '235,37'
+  $uninstallButton.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#b3b3b3")
   $uninstallButton.Add_Click({
     # uninstall logic goes here
     $macroSequenciesRelPath = "Mods\aircraft\{0}\Cockpit\Scripts\Macro_sequencies.lua"
     $macroSequenciesOrigRelPath = "Mods\aircraft\{0}\Cockpit\Scripts\Macro_sequencies-orig.lua"
     # install each selected script
-    $i = 0    
+    $i = 0
     foreach($aircraftToInstall in $checkedlistbox.checkeditems) {
       # intstall logic goes here, name of aircraft (path) will be in $aircraftToInstall
       Write-Host $aircraftToInstall
       
       $installPath = Get-DCSInstallPath
       $relPath = ([string]::Format($macroSequenciesRelPath,$aircraftToInstall)) # $aircraft
+
       #Write-Host $installPath
       $destPath = ($installPath + $relPath)
 
@@ -260,8 +237,9 @@ function AutoStartSelection ($airframes, $installPath) {
   })
 
   $CancelButton.Text = 'Close'
-  $CancelButton.Location = '20,475'
+  $CancelButton.Location = '20,476'
   $CancelButton.Size = '235,45'
+  $CancelButton.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#b3b3b3")
 
   $ButtonFont = New-Object System.Drawing.Font("Arial",10)
   $ButtonFont1 = New-Object System.Drawing.Font("Arial",10)
@@ -272,11 +250,7 @@ function AutoStartSelection ($airframes, $installPath) {
   $SelectAllButton.Font = $ButtonFont
   $UnselectAllButton.Font = $ButtonFont
 
-  #$Form.AcceptButton = $SelectAllButton  #these three aren't needed
-  #$Form.CancelButton = $UninstallButton
-  #$Form.AcceptButton = $InstallButton
   $Form.CancelButton = $CancelButton
-
   $Form.Controls.Add($UnselectAllButton)
   $Form.Controls.Add($SelectAllButton)
   $Form.Controls.Add($UninstallButton)
@@ -287,7 +261,7 @@ function AutoStartSelection ($airframes, $installPath) {
 
   # Activate the form
   $Form.Add_Shown({$Form.Activate()})
-  [void] $Form.ShowDialog() 
+  [void] $Form.ShowDialog()
 }
 
 $installPath = Get-DCSInstallPath
