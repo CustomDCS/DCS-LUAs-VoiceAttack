@@ -73,6 +73,7 @@ function AutoStartSelection ($airframes, $installPath) {
   $Form.width = 290
   $Form.height = 580
   $Form.Text = "CustomDCS.com"
+  $form.StartPosition = 'CenterScreen'
 
   # Set up the lables
 
@@ -255,7 +256,7 @@ function AutoStartSelection ($airframes, $installPath) {
     $wsh.Popup([string]::Format("                  Custom Auto Start Scripting For
     `n                                      {0} Aircraft
     `n                              Has Been Removed`n           And Restored To ED Original Successfully
-    `n                              - Happy Hunting -",$i))
+    `n                               - Happy Hunting -",$i))
   })
 
   $CancelButton.Text = 'Close'
