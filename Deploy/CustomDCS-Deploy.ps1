@@ -66,11 +66,11 @@ function AutoStartSelection ($airframes, $installPath) {
   # should expand this depending on how many lines we need, based on number of items in $aircraft list
   #$Form.height = (200 + (50 * ($airframes.Count - 1)))
  
-  $Form.width = 290
+  $Form.width = 295
   $Form.height = 580
   $Form.Text = "CustomDCS.com"
   $form.StartPosition = 'CenterScreen'
-  $Form.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#dedcdc")
+  $Form.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#f2f2f2")
 
   # Set up the lables
 
@@ -95,13 +95,13 @@ function AutoStartSelection ($airframes, $installPath) {
   $label3 = New-Object System.Windows.Forms.Label
   $label3.Location = '45,400'
   $label3.Size = '280,15'
-  $label3.Text = 'Uninstalling Will Revert Selected'
+  $label3.Text = ' Uninstalling Will Revert Selected'
   $form.Controls.Add($label3)
 
   $label4 = New-Object System.Windows.Forms.Label
   $label4.Location = '50,416'
   $label4.Size = '280,15'
-  $label4.Text = '     To Original ED Auto Start'
+  $label4.Text = '      To Original ED Auto Start'
   $form.Controls.Add($label4)
 
   # Set the font of the text to be used within the form
@@ -124,7 +124,7 @@ function AutoStartSelection ($airframes, $installPath) {
   $checkedlistbox = New-Object System.Windows.Forms.CheckedListBox
   $checkedlistbox.Location = '20,90'
   $checkedlistbox.Size = '235,185'
-  $checkedlistbox.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#faf8f7")
+  $checkedlistbox.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#ffffff")
 
   $Form.Controls.Add($checkedlistbox)
   
@@ -139,11 +139,12 @@ function AutoStartSelection ($airframes, $installPath) {
   $UninstallButton = New-Object System.Windows.Forms.Button
   $InstallButton = New-Object System.Windows.Forms.Button
   $CancelButton = New-Object System.Windows.Forms.Button
+  $ReadMeButton = New-Object System.Windows.Forms.Button
 
   $SelectAllButton.Text = 'Select All'
   $SelectAllButton.Location = '20,285'
   $SelectAllButton.Size = '115,30'
-  $SelectAllButton.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#b3b3b3")
+  $SelectAllButton.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#dedede")
   $SelectAllButton.Add_Click({
     For ($i=0; $i -lt $CheckedListBox.Items.count;$i++) {
       $CheckedListBox.SetItemchecked($i,$True)
@@ -153,7 +154,7 @@ function AutoStartSelection ($airframes, $installPath) {
   $UnselectAllButton.Text = 'Unselect All'
   $UnselectAllButton.Location = '140,285'
   $UnselectAllButton.Size = '115,30'
-  $UnselectAllButton.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#b3b3b3")
+  $UnselectAllButton.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#dedede")
   $UnselectAllButton.Add_Click({
     For ($i=0; $i -lt $CheckedListBox.Items.count;$i++) {
       $CheckedListBox.SetItemchecked($i,$false) 
@@ -163,7 +164,7 @@ function AutoStartSelection ($airframes, $installPath) {
   $InstallButton.Text = 'Install Selected'
   $InstallButton.Location = '20,320'
   $InstallButton.Size = '235,35'
-  $InstallButton.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#b3b3b3")
+  $InstallButton.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#dedede")
   $InstallButton.Add_Click({
     $macroSequenciesRelPath = "Mods\aircraft\{0}\Cockpit\Scripts\Macro_sequencies.lua"
     # install each selected script
@@ -198,9 +199,9 @@ function AutoStartSelection ($airframes, $installPath) {
   })
 
   $uninstallButton.Text = 'Uninstall Selected'
-  $uninstallButton.Location = '20,435'
+  $uninstallButton.Location = '20,360'
   $uninstallButton.Size = '235,37'
-  $uninstallButton.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#b3b3b3")
+  $uninstallButton.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#dedede")
   $uninstallButton.Add_Click({
     # uninstall logic goes here
     $macroSequenciesRelPath = "Mods\aircraft\{0}\Cockpit\Scripts\Macro_sequencies.lua"
@@ -236,10 +237,18 @@ function AutoStartSelection ($airframes, $installPath) {
     `n                               - Happy Hunting -",$i))
   })
 
+  $ReadMeButton.Text = 'View Readme'
+  $ReadMeButton.Location = '20,435'
+  $ReadMeButton.Size = '235,35'
+  $ReadMeButton.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#dedede")
+
+  $ReadMeButton.Add_Click({
+    Invoke-Expression G:\Dev\DCS-LUAs-VoiceAttack\Deploy\ReadMe.txt
+  })
   $CancelButton.Text = 'Close'
   $CancelButton.Location = '20,476'
   $CancelButton.Size = '235,45'
-  $CancelButton.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#b3b3b3")
+  $CancelButton.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#dedede")
 
   $ButtonFont = New-Object System.Drawing.Font("Arial",10)
   $ButtonFont1 = New-Object System.Drawing.Font("Arial",10)
@@ -249,6 +258,7 @@ function AutoStartSelection ($airframes, $installPath) {
   $UninstallButton.font = $ButtonFont
   $SelectAllButton.Font = $ButtonFont
   $UnselectAllButton.Font = $ButtonFont
+  $ReadMeButton.Font = $ButtonFont
 
   $Form.CancelButton = $CancelButton
   $Form.Controls.Add($UnselectAllButton)
@@ -256,7 +266,7 @@ function AutoStartSelection ($airframes, $installPath) {
   $Form.Controls.Add($UninstallButton)
   $Form.Controls.Add($InstallButton)
   $Form.Controls.Add($CancelButton)
-
+  $Form.Controls.Add($ReadMeButton)
 
 
   # Activate the form
