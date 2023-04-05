@@ -70,35 +70,35 @@ function AutoStartSelection ($airframes, $installPath) {
   $Form = New-Object System.Windows.Forms.Form
   #$Form.width = 500
   #$Form.height = (200 + (50 * ($airframes.Count - 1)))  # should expand this depending on how many lines we need, based on number of items in $aircraft list
-  $Form.width = 260
-  $Form.height = 440
+  $Form.width = 290
+  $Form.height = 460
   $Form.Text = "CustomDCS.com"
 
   # Set up the lables
 
   $label = New-Object System.Windows.Forms.Label
-  $label.Location = '27,7'
+  $label.Location = '33,7'
   $label.Size = '280,20'
   $label.Text = 'Custom Auto Start Installer'
   $form.Controls.Add($label)
 
   $label1 = New-Object System.Windows.Forms.Label
-  $label1.Location = '30,38'
+  $label1.Location = '38,38'
   $label1.Size = '280,20'
   $label1.Text = 'Select One Or More'
   $form.Controls.Add($label1)
 
-  #$label2 = New-Object System.Windows.Forms.Label
-  #$label2.Location = '95,228'
-  #$label2.Size = '280,20'
-  #$label2.Text = '- Select All Auto Starts'
-  #$form.Controls.Add($label2)
+  $label2 = New-Object System.Windows.Forms.Label
+  $label2.Location = '50,324'
+  $label2.Size = '280,15'
+  $label2.Text = 'Uninstalling Will Revert Selected'
+  $form.Controls.Add($label2)
 
-  #$label3 = New-Object System.Windows.Forms.Label
-  #$label3.Location = '95,258'
-  #$label3.Size = '280,20'
-  #$label3.Text = '- Unselect All Auto Starts'
-  #$form.Controls.Add($label3)
+  $label3 = New-Object System.Windows.Forms.Label
+  $label3.Location = '50,340'
+  $label3.Size = '280,15'
+  $label3.Text = '     To Original ED Auto Starts'
+  $form.Controls.Add($label3)
 
   #$label4 = New-Object System.Windows.Forms.Label
   #$label4.Location = '95,288'
@@ -130,8 +130,8 @@ function AutoStartSelection ($airframes, $installPath) {
  
   $LabelFont = New-Object System.Drawing.Font("Arial",12)
   $LabelFont1 = New-Object System.Drawing.Font("Arial",11)
-  #$LabelFont2 = New-Object System.Drawing.Font("Arial",10)
-  #$LabelFont3 = New-Object System.Drawing.Font("Arial",10)
+  $LabelFont2 = New-Object System.Drawing.Font("Arial",8)
+  $LabelFont3 = New-Object System.Drawing.Font("Arial",8)
   #$LabelFont4 = New-Object System.Drawing.Font("Arial",10)
   #$LabelFont5 = New-Object System.Drawing.Font("Arial",9)
   #$LabelFont6 = New-Object System.Drawing.Font("Arial",8)
@@ -141,16 +141,16 @@ function AutoStartSelection ($airframes, $installPath) {
   $Form.Font = $Font
   $Label.font = $LabelFont
   $Label1.font = $LabelFont1
-  #$Label2.font = $LabelFont2
-  #$Label3.font = $LabelFont3
+  $Label2.font = $LabelFont2
+  $Label3.font = $LabelFont3
   #$Label4.font = $LabelFont4
   #$Label5.font = $LabelFont5
   #$Label6.font = $LabelFont6
   #$Label7.font = $LabelFont7
   
   $checkedlistbox = New-Object System.Windows.Forms.CheckedListBox
-  $checkedlistbox.Location = '30,63'
-  $checkedlistbox.Size = '186,165'
+  $checkedlistbox.Location = '40,63'
+  $checkedlistbox.Size = '190,165'
 
   $Form.Controls.Add($checkedlistbox)
   $checkedListBox.DataSource = [collections.arraylist]$airframes
@@ -167,7 +167,7 @@ function AutoStartSelection ($airframes, $installPath) {
 
   
   $SelectAllButton.Text = 'Select All'
-  $SelectAllButton.Location = '25,225'
+  $SelectAllButton.Location = '40,225'
   $SelectAllButton.Size = '90,30'
   $SelectAllButton.Add_Click({
     For ($i=0; $i -lt $CheckedListBox.Items.count;$i++) {
@@ -176,7 +176,7 @@ function AutoStartSelection ($airframes, $installPath) {
   })
 
   $UnselectAllButton.Text = 'Unselect All'
-  $UnselectAllButton.Location = '125,225'
+  $UnselectAllButton.Location = '140,225'
   $UnselectAllButton.Size = '90,30'
   $UnselectAllButton.Add_Click({
     For ($i=0; $i -lt $CheckedListBox.Items.count;$i++) {
@@ -186,7 +186,7 @@ function AutoStartSelection ($airframes, $installPath) {
 
 
   $InstallButton.Text = 'Install Selected'
-  $InstallButton.Location = '25,260'
+  $InstallButton.Location = '40,260'
   $InstallButton.Size = '190,30'
   $InstallButton.Add_Click({
     $macroSequenciesRelPath = "Mods\aircraft\{0}\Cockpit\Scripts\Macro_sequencies.lua"
@@ -221,7 +221,7 @@ function AutoStartSelection ($airframes, $installPath) {
   })
 
   $uninstallButton.Text = 'Uninstall Selected'
-  $uninstallButton.Location = '25,292'
+  $uninstallButton.Location = '40,292'
   $uninstallButton.Size = '190,30'
   $uninstallButton.Add_Click({
     # uninstall logic goes here
@@ -257,7 +257,7 @@ function AutoStartSelection ($airframes, $installPath) {
   })
 
   $CancelButton.Text = 'Close'
-  $CancelButton.Location = '25,345'
+  $CancelButton.Location = '40,375'
   $CancelButton.Size = '190,35'
 
   $ButtonFont = New-Object System.Drawing.Font("Arial",10)
