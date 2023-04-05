@@ -65,8 +65,6 @@ function Get-BackupPath ($path, [int] $i = 0) {
 function AutoStartSelection ($airframes, $installPath) {
   [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
   [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")
-  
-  $macroSequenciesRelPath = "Mods\aircraft\{0}\Cockpit\Scripts\Macro_sequencies.lua"
 
   # Set the size of your form
   $Form = New-Object System.Windows.Forms.Form
@@ -144,37 +142,20 @@ function AutoStartSelection ($airframes, $installPath) {
 
   $checkedListBox.DisplayMember = 'Name'
   $checkedlistbox.CheckOnClick = $true
-  $checkedlistbox.Add_ItemCheck({
-    if($sender.CurrentValue -eq "Checked")
-    {
-      Write-Host ([string]::Format($macroSequenciesRelPath, $airframes[$e.Index]))
+  # $checkedlistbox.Add_ItemCheck({
+  #   if($sender.CurrentValue -eq "Checked")
+  #   {
+  #     Write-Host ([string]::Format($macroSequenciesRelPath, $airframes[$e.Index]))
 
-      Write-Host "Taking a backup of your current auto start..."
-      $installPath = Get-DCSInstallPath
-      $relPath = ([string]::Format($macroSequenciesRelPath,$airframes[$e.Index])) # $aircraft
-      #Write-Host $installPath
-      $destPath = ($installPath + $relPath)
-      #Write-Host $destPath
-      $backupPath = $destPath + "." + (get-date -Format "yy-MM-dd") + ".bak"
-      $backupPath = Get-BackupPath $backupPath
-      #Write-Host $macroSequenciesPath
-      Rename-Item $destPath -NewName $backupPath
-      Write-Host "Backup saved to: " $backupPath
+     
 
-      Write-Host "Deploying new auto start..." -NoNewline
+  #     $wsh = New-Object -ComObject Wscript.Shell
+  #     $wsh.Popup([string]::Format("New script for {0} deployed successfully!",$airframes[$e.Index]))
 
-      Copy-Item $relPath -Destination $destPath
-
-      Write-Host "success!"
-      Write-Host "Happy fast start-up!  (You can now close the dialog)"
-
-      $wsh = New-Object -ComObject Wscript.Shell
-      $wsh.Popup([string]::Format("New script for {0} deployed successfully!",$airframes[$e.Index]))
-
-    } else {
-     Write-Host "Not implemented yet, sorry!"
-    }
-  })
+  #   } else {
+  #    Write-Host "Not implemented yet, sorry!"
+  #   }
+  # })
 
   # foreach($aircraft in $airframes)
   # {
@@ -215,22 +196,48 @@ function AutoStartSelection ($airframes, $installPath) {
   $SelectAllButton.Text = 'Select All'
   $SelectAllButton.Location = '15,245'
   $SelectAllButton.Add_Click({
-    # check all the boxes
+    For ($i=0; $i -lt $CheckedListBox.Items.count;$i++) {
+      $CheckedListBox.SetItemchecked($i,$True) 
+    }
   })
 
   $InstallButton.Text = 'Install'
   $InstallButton.Location = '15,276'
   $InstallButton.Add_Click({
+    $macroSequenciesRelPath = "Mods\aircraft\{0}\Cockpit\Scripts\Macro_sequencies.lua"
     # install each selected script
-    foreach($aircraftToInstall in $checkedlistbox.SelectedItems) {
+    $i = 0    
+    foreach($aircraftToInstall in $checkedlistbox.checkeditems) {
       # intstall logic goes here, name of aircraft (path) will be in $aircraftToInstall
+      Write-Host $aircraftToInstall
+      
+      Write-Host "Taking a backup of your current auto start..."
+      $installPath = Get-DCSInstallPath
+      $relPath = ([string]::Format($macroSequenciesRelPath,$aircraftToInstall)) # $aircraft
+      #Write-Host $installPath
+      $destPath = ($installPath + $relPath)
+      #Write-Host $destPath
+      $backupPath = $destPath + "." + (get-date -Format "yy-MM-dd") + ".bak"
+      $backupPath = Get-BackupPath $backupPath
+      #Write-Host $macroSequenciesPath
+      Rename-Item $destPath -NewName $backupPath
+      Write-Host "Backup saved to: " $backupPath
+
+      Write-Host "Deploying new auto start..." -NoNewline
+      Copy-Item $relPath -Destination $destPath
+
+      Write-Host "success!"
+      $i++
     }
+    $wsh = New-Object -ComObject Wscript.Shell
+    $wsh.Popup([string]::Format("{0} new scripts deployed successfully`nHappy Hunting!",$i))
   })
 
   $uninstallButton.Text = 'Uninstall'
   $UninstallButton.Location = '15,327'
   $UninstallButton.Add_Click({
     # uninstall logic goes here
+    Write-Host "Not implemented yet, sorry!"
   })
 
   $CancelButton.Text = 'Cancel'
