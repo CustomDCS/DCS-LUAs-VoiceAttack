@@ -1,6 +1,6 @@
 ## Script to backup the current Mi8 auto start script and replace with our custom one from the current repo
 #$ErrorActionPreference = "Stop" # this is a debug setting, will stop on any error so that we can figure out what went wrong
-$macroSequenciesRelPath = "Mods\aircraft\{0}\Cockpit\Scripts\Macro_sequencies.lua"
+#$macroSequenciesRelPath = "Mods\aircraft\{0}\Cockpit\Scripts\Macro_sequencies.lua"
 #$Mi8MTV2 = "Mi-8MTV2"
 
 Write-Host "`n** Custom DCS deployment script **`n"
@@ -176,8 +176,11 @@ function AutoStartSelection ($airframes, $installPath) {
       Write-Host "Taking a backup of your current auto start..."
       $installPath = Get-DCSInstallPath
       $relPath = ([string]::Format($macroSequenciesRelPath,$aircraftToInstall)) # $aircraft
+      if (!(Test-Path $relPath)) {
+        $relPath = "CustomDCS\" + $relPath
+      }
       #Write-Host $installPath
-      $destPath = ($installPath + $relPath)
+      $destPath = ($installPath + $relPath.TrimStart('CustomDCS\'))
       #Write-Host $destPath
       $backupPath = $destPath + "." + (get-date -Format "yy-MM-dd") + ".bak"
       $backupPath = Get-BackupPath $backupPath
@@ -214,6 +217,9 @@ function AutoStartSelection ($airframes, $installPath) {
       
       $installPath = Get-DCSInstallPath
       $relPath = ([string]::Format($macroSequenciesRelPath,$aircraftToInstall)) # $aircraft
+      if (!(Test-Path $relPath)) {
+        $relPath = "CustomDCS\" + $relPath
+      }
 
       #Write-Host $installPath
       $destPath = ($installPath + $relPath)
@@ -222,7 +228,9 @@ function AutoStartSelection ($airframes, $installPath) {
 
       $origRelPath = ([string]::Format($macroSequenciesOrigRelPath,$aircraftToInstall)) # $aircraft
       #Write-Host $installPath
-      #$destPath = ($installPath + $relPath)
+      if (!(Test-Path $origRelPath)) {
+        $origRelPath = "CustomDCS\" + $origRelPath
+      }
 
       Write-Host "Restoring ED auto start..." -NoNewline
       Copy-Item $origRelPath -Destination $destPath
@@ -274,6 +282,10 @@ function AutoStartSelection ($airframes, $installPath) {
   [void] $Form.ShowDialog()
 }
 
+# unpack Zip
+Expand-Archive "CustomDCS.zip" #-DestinationPath "..\Mods\"
+#Set-Location .\CustomDCS
+
 $installPath = Get-DCSInstallPath
 Write-Host "Current DCS install path: " $installPath
 
@@ -296,7 +308,12 @@ else {
 }
 
 # get list of airframes
-$airframes = (Get-ChildItem -Path "Mods\aircraft" -Directory).Name
+$airframePath = "CustomDCS\Mods\aircraft"
+if (!(Test-Path $airframePath)) {
+  $airframePath = "Mods\aircraft"
+}
+
+$airframes = (Get-ChildItem -Path $airframePath -Directory).Name
 #$airframes = @("Mi-8MTV2")
 Write-Host $airframes
 AutoStartSelection -airframes $airframes #, $installPath
