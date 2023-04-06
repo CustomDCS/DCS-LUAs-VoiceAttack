@@ -246,8 +246,8 @@ push_start_command(12, {device = devices.SPU_7, action = device_commands.Button_
 
 -- Reserve - Set To 450kHz
 
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_6, value = 0.5}) -- ARC 9 10KHZ DIAL
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_5, value = 0.15}) -- ARC 9 100KHZ DIAL
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_6, value = 0.9}) -- ARC 9 10KHZ DIAL
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_5, value = 0.10}) -- ARC 9 100KHZ DIAL
 
 -- Main - Set To 260kHz
 

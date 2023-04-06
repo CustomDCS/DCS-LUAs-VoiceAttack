@@ -59,6 +59,11 @@ push_start_command(0.0, {message = _("==========================================
 push_start_command(0.0, {message = _(" "), message_timeout = 125})		
 
 
+-- Parking Brake
+
+push_start_command(dt,{device = devices.CPT_MECH, action =  cockpit_mechanics_commands.Command_CPT_MECH_ParkingBrake, value = 1.0}) -- Parking Brake - ON
+
+
 -- Hide Seat
 
 push_start_command(dt,{device = devices.CPT_MECH, action =  cockpit_mechanics_commands.Command_CPT_MECH_Elements_Hide, value = 1.0}) -- Turn Seat OFF
@@ -82,11 +87,6 @@ push_start_command(dt,{device = devices.ASP_17V,action =  asp_commands.Reflector
 push_start_command(dt,{device = devices.ASP_17V,action =  asp_commands.Reflector_Move, value = 0.0}) -- Sight Reflector - MOVE
 
 push_start_command(dt,{device = devices.ASP_17V,action =  asp_commands.Reflector_Fix, value = 0.0}) -- Sight Reflector - FIX
-
-
--- Parking Brake
-
-push_start_command(dt,{device = devices.CPT_MECH, action =  cockpit_mechanics_commands.Command_CPT_MECH_ParkingBrake, value = 1.0}) -- Parking Brake - ON
 
 
 -- Main Radio Selector Switch
@@ -310,6 +310,7 @@ push_start_command(0.1,{device = devices.SPU_8,action =  SPU_8_Mi24_commands.CMD
 push_start_command(dt,{device = devices.SPU_8,action =  SPU_8_Mi24_commands.CMD_SPU8_NETWORK_2, value = 1.0}) -- Switch SPU-8 NET-2 - ON
 push_start_command(dt,{device = devices.R_863,action =  r863_commands.POWER, value = 1.0}) -- R-863 Power Switch - ON
 push_start_command(dt,{device = devices.JADRO_1I,action =  jadro_commands.POWER, value = 1.0}) -- JADRO Power Switch - ON
+push_start_command(dt,{device = devices.JADRO_1I,action =  jadro_commands.MODE, value = 0.3}) -- JADRO Mode Switch - AM
 push_start_command(dt,{device = devices.EUCALYPT_M24,action =  eucalypt_commands.POWER_ON_OFF2, value = 1.0}) -- R-828 Power Switch - ON
 push_start_command(dt,{device = devices.RADAR_ALTIMETER,action =  ralt_commands.POWER, value = 1.0}) -- RADALT Power Switch - ON
 push_start_command(dt,{device = devices.DISS_15,action =  diss_commands.POWER, value = 1.0}) -- Doppler System Switch - ON
@@ -328,6 +329,7 @@ push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24
 push_start_command(dt,{device = devices.EXT_LIGHTS_SYSTEM,action =  ext_lights_commands.FormationLights, value = 1.0}) -- Formation Lights Power Switch - BRIGHT
 push_start_command(dt,{device = devices.MAP_DISPLAY,action =  map_display_commands.Power, value = 1.0}) -- Map Power Switch - ON
 push_start_command(dt,{device = devices.EXT_CARGO_EQUIPMENT,action =  ext_cargo_equipment_commands.CMD_AutoReleaseSw, value = 1.0}) -- External Cargo Hook - AUTOMATIC
+push_start_command(dt,{device = devices.EXT_CARGO_EQUIPMENT,action =  ext_cargo_equipment_commands.CMD_RemoveRelease, value = 1.0}) -- External Cargo Remove Release - ON
 
 push_start_command(4.0,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 1.0}) -- Betty
 push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
