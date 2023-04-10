@@ -185,7 +185,7 @@ push_start_command(dt, {device = devices.CPT_MECH, action = device_commands.Butt
 push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_30, value = 1.0}) -- RS/GUV Selector Switch
 push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_22, value = -1.0}) -- UPK/PKT/RS Switch Set to RS - Rockets
 push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_20, value = -1.0}) -- 8/16/4 Switch - Set to 4
---push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_27, value = 1.0}) -- Wepons Master ARM - ON
+push_start_command(dt, {device = devices.WEAPON_SYS, action = device_commands.Button_27, value = 1.0}) -- Wepons Master ARM - ON
 
 
 -- Set Sight

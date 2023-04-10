@@ -66,7 +66,7 @@ push_start_command(dt,{device = devices.CPT_MECH, action =  cockpit_mechanics_co
 
 -- Hide Seat
 
-push_start_command(dt,{device = devices.CPT_MECH, action =  cockpit_mechanics_commands.Command_CPT_MECH_Elements_Hide, value = 1.0}) -- Turn Seat OFF
+--push_start_command(dt,{device = devices.CPT_MECH, action =  cockpit_mechanics_commands.Command_CPT_MECH_Elements_Hide, value = 1.0}) -- Turn Seat OFF
 
 
 -- Close Doors
@@ -416,15 +416,15 @@ push_start_command(dt,{device = devices.CPT_MECH,action =  cockpit_mechanics_com
 
 
 
--- Right Engine Start TIME 48sec
+-- Right Engine Start TIME 50sec
 
-push_start_command(48, {message = _("  Right Engine START"), message_timeout = 40})
-push_start_command(0.0, {message = _(" "), message_timeout = 40})
+push_start_command(50, {message = _("  Right Engine START"), message_timeout = 50})
+push_start_command(0.0, {message = _(" "), message_timeout = 50})
 
 push_start_command(0.1,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Launch_Method, value = 0.0}) -- Mode Selector Switch To START
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Select, value = -1.0}) -- Engine Select Switch - RIGHT
 
-push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 1.0}) -- Engine Start Button - PRESS
+push_start_command(1.0,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 1.0}) -- Engine Start Button - PRESS
 push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 0.0}) -- Engine Start Button - RELEASE
 push_start_command(0.1,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 1.0}) -- Engine Start Button - PRESS
 push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 0.0}) -- Engine Start Button - RELEASE
