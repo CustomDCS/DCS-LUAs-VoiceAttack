@@ -288,6 +288,11 @@ function DownloadLatest {
     Remove-Item "CustomDCS.zip"
   }
 
+  if (Test-Path -Path "CustomDCS") {
+    # Remove old Folder
+    Remove-Item "CustomDCS" -Recurse -Force
+  }
+
   # Download latest CustomDCS/DCS-LUAs-VoiceAttack release from github
 
   $repo = "CustomDCS/DCS-LUAs-VoiceAttack"
@@ -296,7 +301,7 @@ function DownloadLatest {
   $releases = "https://api.github.com/repos/$repo/releases"
 
   Write-Host Determining latest release
-  $tag = (Invoke-WebRequest $releases | ConvertFrom-Json)[0].tag_name
+  $tag = (Invoke-WebRequest $releases -UseBasicParsing | ConvertFrom-Json)[0].tag_name
 
   $download = "https://github.com/$repo/releases/download/$tag/$file"
   #$name = $file.Split(".")[0]
