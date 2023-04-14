@@ -282,9 +282,44 @@ function AutoStartSelection ($airframes, $installPath) {
   [void] $Form.ShowDialog()
 }
 
-# unpack Zip
-Expand-Archive "CustomDCS.zip" #-DestinationPath "..\Mods\"
-#Set-Location .\CustomDCS
+function DownloadLatest {
+  if (Test-Path -Path "CustomDCS.zip") {
+    # Remove old zip
+    Remove-Item "CustomDCS.zip"
+  }
+
+  # Download latest CustomDCS/DCS-LUAs-VoiceAttack release from github
+
+  $repo = "CustomDCS/DCS-LUAs-VoiceAttack"
+  $file = "CustomDCS.zip"
+
+  $releases = "https://api.github.com/repos/$repo/releases"
+
+  Write-Host Determining latest release
+  $tag = (Invoke-WebRequest $releases | ConvertFrom-Json)[0].tag_name
+
+  $download = "https://github.com/$repo/releases/download/$tag/$file"
+  #$name = $file.Split(".")[0]
+  #$zip = "$name-$tag.zip"
+  # $dir = "$name-$tag"
+
+  Write-Host Dowloading latest release
+  Invoke-WebRequest $download -Out "CustomDCS.zip"
+
+  Write-Host Extracting release files
+  # unpack Zip
+  Expand-Archive "CustomDCS.zip" #-DestinationPath "..\Mods\"
+
+  # # Cleaning up target dir
+  # Remove-Item $name -Recurse -Force -ErrorAction SilentlyContinue 
+
+  # # Moving from temp dir to target dir
+  # Move-Item $dir\$name -Destination $name -Force
+
+  # # Removing temp files
+  # Remove-Item $zip -Force
+  # Remove-Item $dir -Recurse -Force
+}
 
 $installPath = Get-DCSInstallPath
 Write-Host "Current DCS install path: " $installPath
@@ -306,6 +341,8 @@ else {
   Write-Host "success!"
   
 }
+
+DownloadLatest
 
 # get list of airframes
 $airframePath = "CustomDCS\Mods\aircraft"
