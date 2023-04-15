@@ -253,8 +253,8 @@ push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_
 
 -- Main - Set To 450kHz
 
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_9, value = 0.5}) -- ARC 9 10KHZ DIAL
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_8, value = 0.15}) -- ARC 9 100KHZ DIAL
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_9, value = 0.0}) -- ARC 9 10KHZ DIAL
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_8, value = 0.60}) -- ARC 9 100KHZ DIAL
 
 push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_11, value = 1.0}) -- Main/Reserve Switch - Set To Main
 
@@ -274,6 +274,7 @@ push_start_command(dt, {message = _("  B  GLORY        - 290kHz - 054 For 32"), 
 push_start_command(dt, {message = _("  C  WARHORSE - 480kHz - 32nm 081 E"), message_timeout = 100})
 push_start_command(dt, {message = _("      SHARON      - 450kHz - 033 For 17"), message_timeout = 100})
 push_start_command(dt, {message = _("      APEX           - 840kHz - 332 For 16"), message_timeout = 100})
+push_start_command(dt, {message = _("      ASHLEIGH      - 1200kHz - 0 For 0"), message_timeout = 100})
 push_start_command(dt, {message = _("================================="), message_timeout = 100})
 push_start_command(dt, {message = _(" "), message_timeout = 100})
 
