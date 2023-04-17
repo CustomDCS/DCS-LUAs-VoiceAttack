@@ -41,3 +41,6 @@ luac.out
 
 # VSCode
 *.vscode
+
+#Mac
+.DS_Store
