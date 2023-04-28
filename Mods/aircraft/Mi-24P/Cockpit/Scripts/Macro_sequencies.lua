@@ -44,20 +44,45 @@ alert_messages[LEFT_ENGINE_START_FAULT] = { message = _("LEFT ENGINE START FAULT
 alert_messages[RIGHT_ENGINE_START_FAULT] = { message = _("RIGHT ENGINE START FAULT"), message_timeout = 10}
 
 -----------------------------------------------------------------------------------------------------------------------
+
+-- Barometric Pressure Set
+for i = 1, 158.0, 1 do
+	push_start_command(0.01, {device = devices.BAROALT_P, action = baroaltimeter_commands.CMD_ADJUST_PRESSURE, value = 1}) -- Set QNH - Pilot
+end
+for i = 1, 158.0, 1 do
+	push_stop_command(0.01, {device = devices.BAROALT_P, action = baroaltimeter_commands.CMD_ADJUST_PRESSURE, value = -1}) -- Set QNH - Pilot
+end
+
+-- RADALT
+for i = 1, 20, 1 do
+	push_start_command(0.01, {device = devices.RADAR_ALTIMETER, action = ralt_commands.ROTARY, value = -1}) -- RADALT Set To 0m
+end
+for i = 1, 20, 1 do
+	push_stop_command(0.01, {device = devices.RADAR_ALTIMETER, action = ralt_commands.ROTARY, value = -1}) -- RADALT Set To 0m
+
+end
+
+-- Reserve 1200kHz - Left
+for i = 1, 1, 1 do
+	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.BACKUP_10KHz, value = 0.0}) -- ADF 10kHz
+end
+for i = 1, 1, 1 do
+	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.BACKUP_100KHz, value = 0.70}) -- ADF 100kHz
+end
+
+-- Primary 840kHz - Right
+for i = 1, 1, 1 do
+	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.PRIMARY_10KHz, value = 0.4}) -- ADF 10kHz
+end
+for i = 1, 1, 1 do
+	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.PRIMARY_100KHz, value = 0.45}) -- ADF 100kHz
+end
+push_start_command(0.0, {message = _("  CustomDCS.com Super Quick Autostart Sequence Is Running"), message_timeout = 125})
+push_start_command(0.0, {message = _("  This Auto Start is Set For FARP ASHLEIGH"), message_timeout = 125})
+push_start_command(0.0, {message = _("  -Mi-24P"), message_timeout = 125})
+
 -----------------------------------------------------------------------------------------------------------------------
-
-
--- Function to collect all the start sequence commands.
-
-
-push_start_command(0.0, {message = _(" "), message_timeout = 125})	
-push_start_command(0.0, {message = _("=================================================="), message_timeout = 125})
-push_start_command(0.0, {message = _("  CustomDCS.com Super Quick Autostart Sequence Is Running (2m 20sec)"), message_timeout = 125})
-push_start_command(0.0, {message = _("                   This Auto Start is Set For FARP GLORY"), message_timeout = 125})
-push_start_command(0.0, {message = _("                      FARP GLORY Is The Current BRAVO"), message_timeout = 125})
-push_start_command(0.0, {message = _("=================================================="), message_timeout = 125})
-push_start_command(0.0, {message = _(" "), message_timeout = 125})		
-
+	
 
 -- Parking Brake
 
@@ -94,43 +119,8 @@ push_start_command(dt,{device = devices.ASP_17V,action =  asp_commands.Reflector
 push_start_command(dt,{device = devices.SPU_8, action =  SPU_8_Mi24_commands.CMD_SPU8_P_ICS_RADIO, value = 0.0}) -- Main Radio - ICS
 
 
--- Barometric Pressure Set - Also Needs Updating In the Auto Stop
-
-for i = 1, 82.0, 1 do
-	push_start_command(0.01, {device = devices.BAROALT_P, action = baroaltimeter_commands.CMD_ADJUST_PRESSURE, value = 1}) -- Set QNH - Pilot
-end
-
--- RADALT
-
-for i = 1, 20, 1 do
-	push_start_command(0.01, {device = devices.RADAR_ALTIMETER, action = ralt_commands.ROTARY, value = -1}) -- RADALT Set To 0m
-end
-
-
--- ADF - ARC-15
-
--- Reserve 450kHz
-
 for i = 1, 1, 1 do
-	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.BACKUP_10KHz, value = 0.6}) -- ADF 10kHz
-end
-
-for i = 1, 1, 1 do
-	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.BACKUP_100KHz, value = 0.25}) -- ADF 100kHz
-end
-
--- Primary 260kHz
-
-for i = 1, 1, 1 do
-	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.PRIMARY_10KHz, value = 0.7}) -- ADF 10kHz
-end
-
-for i = 1, 1, 1 do
-	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.PRIMARY_100KHz, value = 0.1}) -- ADF 100kHz
-end
-
-for i = 1, 1, 1 do
-	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.MODE, value = 0.1}) -- ADF MODE Switch - COMP - WORKS
+	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.MODE, value = 0.1}) -- ADF MODE Switch - COMP
 end
 
 
@@ -159,22 +149,6 @@ push_start_command(dt,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_
 push_start_command(0.2,{device = devices.VMS,action =  RI65_commands.CMD_RI_Mi24_Off, value = 0.0}) -- Betty
 
 
--- Information Message - Current Set Up
-
-push_start_command(0.0, {message = _("================================="), message_timeout = 100})
-push_start_command(0.0, {message = _("  Altimeter Set To FARP GLORY"), message_timeout = 100})
-push_start_command(0.0, {message = _("  Radio Set To ICS To Allow Rearm And Refuel"), message_timeout = 100})
-push_start_command(0.0, {message = _("  The Weapons Systems Need To Be Initialized"), message_timeout = 100})
-push_start_command(0.0, {message = _("  CPG Master Arm Is ON - 30mm Selected"), message_timeout = 100})
-push_start_command(0.0, {message = _("  Main ADF Tuned To FARP SHARON (260kHz) - SELECTED"), message_timeout = 100})
-push_start_command(0.0, {message = _("  Reserve ADF Tuned To FARP BATWATCH (450kHz)"), message_timeout = 100})
-push_start_command(0.0, {message = _("      SHARON     - 600kHz - 256 For 17nm"), message_timeout = 100})
-push_start_command(0.0, {message = _("  A  ARROW      - 600kHz - 309 For 17nm"), message_timeout = 100})
-push_start_command(0.0, {message = _("  B  GLORY        - 290kHz - Current Location"), message_timeout = 100})
-push_start_command(0.0, {message = _("  C  WARHORSE - 480kHz - 088 For 15nm"), message_timeout = 100})
-push_start_command(0.0, {message = _("      BAYWATCH - 450kHz - 234 For 32nm"), message_timeout = 100})
-push_start_command(0.0, {message = _("================================="), message_timeout = 100})
-push_start_command(0.0, {message = _(" "), message_timeout = 100})
 
 
 -- Circut Breakers
@@ -276,7 +250,6 @@ push_start_command(dt,{device = devices.FUELSYS_INTERFACE,action =  fuel_command
 -- APU Start START 15sec
 
 push_start_command(dt, {message = _("  APU Start"), message_timeout = 10})
-push_start_command(dt, {message = _(" "), message_timeout = 10})
 
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_Launch_Method, value = -1.0}) -- APU Selector Switch - START
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_StartUp, value = 1.0}) -- APU Start Button - Press
@@ -375,7 +348,6 @@ push_start_command(1.0,{device = devices.ENGINE_INTERFACE,action =  engine_comma
 -- Left Engine Start TIME 48sec
 
 push_start_command(dt, {message = _("  Left Engine START"), message_timeout = 40})
-push_start_command(dt, {message = _(" "), message_timeout = 40})
 
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Launch_Method, value = 0.0}) -- Mode Selector Switch - START
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Select, value = 1.0}) -- Engine Select Switch - LEFT
@@ -416,15 +388,14 @@ push_start_command(dt,{device = devices.CPT_MECH,action =  cockpit_mechanics_com
 
 
 
--- Right Engine Start TIME 50sec
+-- Right Engine Start TIME 48sec
 
-push_start_command(50, {message = _("  Right Engine START"), message_timeout = 50})
-push_start_command(0.0, {message = _(" "), message_timeout = 50})
+push_start_command(50, {message = _("  Right Engine START"), message_timeout = 40})
 
 push_start_command(0.1,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Launch_Method, value = 0.0}) -- Mode Selector Switch To START
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_Select, value = -1.0}) -- Engine Select Switch - RIGHT
 
-push_start_command(1.0,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 1.0}) -- Engine Start Button - PRESS
+push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 1.0}) -- Engine Start Button - PRESS
 push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 0.0}) -- Engine Start Button - RELEASE
 push_start_command(0.1,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 1.0}) -- Engine Start Button - PRESS
 push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 0.0}) -- Engine Start Button - RELEASE
@@ -454,18 +425,14 @@ push_start_command(1.0,{device = devices.MGV1SU_2,action =  mgv1su_commands.CAGE
 
 -- APU Stop
 
-push_start_command(23, {message = _(" "), message_timeout = 10})
 push_start_command(0.0, {message = _("  APU Stop"), message_timeout = 10})
-push_start_command(0.0, {message = _(" "), message_timeout = 1.8})
 
 push_start_command(0.0,{device = devices.ELEC_INTERFACE,action =  elec_commands.DCGenerator, value = 0.0}) -- APU Gen Set - OFF
 
 push_start_command(0.0,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_Stop, value = 1.0}) -- APU Stop Button - Press
 push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_APU_Stop, value = 0.0}) -- APU Stop Button - Release
 
-push_start_command(2, {message = _(" "), message_timeout = 10.4})
 push_start_command(0.0, {message = _("  Stabilizing Engine RPM"), message_timeout = 10.4})
-push_start_command(0.0, {message = _(" "), message_timeout = 10.4})
 
 
 -- Auto Pilot
@@ -492,9 +459,9 @@ push_start_command(dt,{device = devices.SPU_8, action =  SPU_8_Mi24_commands.CMD
 -- Finish Message
 
 push_start_command(11.0, {message = _(" "), message_timeout = 10})
-push_start_command(dt, {message = _("=================================================="), message_timeout = 10})	
+push_start_command(dt, {message = _("========================================"), message_timeout = 10})	
 push_start_command(dt, {message = _("CustomDCS.com Super Quick Autostart Sequence Has Finished"), message_timeout = 10})
-push_start_command(dt, {message = _("=================================================="), message_timeout = 10})
+push_start_command(dt, {message = _("========================================"), message_timeout = 10})
 push_start_command(dt, {message = _(" "), message_timeout = 10})
 
 
@@ -570,17 +537,6 @@ push_stop_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_command
 -- Rotor Brake
 
 push_stop_command(1.0,{device = devices.ENGINE_INTERFACE,action =  engine_commands.LEVER_Rotor_Lock, value = 1.0}) -- Rotor Brake - ON
-
-
--- Barometric Pressure Set
-
-for i = 1, 82.0, 1 do
-	push_stop_command(0.01, {device = devices.BAROALT_P, action = baroaltimeter_commands.CMD_ADJUST_PRESSURE, value = -1}) -- Set QNH - Pilot
-end
-
-for i = 1, 20, 1 do
-	push_stop_command(0.01, {device = devices.RADAR_ALTIMETER, action = ralt_commands.ROTARY, value = -1}) -- RADALT Set To 0m
-end
 
 
 -- Fire Extinguisher Circuts
