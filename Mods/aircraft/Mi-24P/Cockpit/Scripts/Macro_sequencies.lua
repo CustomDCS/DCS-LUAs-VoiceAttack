@@ -62,12 +62,12 @@ for i = 1, 20, 1 do
 
 end
 
--- Reserve 1200kHz - Left
+-- Reserve 530kHz - Left
 for i = 1, 1, 1 do
-	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.BACKUP_10KHz, value = 0.0}) -- ADF 10kHz
+	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.BACKUP_10KHz, value = 0.3}) -- ADF 10kHz
 end
 for i = 1, 1, 1 do
-	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.BACKUP_100KHz, value = 0.70}) -- ADF 100kHz
+	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.BACKUP_100KHz, value = 0.3}) -- ADF 100kHz
 end
 
 -- Primary 840kHz - Right
@@ -78,7 +78,7 @@ for i = 1, 1, 1 do
 	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.PRIMARY_100KHz, value = 0.45}) -- ADF 100kHz
 end
 push_start_command(0.0, {message = _("  CustomDCS.com Super Quick Autostart Sequence Is Running"), message_timeout = 125})
-push_start_command(0.0, {message = _("  This Auto Start is Set For FARP ASHLEIGH"), message_timeout = 125})
+push_start_command(0.0, {message = _("  This Auto Start is Set For FARP NEPTUNE"), message_timeout = 125})
 push_start_command(0.0, {message = _("  -Mi-24P"), message_timeout = 125})
 
 -----------------------------------------------------------------------------------------------------------------------
@@ -339,12 +339,6 @@ push_start_command(1.0,{device = devices.ENGINE_INTERFACE,action =  engine_comma
 
 push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.LEVER_Rotor_Lock, value = 0.0}) -- Rotor Brake - OFF
 
-
--- Throttle Up
-
-push_start_command(1.0,{device = devices.ENGINE_INTERFACE,action =  engine_commands.OP_CONTROL_CORRECTION, value = 1.0}) -- Collective Throttle To MAX
-
-
 -- Left Engine Start TIME 48sec
 
 push_start_command(dt, {message = _("  Left Engine START"), message_timeout = 40})
@@ -400,10 +394,13 @@ push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_comma
 push_start_command(0.1,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 1.0}) -- Engine Start Button - PRESS
 push_start_command(0.3,{device = devices.ENGINE_INTERFACE,action =  engine_commands.STARTUP_Engine_StartUp, value = 0.0}) -- Engine Start Button - RELEASE
 
+-- Throttle Up
+push_start_command(40, {message = _("  Throttle Up"), message_timeout = 30})
+push_start_command(dt,{device = devices.ENGINE_INTERFACE,action =  engine_commands.OP_CONTROL_CORRECTION, value = 1.0}) -- Collective Throttle To MAX
 
--- Invreters
+-- Inverters
 
-push_start_command(22,{device = devices.ELEC_INTERFACE,action =  elec_commands.Rotary115vConverterCover, value = 0.0}) -- Inverter PO-750A Cover (115v) - CLOSED
+push_start_command(20,{device = devices.ELEC_INTERFACE,action =  elec_commands.Rotary115vConverterCover, value = 0.0}) -- Inverter PO-750A Cover (115v) - CLOSED
 push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.Rotary36vConverterCover, value = 0.0}) -- Inverter PT-125Ts Cover (36v) - CLOSED
 push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.NetworkToBatteriesCover, value = 0.0}) -- Network To Batteries Cover - CLOSED
 
@@ -413,7 +410,6 @@ push_start_command(dt,{device = devices.ELEC_INTERFACE,action =  elec_commands.T
 push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  elec_commands.Transformer115vMainBackup, value = 1.0}) -- Left Transformer Set - MAIN
 push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  elec_commands.Transformer36vMainBackup, value = 1.0}) -- Right Transformer Set - MAIN
 
-
 -- Cage Gyros
 
 push_start_command(dt,{device = devices.MGV1SU_1,action =  mgv1su_commands.CAGE, value = 1.0}) -- Left Gyro Cage - PRESS
@@ -422,10 +418,9 @@ push_start_command(1.0,{device = devices.MGV1SU_1,action =  mgv1su_commands.CAGE
 push_start_command(dt,{device = devices.MGV1SU_2,action =  mgv1su_commands.CAGE, value = 1.0}) -- Right Gyro Cage - PRESS
 push_start_command(1.0,{device = devices.MGV1SU_2,action =  mgv1su_commands.CAGE, value = 0.0}) -- Right Gyro Cage - RELEASE
 
-
 -- APU Stop
 
-push_start_command(0.0, {message = _("  APU Stop"), message_timeout = 10})
+push_start_command(20, {message = _("  APU Stop"), message_timeout = 20})
 
 push_start_command(0.0,{device = devices.ELEC_INTERFACE,action =  elec_commands.DCGenerator, value = 0.0}) -- APU Gen Set - OFF
 

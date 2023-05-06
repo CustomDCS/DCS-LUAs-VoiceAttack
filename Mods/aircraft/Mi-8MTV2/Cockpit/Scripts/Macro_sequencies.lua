@@ -53,7 +53,7 @@ for i = 1, 1, 1 do
 	push_stop_command(0.01, {device = devices.BAR_ALTIMETER_R, action = device_commands.Button_1, value = -1}) -- Set QNH - Copilot To STD
 end
 
--- Set QNH To FARP Height - Set to ASHLEIGH
+-- Set QNH To FARP Height - Set to Neptune
 for i = 1, 158, 1 do
 	push_start_command(0.01, {device = devices.BAR_ALTIMETER_L, action = device_commands.Button_1, value = 1}) -- Set QNH - Pilot
 end
@@ -61,9 +61,9 @@ for i = 1, 158, 1 do
 	push_start_command(0.01, {device = devices.BAR_ALTIMETER_R, action = device_commands.Button_1, value = 1}) -- Set QNH - Copilot
 end
 
--- Main - Set To 840kHz
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_9, value = 0.4}) -- ARC 9 10KHZ DIAL
-push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_8, value = 0.35}) -- ARC 9 100KHZ DIAL
+-- Main - Set To 530kHz
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_9, value = 0.3}) -- ARC 9 10KHZ DIAL
+push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_8, value = 0.3}) -- ARC 9 100KHZ DIAL
 
 -- Reserve - Set To 1200kHz
 push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_6, value = 0.0}) -- ARC 9 10KHZ DIAL
@@ -76,7 +76,7 @@ push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_
 local function doStartSequence()
 
 push_start_command(dt, {message = _("  CustomDCS.com Super Quick Autostart Sequence Is Running"), message_timeout = 120})
-push_start_command(dt, {message = _("  This Auto Start is Set For FARP ASHLEIGH"), message_timeout = 120})
+push_start_command(dt, {message = _("  This Auto Start is Set For FARP NEPTUNE"), message_timeout = 120})
 push_start_command(dt, {message = _("  -Mi-8MTV2-"), message_timeout = 120})
 
 
@@ -340,7 +340,7 @@ push_start_command(45, {message = _("  Left Engine Running"), message_timeout = 
 
 -- Right Engine START 57.2sec
 
-push_start_command(2, {message = _("  Right Engine Start"), message_timeout = 44.0})
+push_start_command(43, {message = _("  Right Engine Start"), message_timeout = 44.0})
 
 push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_10, value = 1.0}) -- Right Shutoff Valve Switch Cover - Open
 push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_2, value = 1.0}) -- Right Shutoff Valve Switch
@@ -354,7 +354,7 @@ push_start_command(1.0, {device = devices.ENGINE_INTERFACE, action = device_comm
 
 -- Cage Gyros
 
-push_start_command(23, {message = _("  Cage/Uncage Gyros 30sec To Align"), message_timeout = 30})
+push_start_command(27, {message = _("  Cage/Uncage Gyros 30sec To Align"), message_timeout = 30})
 
 push_start_command(0.1, {device = devices.AGB_3K_LEFT, action = device_commands.Button_2, value = 1.0}) -- Press - Cage Left Gyro
 push_start_command(0.8, {device = devices.AGB_3K_LEFT, action = device_commands.Button_2, value = 0.0}) -- Release - Uncage Left Gyro
