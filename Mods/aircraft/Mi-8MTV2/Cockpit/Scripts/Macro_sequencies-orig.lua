@@ -1,223 +1,475 @@
-dofile(LockOn_Options.script_path.."command_defs.lua")
-dofile(LockOn_Options.script_path.."devices.lua")
-
-std_message_timeout = 15
-
-local t_start = 0.0
-local t_stop = 0.0
-local delta_t_com = 2.0
-
-start_sequence_full = {}
-stop_sequence_full = {}
-
-function push_command(sequence, run_t, command)
-	sequence[#sequence + 1] =  command
-	sequence[#sequence]["time"] = run_t
-end
-
-function push_start_command(delta_t, command)
-	t_start = t_start + delta_t
-	push_command(start_sequence_full,t_start, command)
-end
-
-function push_stop_command(delta_t, command)
-	t_stop = t_stop + delta_t
-	push_command(stop_sequence_full,t_stop, command)
-end
-
-NO_FUEL = 1
-COLLECTIVE = 2
-BATTERY_LOW	= 3
-APU_START_FAULT = 4
-FUEL_PUMP_FAUL = 5
-LEFT_ENGINE_START_FAULT = 6
-RIGHT_ENGINE_START_FAULT = 7
-
-alert_messages = {}
-alert_messages[COLLECTIVE] = { message = _("SET THE COLLECTIVE STICK DOWN"), message_timeout = 10}
-alert_messages[NO_FUEL] = 	 { message = _("CHECK FUEL QUANTITY"), message_timeout = 10}
-alert_messages[BATTERY_LOW] = { message = _("POWER SUPPLY FAULT. CHECK THE BATTERY"), message_timeout = 10}
-alert_messages[APU_START_FAULT] = { message = _("AI-9 NOT READY TO START ENGINE"), message_timeout = 10}
-alert_messages[FUEL_PUMP_FAUL] = { message = _("FEEDING FUEL TANK PUMP FAULT"), message_timeout = 10}
-alert_messages[LEFT_ENGINE_START_FAULT] = { message = _("LEFT ENGINE START FAULT"), message_timeout = 10}
-alert_messages[RIGHT_ENGINE_START_FAULT] = { message = _("RIGHT ENGINE START FAULT"), message_timeout = 10}
-
-push_start_command(2.0,{message = _("AUTOSTART SEQUENCE IS RUNNING"),message_timeout = std_message_timeout})
-
-push_start_command(0.1,{device = devices.ENGINE_INTERFACE,action = device_commands.Button_9, value = 1.0, message = _("LEFT ENGINE UNLOCK"),message_timeout = std_message_timeout})
-push_start_command(2.0,{device = devices.ENGINE_INTERFACE,action = device_commands.Button_10, value = 1.0, message = _("RIGHT ENGINE UNLOCK"),message_timeout = std_message_timeout})
-push_start_command(2.0,{device = devices.ENGINE_INTERFACE,action = device_commands.Button_11, value = 0.0, message = _("ROTOR BRAKE OFF"),message_timeout = std_message_timeout})
-
-push_start_command(2.0,{action = Keys.iCommand_PlaneAUTDecreaseRegime})
-push_start_command(0.1,{action = Keys.iCommand_PlaneAUTDecreaseRegime})
-push_start_command(0.1,{action = Keys.iCommand_PlaneAUTIncreaseRegime,		message = _("ENGINES THROTTLES SET TO AUTO"),message_timeout = 10})
-push_start_command(1.0,{action = Keys.iCommand_ThrottleDecrease,			message = _("CORRECTION SET TO LEFT"),message_timeout = 10})
-push_start_command(1.0,{device = devices.ENGINE_INTERFACE, action = device_commands.Button_69, value = -1.0, message = _("COLLECTIVE SET TO FULL DOWN"),message_timeout = 10})
-push_start_command(0.1,{device = devices.ENGINE_INTERFACE, action = device_commands.Button_70, value = -1.0})
-push_start_command(4.0,{action = Keys.iCommand_ThrottleStop})
-
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  device_commands.Button_2, value = 1.0})
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  device_commands.Button_3, value = 1.0})
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  device_commands.Button_12, value = -1.0})
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  device_commands.Button_13, value = -1.0})
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  device_commands.Button_20, value = 1.0})
-
-for i = 0.1, 0.4, 0.1 do
-	push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  device_commands.Button_8, value = i})
-end
-
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  device_commands.Button_25, value = 1.0})
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  device_commands.Button_25, value = 0.0})
-
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  device_commands.Button_26, value = 1.0})
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  device_commands.Button_26, value = 0.0})
-
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  device_commands.Button_27, value = 1.0})
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  device_commands.Button_27, value = 0.0})
-
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  device_commands.Button_28, value = 1.0})
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  device_commands.Button_28, value = 0.0})
-
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  device_commands.Button_29, value = 1.0})
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  device_commands.Button_29, value = 0.0})
-
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  device_commands.Button_30, value = 1.0})
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action =  device_commands.Button_30, value = 0.0})
-
--- гидросистема
-push_start_command(0.1,{device = devices.HYDRO_SYS_INTERFACE,action =  device_commands.Button_1, value = 1.0})
-push_start_command(0.1,{device = devices.HYDRO_SYS_INTERFACE,action =  device_commands.Button_9, value = 0.0})
-
-
---топливная система
-push_start_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_6, value = 1.0})
-push_start_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_3, value = 1.0})
-push_start_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_5, value = 1.0})
-push_start_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_9, value = 1.0})
-push_start_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_10, value = 1.0})
-push_start_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_1, value = 1.0})
-push_start_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_2, value = 1.0})
-push_start_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_9, value = 0.0})
-push_start_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_10, value = 0.0})
-push_start_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_11, value = 1.0})
-push_start_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_4, value = 1.0})
-push_start_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_11, value = 0.0})
-push_start_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_12, value = 0.0})
-
-push_start_command(1.0,{device = devices.FIRE_EXTING_INTERFACE, action =  device_commands.Button_10, value = 1.0, message = _("EXTINGUISHING"), message_timeout = std_message_timeout})
-
---панель запуска двигателей
-push_start_command(0.1,{device = devices.ENGINE_INTERFACE,action =  device_commands.Button_12, value = 1.0, check_condition = FUEL_PUMP_FAUL})
-push_start_command(0.1,{device = devices.ENGINE_INTERFACE,action =  device_commands.Button_26, value = 1.0, message = _("APU START"), message_timeout = std_message_timeout})
-push_start_command(3.0,{device = devices.ENGINE_INTERFACE,action =  device_commands.Button_26, value = 0.0})
-
-push_start_command(1.0,{device = devices.CPT_MECH, action =  device_commands.Button_15, value = 1.0})
-
-push_start_command(25.0,{device = devices.ENGINE_INTERFACE,action =  device_commands.Button_27, value = 1.0, check_condition = APU_START_FAULT})
-push_start_command(0.1,{device = devices.ENGINE_INTERFACE,action =  device_commands.Button_8, value = -1.0, check_condition = COLLECTIVE})
-push_start_command(0.1,{device = devices.ENGINE_INTERFACE,action =  device_commands.Button_5, value = 1.0, message = _("LEFT ENGINE START"), message_timeout = std_message_timeout})
-push_start_command(5.0,{device = devices.ENGINE_INTERFACE,action =  device_commands.Button_5, value = 0.0})
-
-push_start_command(55.0,{device = devices.ENGINE_INTERFACE,action =  device_commands.Button_8, value = 1.0, check_condition = LEFT_ENGINE_START_FAULT})
-push_start_command(0.1,{device = devices.ENGINE_INTERFACE,action =  device_commands.Button_5, value = 1.0, message = _("RIGHT ENGINE START"), message_timeout = std_message_timeout})
-push_start_command(5.0,{device = devices.ENGINE_INTERFACE,action =  device_commands.Button_5, value = 0.0})
-
-push_start_command(55.0,{action = Keys.iCommand_ThrottleIncrease,message = _("CORRECTION SET TO RIGHT"),message_timeout = 10, check_condition = RIGHT_ENGINE_START_FAULT})
-push_start_command(4.0,{action = Keys.iCommand_ThrottleStop})
-
-push_start_command(10.0,{message = _("TURN ON GENERATORS"),message_timeout = std_message_timeout})
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action = device_commands.Button_15, value = 1.0})
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action = device_commands.Button_16, value = 1.0})
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action = device_commands.Button_5, value = 1.0, message = _("VU-2"), message_timeout = std_message_timeout})
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action = device_commands.Button_6, value = 1.0, message = _("VU-3"), message_timeout = std_message_timeout})
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action = device_commands.Button_7, value = 1.0, message = _("VU-1"), message_timeout = std_message_timeout})
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action = device_commands.Button_8, value = 0.5})
-push_start_command(0.1,{device = devices.ELEC_INTERFACE,action = device_commands.Button_17, value = 1.0})
-
-push_start_command(1.0,{device = devices.ENGINE_INTERFACE,action =  device_commands.Button_7, value = 1.0, message = _("APU STOP"), message_timeout = std_message_timeout})
-
---Left Panel
-push_start_command(1.0,{device = devices.AGB_3K_LEFT, action =  device_commands.Button_4, value = 1.0, message = _("LEFT ADI"), message_timeout = std_message_timeout})
-push_start_command(1.0,{device = devices.CORRECTION_INTERRUPT, action =  device_commands.Button_1, value = 1.0, message = _("VK-53"), message_timeout = std_message_timeout})
-push_start_command(1.0,{device = devices.SPUU_52, action =  device_commands.Button_5, value = 1.0, message = _("SPUU-52"), message_timeout = std_message_timeout})
-push_start_command(1.0,{device = devices.RADAR_ALTIMETER, action =  device_commands.Button_3, value = 1.0, message = _("RADAR ALTIMETER"), message_timeout = std_message_timeout})
-push_start_command(1.0,{device = devices.VMS, action = device_commands.Button_6, value = 1.0, message = _("RI-65"), message_timeout = std_message_timeout})
-
---Right Panel
-push_start_command(1.0,{device = devices.DISS_15, action =  device_commands.Button_1, value = 1.0, message = _("DISS-15"), message_timeout = std_message_timeout})
-push_start_command(1.0,{device = devices.GMK1A, action =  device_commands.Button_1, value = 1.0, message = _("GMC-1A"), message_timeout = std_message_timeout})
-push_start_command(1.0,{device = devices.AGB_3K_RIGHT, action =  device_commands.Button_4, value = 1.0, message = _("RIGHT ADI"), message_timeout = std_message_timeout})
-push_start_command(1.0,{device = devices.JADRO_1A, action =  device_commands.Button_13, value = 1.0, message = _("JADRO-1A"), message_timeout = std_message_timeout})
-
---[[
-FLASHER
---]]
-push_start_command(1.0,{device = devices.SYS_CONTROLLER, action =  device_commands.Button_5, value = 1.0, message = _("FLASHER"), message_timeout = std_message_timeout})
-
-push_start_command(1.0,{device = devices.AUTOPILOT, action =  device_commands.Button_2, value = 1.0, message = _("AUTOPILOT ROLL/PITCH CHANNEL"), message_timeout = std_message_timeout})
-push_start_command(1.0,{device = devices.AUTOPILOT, action =  device_commands.Button_2, value = 0.0})
-
-push_start_command(5.0,{message = _("AUTOSTART COMPLETE"),message_timeout = std_message_timeout})
-
----------------------------------
---- Stop sequence
-push_stop_command(2.0,{message = _("AUTOSTOP SEQUENCE IS RUNNING"),message_timeout = std_message_timeout})
-
---Left Panel
-push_stop_command(0.5,{device = devices.AGB_3K_LEFT, action =  device_commands.Button_4, value = 0.0, message = _("LEFT ADI"), message_timeout = std_message_timeout})
-push_stop_command(0.5,{device = devices.CORRECTION_INTERRUPT, action =  device_commands.Button_1, value = 0.0, message = _("VK-53"), message_timeout = std_message_timeout})
-push_stop_command(0.5,{device = devices.SPUU_52, action =  device_commands.Button_5, value = 0.0, message = _("SPUU-52"), message_timeout = std_message_timeout})
-push_stop_command(0.5,{device = devices.RADAR_ALTIMETER, action =  device_commands.Button_3, value = 0.0, message = _("RADAR ALTIMETER"), message_timeout = std_message_timeout})
-push_stop_command(0.5,{device = devices.VMS, action =  device_commands.Button_6, value = 0.0, message = _("RI-65"), message_timeout = std_message_timeout})
-
---Right Panel
-push_stop_command(0.5,{device = devices.DISS_15, action =  device_commands.Button_1, value = 0.0, message = _("DISS-15"), message_timeout = std_message_timeout})
-push_stop_command(0.5,{device = devices.GMK1A, action =  device_commands.Button_1, value = 0.0, message = _("GMC-1A"), message_timeout = std_message_timeout})
-push_stop_command(0.5,{device = devices.AGB_3K_RIGHT, action =  device_commands.Button_4, value = 0.0, message = _("RIGHT ADI"), message_timeout = std_message_timeout})
-push_stop_command(0.5,{device = devices.JADRO_1A, action =  device_commands.Button_1, value = 0.0, message = _("JADRO-1A"), message_timeout = std_message_timeout})
-
-push_stop_command(0.1,{device = devices.NAVLIGHT_SYSTEM,action =  device_commands.Button_12, value = 0.0})
-push_stop_command(0.1,{device = devices.NAVLIGHT_SYSTEM,action =  device_commands.Button_13, value = 0.0})
-push_stop_command(0.1,{device = devices.NAVLIGHT_SYSTEM,action =  device_commands.Button_14, value = 0.0})
-push_stop_command(0.1,{device = devices.NAVLIGHT_SYSTEM,action =  device_commands.Button_15, value = 0.0})
-
-push_stop_command(0.1,{device = devices.ELEC_INTERFACE,action = device_commands.Button_15, value = 0.0, message = _("GENERATORS OFF"), message_timeout = std_message_timeout})
-push_stop_command(0.1,{device = devices.ELEC_INTERFACE,action = device_commands.Button_16, value = 0.0})
-push_stop_command(0.1,{device = devices.ELEC_INTERFACE,action = device_commands.Button_1, value = 0.0})
-push_stop_command(0.1,{device = devices.ELEC_INTERFACE,action = device_commands.Button_5, value = 0.0, message = _("VU-2 OFF"), message_timeout = std_message_timeout})
-push_stop_command(0.1,{device = devices.ELEC_INTERFACE,action = device_commands.Button_6, value = 0.0, message = _("VU-3 OFF"), message_timeout = std_message_timeout})
-push_stop_command(0.1,{device = devices.ELEC_INTERFACE,action = device_commands.Button_7, value = 0.0, message = _("VU-1 OFF"), message_timeout = std_message_timeout})
-push_stop_command(0.1,{device = devices.ELEC_INTERFACE,action = device_commands.Button_12, value = 0.0, message = _("PO-500 NEUTRAL"), message_timeout = std_message_timeout})
-push_stop_command(0.1,{device = devices.ELEC_INTERFACE,action = device_commands.Button_13, value = 0.0, message = _("PT-200 NEUTRAL"), message_timeout = std_message_timeout})
-
-push_stop_command(0.1,{action = Keys.iCommand_ThrottleDecrease,message = _("CORRECTION SET TO LEFT"),message_timeout = 10})
-push_stop_command(4.0,{action = Keys.iCommand_ThrottleStop})
-
-push_stop_command(5.0,{device = devices.ENGINE_INTERFACE,action = device_commands.Button_9, value = 0.0, message = _("LEFT ENGINE STOP"),message_timeout = std_message_timeout})
-push_stop_command(2.0,{device = devices.ENGINE_INTERFACE,action = device_commands.Button_10, value = 0.0, message = _("RIGHT ENGINE STOP"),message_timeout = std_message_timeout})
-
-push_stop_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_6, value = 0.0})
-push_stop_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_3, value = 0.0})
-push_stop_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_5, value = 0.0})
-push_stop_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_9, value = 1.0})
-push_stop_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_10, value = 1.0})
-push_stop_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_1, value = 0.0})
-push_stop_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_2, value = 0.0})
-push_stop_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_9, value = 0.0})
-push_stop_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_10, value = 0.0})
-push_stop_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_11, value = 1.0})
-push_stop_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_4, value = 0.0})
-push_stop_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_11, value = 0.0})
-push_stop_command(0.1,{device = devices.FUELSYS_INTERFACE,action =  device_commands.Button_12, value = 0.0})
-
-push_stop_command(0.1,{device = devices.ELEC_INTERFACE,action =  device_commands.Button_2, value = 0.0, message = _("BATTERIES OFF"), message_timeout = std_message_timeout})
-push_stop_command(0.1,{device = devices.ELEC_INTERFACE,action =  device_commands.Button_3, value = 0.0})
-
-push_stop_command(1.0,{device = devices.CPT_MECH, action =  device_commands.Button_15, value = 1.0})
-
-for i = device_commands.Button_31, device_commands.Button_31+75, 1 do
-	push_stop_command(0.1,{device = devices.ELEC_INTERFACE,action =  i, value = 0.0})
-end
-
-push_stop_command(65.0,{device = devices.ENGINE_INTERFACE,action = device_commands.Button_11, value = 1.0, message = _("ROTOR BRAKE ON"),message_timeout = std_message_timeout})
-push_stop_command(1.0,{message = _("AUTOSTOP COMPLETE"),message_timeout = std_message_timeout})
+start_sequence_heavy = {
+	{time = 2.8,message = _("STARTING AIRCRAFT - 3 MINS REMAINING"),message_timeout = 55.0},
+	--[[
+	����������� 2
+	--]]
+	{time = 3.256000,device = 2,action = 3004,value = 0.000000},
+	--[[
+	����������� 1
+	--]]
+	{time = 3.988000,device = 2,action = 3006,value = 0.000000},
+	--[[
+	����������� 2
+	--]]
+	{time = 4.724000,device = 2,action = 3003,value = 1.000000},
+	--[[
+	����������� 1
+	--]]
+	{time = 5.520000,device = 2,action = 3005,value = 1.000000},
+	--[[
+	��� ������������ �����-���������
+	--]]
+	{time = 6.495000,device = 15,action = 3001,value = 1.000000},
+	{time = 7.112000,device = 15,action = 3002,value = 1.000000},
+	--[[
+	����������
+	--]]
+	{time = 7.580000,device = 3,action = 3005,value = 1.000000},
+	--[[
+	����������� ����������� ������������� ��������� ���-9
+	--]]
+	{time = 8.456000,device = 50,action = 3001,value = 1.000000},
+	--[[
+	���-1. ����������� ������� ������������ �-828
+	--]]
+	{time = 8.926000,device = 49,action = 3005,value = 1.000000},
+	--[[
+	���-2. ����������� ������� ������������ �-800
+	--]]
+	{time = 9.502000,device = 48,action = 3011,value = 1.000000},
+	--[[
+	����������� ������� ���������� ����������� �����. ���
+	--]]
+	{time = 10.148000,device = 25,action = 3017,value = 1.000000},
+	--[[
+	����������� ������� ���������� ����������� �����. ���-���
+	--]]
+	{time = 10.672000,device = 25,action = 3018,value = 1.000000},
+	--[[
+	��� ����� �-041
+	--]]
+	{time = 11.836000,device = 59,action = 3002,value = 1.000000},
+	
+	--[[
+	����������� ���������������� ������ ���, ����� � �����.
+	--]]
+	{time = 13.012000,device = 34,action = 3002,value = 0.000000},
+	--[[
+	����������� ���������������� ������ ���, ����� � �����.
+	--]]
+	{time = 13.408000,device = 34,action = 3003,value = 0.000000},
+	--[[
+	��-26 ����������� �������
+	--]]
+	{time = 14.828000,device = 22,action = 3012,value = 1.000000},
+	--[[
+	��-26 ����������� �������
+	--]]
+	{time = 15.260000,device = 22,action = 3010,value = 1.000000},
+	--[[
+	��-26 ����������� �������
+	--]]
+	{time = 15.984000,device = 22,action = 3012,value = 0.000000},
+	--[[
+	�-140 ����������� �������
+	--]]
+	{time = 16.650000,device = 36,action = 3002,value = 1.000000},
+	--[[
+	��� ������� ���������� �������������
+	--]]
+	{time = 17.416000,device = 55,action = 3004,value = 1.000000},
+	--[[
+	����������� ���� ���
+	--]]
+	{time = 18.300000,device = 3,action = 3011,value = 1.000000},
+	--[[
+	����������� ���� ���
+	--]]
+	{time = 18.928000,device = 3,action = 3010,value = 1.000000},
+	--[[
+	����� ��������� ����
+	--]]
+	{time = 20.136000,device = 3,action = 3001,value = 1.000000},
+	--[[
+	����� ������� ����
+	--]]
+	{time = 20.717000,device = 3,action = 3002,value = 1.000000},
+	--[[
+	����������� ���������� ����� - ������
+	--]]
+	{time = 23.996000,device = 14,action = 3001,value = 0.200000},
+	{time = 24.080000,device = 14,action = 3001,value = 0.000000},
+	--[[
+	������ ���������� ���������
+	--]]
+	{time = 25.382000,device = 4,action = 3005,value = 1.000000},
+	{time = 25.600000,device = 4,action = 3005,value = 0.000000},
+	--[[
+	������ ������
+	--]]
+	{time = 28.400000,device = 4,action = 3011,value = 0.000000},
+	{time = 30.174000,action = 71},
+	--[[
+	����������� ���� ������ ���������
+	--]]
+	{time = 33.712000,device = 3,action = 3007,value = 0.000000},
+	--[[
+	����������� ���� ������� ���������
+	--]]
+	{time = 34.116000,device = 3,action = 3009,value = 0.000000},
+	--[[
+	����������� ��������� ������ ���������
+	--]]
+	{time = 35.644000,device = 4,action = 3002,value = 1.000000},
+	--[[
+	����������� ��������� ������ ���������
+	--]]
+	{time = 36.108000,device = 4,action = 3001,value = 1.000000},
+	--[[
+	����������� ��������� ������ ���������
+	--]]
+	{time = 36.942000,device = 4,action = 3002,value = 0.000000},
+	--[[
+	����������� ��������� ������� ���������
+	--]]
+	{time = 37.596000,device = 4,action = 3004,value = 1.000000},
+	--[[
+	����������� ��������� ������� ���������
+	--]]
+	{time = 38.056000,device = 4,action = 3003,value = 1.000000},
+	--[[
+	����������� ��������� ������� ���������
+	--]]
+	{time = 38.574000,device = 4,action = 3004,value = 0.000000},
+	--[[
+	����������� ���� ������ ���������
+	--]]
+	{time = 40.254000,device = 3,action = 3006,value = 1.000000},
+	--[[
+	������������� ���������� ������������������
+	--]]
+	{time = 45.728000,device = 4,action = 3008,value = 0.100000},
+	--[[
+	������ ���������� ���������
+	--]]
+	{time = 46.728000,device = 4,action = 3005,value = 1.000000},
+	{time = 46.908000,device = 4,action = 3005,value = 0.000000},
+	--[[
+	����-���� ������ ���������
+	--]]
+	{time = 53.276000,device = 4,action = 3009,value = 1.000000},
+	--[[
+	����� �����������
+	--]]
+	{time = 56.232000,device = 9,action = 3009,value = 1.000000},
+	--[[
+	��� �������� ������������� �������
+	--]]
+	{time = 59.696000,device = 20,action = 3027,value = 0.100000},
+	{time = 60.080000,device = 20,action = 3027,value = 0.200000},
+	{time = 60.504000,device = 20,action = 3027,value = 0.300000},
+	
+	{time = 60.8,message = _("STARTING AIRCRAFT - 2 MINS REMAINING"),message_timeout = 55.0},
+	--[[
+	��� ��������� ������ �������� ������������
+	--]]
+	{time = 61.496000,device = 25,action = 3016,value = 1.000000},
+	--[[
+	��� �������� ������������� �����
+	--]]
+	{time = 62.756000,device = 25,action = 3015,value = 0.100000},
+	{time = 63.172000,device = 25,action = 3015,value = 0.200000},
+	{time = 63.656000,device = 25,action = 3015,value = 0.300000},
+	--[[
+	����������� ���� ������� ���������
+	--]]
+	{time = 64.868000,device = 3,action = 3008,value = 1.000000},
+	--[[
+	������� ���������� ���������
+	--]]
+	{time = 65.564000,device = 6,action = 3004,value = 1.000000},
+	--[[
+	������� ���������� ���������. ����������� ���������������� 1
+	--]]
+	{time = 66.440000,device = 6,action = 3001,value = 0.000000},
+	--[[
+	������� ���������� ���������. ����������� ���������������� 2
+	--]]
+	{time = 66.880000,device = 6,action = 3002,value = 0.000000},
+	--[[
+	������� ���������� ���������. ����������� ���������������� 3
+	--]]
+	{time = 67.492000,device = 6,action = 3003,value = 0.000000},
+	--[[
+	������� ���������� ���������
+	--]]
+	{time = 68.092000,device = 6,action = 3004,value = 0.000000},
+	--[[
+	������� ���������� �������
+	--]]
+	{time = 68.888000,device = 12,action = 3019,value = 1.000000},
+	--[[
+	������� ���������� �������
+	--]]
+	{time = 69.268000,device = 12,action = 3018,value = 1.000000},
+	--[[
+	������� ���������� �������
+	--]]
+	{time = 71.708000,device = 12,action = 3019,value = 0.000000},
+	--[[
+	������������� ������������ - ��������� - ��������
+	--]]
+	{time = 72.418000,device = 40,action = 3007,value = 1.000000},
+	--[[
+	������������� ������������ - ��������� - ��������
+	--]]
+	{time = 73.096000,device = 40,action = 3006,value = 0.200000},
+	--[[
+	������������� ������������ - ��������� - ��������
+	--]]
+	{time = 75.136000,device = 40,action = 3007,value = 0.000000},
+	--[[
+	������������ ����
+	--]]
+	{time = 80.540000,device = 45,action = 3003,value = 1.000000},
+	--[[
+	��������� ����
+	--]]
+	{time = 81.992000,device = 45,action = 3001,value = 1.000000},
+	--[[
+	�������� ����
+	--]]
+	{time = 83.340000,device = 45,action = 3002,value = 0.100000},
+	{time = 84.328000,device = 45,action = 3002,value = 0.200000},
+	{time = 85.084000,device = 45,action = 3002,value = 0.300000},
+	--[[
+	������������� ���������� ������������������
+	--]]
+	{time = 114.150000,device = 4,action = 3008,value = 0.200000},
+	--[[
+	������ ���������� ���������
+	--]]
+	{time = 115.616000,device = 4,action = 3005,value = 1.000000},
+	{time = 115.796000,device = 4,action = 3005,value = 0.000000},
+	
+	{time = 120.8,message = _("STARTING AIRCRAFT - 1 MIN REMAINING"),message_timeout = 55.0},
+	--[[
+	����-���� ������� ���������
+	--]]
+	{time = 122.344,device = 4,action = 3010,value = 1.000000},
+	--[[
+	������������� ����������� ������� �������� ����, 10% / 30% / 100% / Off
+	--]]
+	{time = 157.008000,device = 45,action = 3004,value = 0.100000},
+	{time = 157.452000,device = 45,action = 3004,value = 0.200000},
+	{time = 158.016000,device = 45,action = 3004,value = 0.300000},
+	--[[
+	������� ���
+	--]]
+	{time = 165.440000,device = 4,action = 3007,value = 1.000000},
+	{time = 165.596000,device = 4,action = 3007,value = 0.000000},
+	--[[
+	����������� ���� ���
+	--]]
+	{time = 166.960000,device = 3,action = 3010,value = 0.000000},
+	--[[
+	����������� ���� ���
+	--]]
+	{time = 167.756000,device = 3,action = 3011,value = 0.000000},
+	--[[
+	����������� ���� ������ ���������
+	--]]
+	{time = 168.520000,device = 3,action = 3007,value = 0.000000},
+	--[[
+	����������� ���� ������� ���������
+	--]]
+	{time = 169.426000,device = 3,action = 3009,value = 0.000000},
+	--[[
+	����������� 2
+	--]]
+	{time = 170.160000,device = 2,action = 3004,value = 0.000000},
+	--[[
+	����������� 1
+	--]]
+	{time = 170.820000,device = 2,action = 3006,value = 0.000000},
+	{time = 171.692000,action = 66},
+	{time = 172.296000,action = 66},
+	--[[
+	����� ���������. ���������� ���
+	--]]
+	{time = 173.216000,device = 2,action = 3008,value = 1.000000},
+	--[[
+	������ ���������. ���������� ���
+	--]]
+	{time = 174.020000,device = 2,action = 3009,value = 1.000000},
+	--[[
+	���������������������� ������� ���������� / ������������ ����������
+	--]]
+	{time = 174.532000,device = 4,action = 3014,value = 0.000000},
+	--[[
+	���������� ���������������� ��������
+	--]]
+	{time = 177.248000,device = 42,action = 3002,value = 1.000000},
+	--[[
+	���������� ���������������� ��������
+	--]]
+	{time = 177.504000,device = 42,action = 3001,value = 1.000000},
+	--[[
+	���������� ���������������� ��������
+	--]]
+	{time = 177.754000,device = 42,action = 3002,value = 0.000000},
+	--[[
+	��� ����� ��������/���� ��������
+	--]]
+	{time = 178.256000,device = 55,action = 3003,value = -0.030000},
+	{time = 178.318000,device = 55,action = 3003,value = -0.030000},
+	{time = 178.378000,device = 55,action = 3003,value = -0.030000},
+	{time = 178.438000,device = 55,action = 3003,value = -0.030000},
+	{time = 178.500000,device = 55,action = 3003,value = -0.030000},
+	{time = 178.798000,device = 55,action = 3003,value = -0.090001},
+	{time = 178.856000,device = 55,action = 3003,value = -0.030000},
+	{time = 179.344000,device = 55,action = 3003,value = 0.030000},
+	{time = 179.404000,device = 55,action = 3003,value = 0.030000},
+	{time = 179.464000,device = 55,action = 3003,value = 0.030000},
+	--[[
+	��
+	--]]
+	{time = 187.500000,device = 28,action = 3001,value = 0.000000},
+	--[[
+	��� ����� �����������
+	--]]
+	{time = 188.380000,device = 33,action = 3002,value = 1.000000},
+	{time = 188.477000,device = 33,action = 3002,value = 0.000000},
+	--[[
+	��� ����� �����
+	--]]
+	{time = 188.981000,device = 33,action = 3001,value = 1.000000},
+	{time = 189.082000,device = 33,action = 3001,value = 0.000000},
+	--[[
+	��� ����� �������
+	--]]
+	{time = 189.588000,device = 33,action = 3003,value = 1.000000},
+	{time = 189.688000,device = 33,action = 3003,value = 0.000000},
+	--[[
+	���
+	--]]
+	{time = 190.500000,device = 28,action = 3001,value = 0.100000},
+	
+	{time = 194.500000,message = _("AIRCRAFT READY"),message_timeout = 15.0}
+	}
+	arcade_mode_additions = 
+	{
+		{time = 190.976000,action = 500,value  = 0.000000},
+		{time = 191.124000,action = 809,value  = 0.000000},
+		{time = 192.545000,device = 11,action = 3001,value = 1.000000},
+		{time = 193.721000,device = 12,action = 3001,value = 1.000000},
+	}
+	
+	start_sequence_full = {}
+	for i,o in ipairs(start_sequence_heavy) do
+		start_sequence_full[i] = o
+	end
+	for i,o in ipairs(arcade_mode_additions) do
+		start_sequence_full[#start_sequence_full + 1] = o
+	end
+	
+	stop_sequence_full = {
+	{time = 231,message = ("AUTOSTOP SEQUENCE IS RUNNING"),message_timeout = 87.0},
+	{time = 231.216000,device = 9,action = 3009,value = -0.000000},
+	{time = 231.944000,device = 60,action = 3002,value = -0.000000},
+	{time = 232.736000,device = 12,action = 3019,value = 1.000000},
+	{time = 233.168000,device = 12,action = 3018,value = -0.000000},
+	{time = 233.624000,device = 12,action = 3019,value = -0.000000},
+	{time = 234.320000,device = 2,action = 3008,value = -0.000000},
+	{time = 234.912000,device = 2,action = 3009,value = -0.000000},
+	{time = 235.604000,action = 65},
+	{time = 235.900000,action = 65},
+	{time = 236.564000,device = 4,action = 3001,value = -0.000000},
+	{time = 237.026000,device = 4,action = 3003,value = -0.000000},
+	{time = 237.620000,device = 4,action = 3001,value = -0.000000},
+	{time = 238.244000,device = 4,action = 3003,value = -0.000000},
+	{time = 238.770000,device = 4,action = 3004,value = -0.000000},
+	{time = 239.292000,device = 4,action = 3002,value = -0.000000},
+	{time = 239.988000,device = 45,action = 3003,value = -0.000000},
+	{time = 240.620000,device = 45,action = 3001,value = -0.000000},
+	{time = 241.212000,device = 45,action = 3002,value = 0.199999},
+	{time = 241.840000,device = 45,action = 3002,value = 0.099998},
+	{time = 242.532000,device = 45,action = 3002,value = -0.000000},
+	{time = 243.520000,device = 45,action = 3004,value = -0.000000},
+	{time = 244.610000,device = 6,action = 3001,value = 1.000000},
+	{time = 245.200000,device = 6,action = 3002,value = 1.000000},
+	{time = 245.894000,device = 6,action = 3003,value = 1.000000},
+	{time = 246.392000,device = 6,action = 3004,value = -0.000000},
+	{time = 247.514000,device = 33,action = 3003,value = 1.000000},
+	{time = 247.616000,device = 33,action = 3003,value = -0.000000},
+	{time = 247.944000,device = 33,action = 3001,value = 1.000000},
+	{time = 248.040000,device = 33,action = 3001,value = -0.000000},
+	{time = 248.402000,device = 33,action = 3002,value = 1.000000},
+	{time = 248.501000,device = 33,action = 3002,value = -0.000000},
+	{time = 249.062000,device = 36,action = 3002,value = -0.000000},
+	{time = 249.788000,device = 22,action = 3010,value = -0.000000},
+	{time = 250.574000,device = 22,action = 3011,value = -0.000000},
+	{time = 251.268000,device = 25,action = 3016,value = -0.000000},
+	{time = 252.428000,device = 20,action = 3027,value = 0.399996},
+	{time = 253.020000,device = 20,action = 3026,value = 0.299995},
+	{time = 253.316000,device = 20,action = 3026,value = 0.199995},
+	{time = 253.580000,device = 20,action = 3026,value = 0.099994},
+	{time = 254.036000,device = 20,action = 3026,value = -0.000000},
+	{time = 254.630000,device = 25,action = 3015,value = 0.199999},
+	{time = 254.960000,device = 25,action = 3015,value = 0.099998},
+	{time = 255.290000,device = 25,action = 3015,value = -0.000000},
+	{time = 255.852000,device = 25,action = 3018,value = -0.000000},
+	{time = 256.476000,device = 25,action = 3017,value = -0.000000},
+	{time = 258.160000,device = 48,action = 3011,value = -0.000000},
+	{time = 258.824000,device = 50,action = 3001,value = -0.000000},
+	{time = 259.316000,device = 3,action = 3005,value = -0.000000},
+	{time = 259.748000,device = 40,action = 3007,value = 1.000000},
+	{time = 260.276000,device = 40,action = 3005,value = 0.100000},
+	{time = 260.964000,device = 40,action = 3007,value = -0.000000},
+	{time = 261.239000,device = 15,action = 3001,value = -0.000000},
+	{time = 261.839000,device = 15,action = 3002,value = -0.000000},
+	{time = 261.992000,device = 53,action = 3005,value = -0.000000},
+	{time = 262.748000,device = 4,action = 3009,value = -0.000000},
+	{time = 263.244000,device = 4,action = 3010,value = -0.000000},
+	{time = 264.072000,device = 56,action = 3002,value = -1.000000},
+	{time = 264.836000,device = 56,action = 3003,value = 0.029298},
+	{time = 264.968000,device = 56,action = 3003,value = 0.029298},
+	{time = 265.100000,device = 56,action = 3003,value = 0.029298},
+	{time = 265.428000,device = 56,action = 3003,value = 0.029298},
+	{time = 265.428000,device = 56,action = 3003,value = 0.029298},
+	{time = 265.460000,device = 56,action = 3003,value = 0.029298},
+	{time = 265.490000,device = 56,action = 3003,value = 0.029298},
+	{time = 265.524000,device = 56,action = 3003,value = 0.029298},
+	{time = 265.850000,device = 56,action = 3003,value = 0.029298},
+	{time = 265.850000,device = 56,action = 3003,value = 0.029298},
+	{time = 265.884000,device = 56,action = 3003,value = 0.029298},
+	{time = 265.920000,device = 56,action = 3003,value = 0.029298},
+	{time = 265.950000,device = 56,action = 3003,value = 0.029298},
+	{time = 266.210000,device = 56,action = 3002,value = -0.000000},
+	{time = 273.836000,device = 4,action = 3011,value = 1.000000},
+	{time = 308.756000,device = 3,action = 3007,value = 1.000000},
+	{time = 309.188000,device = 3,action = 3009,value = 1.000000},
+	{time = 309.684000,device = 3,action = 3008,value = -0.000000},
+	{time = 310.176000,device = 3,action = 3006,value = -0.000000},
+	{time = 310.572000,device = 3,action = 3009,value = -0.000000},
+	{time = 311.000000,device = 3,action = 3007,value = -0.000000},
+	{time = 311.660000,device = 3,action = 3002,value = -0.000000},
+	{time = 312.056000,device = 3,action = 3001,value = -0.000000},
+	{time = 312.584000,device = 52,action = 3003,value = -0.000000},
+	{time = 313.212000,device = 52,action = 3001,value = -0.000000},
+	{time = 313.772000,device = 2,action = 3004,value = 1.000000},
+	{time = 314.168000,device = 2,action = 3006,value = 1.000000},
+	{time = 314.628000,device = 2,action = 3005,value = -0.000000},
+	{time = 315.056000,device = 2,action = 3003,value = -0.000000},
+	{time = 315.446000,device = 2,action = 3006,value = -0.000000},
+	{time = 315.840000,device = 2,action = 3004,value = -0.000000},
+	{time = 316.328000,device = 34,action = 3002,value = 1.000000},
+	{time = 317.988000,device = 34,action = 3002,value = 1.000000},
+	{time = 318.996000,device = 4,action = 3008,value = 0.300000},
+	{time = 319.687000,device = 4,action = 3008,value = -0.000000},
+	{time = 320.832000,action = 71,value  = 0.000000},
+	{time = 321,message = ("AUTOSTOP COMPLETE"),message_timeout = 15.0},
+	}
+	
+	
+	
