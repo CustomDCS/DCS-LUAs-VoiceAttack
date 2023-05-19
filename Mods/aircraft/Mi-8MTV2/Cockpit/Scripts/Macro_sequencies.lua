@@ -76,7 +76,7 @@ push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_
 local function doStartSequence()
 
 push_start_command(dt, {message = _("  CustomDCS.com Super Quick Autostart Sequence Is Running"), message_timeout = 120})
-push_start_command(dt, {message = _("  This Auto Start is Set For FARP NEPTUNE"), message_timeout = 120})
+push_start_command(dt, {message = _("  This Auto Start is Set For LC Gecitkale"), message_timeout = 120})
 push_start_command(dt, {message = _("  -Mi-8MTV2-"), message_timeout = 120})
 
 
@@ -472,10 +472,10 @@ push_stop_command(dt, {device = devices.SPU_7, action = device_commands.Button_4
 
 -- Tune ADF
 
--- Main - Set To 150kHz
+-- Main - Set To 370kHz
 
-push_stop_command(dt, {device = devices.ARC_9, action = device_commands.Button_6, value = 0.5}) -- ARC 9 10KHZ DIAL
-push_stop_command(dt, {device = devices.ARC_9, action = device_commands.Button_5, value = 0.0}) -- ARC 9 100KHZ DIAL
+push_stop_command(dt, {device = devices.ARC_9, action = device_commands.Button_6, value = 0.8}) -- ARC 9 10KHZ DIAL
+push_stop_command(dt, {device = devices.ARC_9, action = device_commands.Button_5, value = 0.15}) -- ARC 9 100KHZ DIAL
 
 
 -- Reserve - Set To 150kHz

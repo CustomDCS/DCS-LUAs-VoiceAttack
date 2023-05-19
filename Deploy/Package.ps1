@@ -1,5 +1,5 @@
 # clean up existing files
-Remove-Item .\Output\* -Force -Recurse
+Remove-Item .\Output\* -Force -Recurse -ErrorAction SilentlyContinue
 # zip all the files in Mods\
 Compress-Archive -Path .\Mods "CustomDCS.zip"
 # exe latest deploy script

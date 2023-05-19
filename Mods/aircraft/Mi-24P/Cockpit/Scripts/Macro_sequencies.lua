@@ -62,24 +62,25 @@ for i = 1, 20, 1 do
 
 end
 
--- Reserve 530kHz - Left
+-- Primary 370kHz - Left
 for i = 1, 1, 1 do
-	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.BACKUP_10KHz, value = 0.3}) -- ADF 10kHz
+	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.PRIMARY_10KHz, value = 0.8}) -- ADF 10kHz
 end
 for i = 1, 1, 1 do
-	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.BACKUP_100KHz, value = 0.3}) -- ADF 100kHz
+	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.PRIMARY_100KHz, value = 0.15}) -- ADF 100kHz
 end
 
--- Primary 840kHz - Right
+-- Backup 840kHz - Right
 for i = 1, 1, 1 do
-	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.PRIMARY_10KHz, value = 0.4}) -- ADF 10kHz
+	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.BACKUP_10KHz, value = 0.4}) -- ADF 10kHz
 end
 for i = 1, 1, 1 do
-	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.PRIMARY_100KHz, value = 0.45}) -- ADF 100kHz
+	push_start_command(0.01, {device = devices.ARC_15_PANEL_P, action = arc15_commands.BACKUP_100KHz, value = 0.45}) -- ADF 100kHz
 end
 push_start_command(0.0, {message = _("  CustomDCS.com Super Quick Autostart Sequence Is Running"), message_timeout = 125})
-push_start_command(0.0, {message = _("  This Auto Start is Set For FARP NEPTUNE"), message_timeout = 125})
+push_start_command(0.0, {message = _("  This Auto Start is Set For LC Gecitkale"), message_timeout = 125})
 push_start_command(0.0, {message = _("  -Mi-24P"), message_timeout = 125})
+push_start_command(0.0, {message = _("## START WARMING WEAPONS!! ##"), message_timeout = 125})
 
 -----------------------------------------------------------------------------------------------------------------------
 	
@@ -368,7 +369,7 @@ push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot
 push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_EMERG_RELEASE_COVER, value = 1.0}) -- Jettison Pylons Cover - OPEN
 push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_EMERG_RELEASE_PU_COVER, value = 1.0}) -- Jettison Launcher Cover - OPEN
 push_start_command(dt,{device = devices.I9K113,action =  i9K113_commands.Command_9k113_Backlight, value = 1.0}) -- CPG Backlight Switch - ON
-push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_SWITCHER_OFF_GM_URS_NPU, value = 0.5}) -- Weapons Select - 30mm
+--push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Pilot_SWITCHER_OFF_GM_URS_NPU, value = 0.0}) -- Weapons Select - Missile/Off
 push_start_command(dt,{device = devices.ECS_INTERFACE,action =  ecs_commands.HeatingAirFlowSight, value = 1.0}) -- Sight Fan Power Switch - ON
 push_start_command(dt,{device = devices.CPT_MECH,action =  cockpit_mechanics_commands.Command_CPT_MECH_FAN_OPERATOR, value = 1.0}) -- Co Pilots Fan Power Switch - ON
 --push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Operator_SWITCHER_SAFE_WEAP, value = 1.0}) -- CPG Master ARM - ON
