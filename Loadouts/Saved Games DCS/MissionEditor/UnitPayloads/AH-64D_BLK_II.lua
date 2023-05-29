@@ -20,6 +20,10 @@ local unitPayloads = {
 					["CLSID"] = "{88D18A5E-99C8-4B04-B40B-1C02F2018B6E}",
 					["num"] = 1,
 				},
+				[5] = {
+					["CLSID"] = "{IAFS_ComboPak_100}",
+					["num"] = 5,
+				},
 			},
 			["tasks"] = {
 				[1] = 31,
@@ -43,6 +47,10 @@ local unitPayloads = {
 				[4] = {
 					["CLSID"] = "{M261_M229}",
 					["num"] = 4,
+				},
+				[5] = {
+					["CLSID"] = "{IAFS_ComboPak_100}",
+					["num"] = 5,
 				},
 			},
 			["tasks"] = {
