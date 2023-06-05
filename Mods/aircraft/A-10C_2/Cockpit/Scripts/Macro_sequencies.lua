@@ -3,7 +3,7 @@ dofile(LockOn_Options.script_path.."devices.lua")
 std_message_timeout = 15
 
 start_sequence_full = {
-{time = 3.8,message = _("AUTOSTART SEQUENCE IS RUNNING"),message_timeout = std_message_timeout},
+{time = 3.8,message = _("CustomDCS.com Autostart Is Running (6m66s)"),message_timeout = 400.0},
 
 {time = 3.85,device = 38,action = 3030,value = 0.000000}, --EMER BRAKE OFF
 --[[
@@ -494,6 +494,21 @@ SAI uncage
 {time = 385.526000,device = 48,action = 3003,value = -0.075000},
 {time = 385.638000,device = 48,action = 3003,value = 0.075000},
 {time = 386.146000,device = 48,action = 3003,value = -0.075000},
+
+{time = 387.358000,device = 4,action = 3005,value = 1.0,message = _("Chaff/Flare Program To J"),message_timeout = std_message_timeout},
+{time = 387.368000,device = 4,action = 3005,value = 1.0},
+{time = 387.378000,device = 4,action = 3005,value = 1.0},
+{time = 387.388000,device = 4,action = 3005,value = 1.0},
+{time = 387.398000,device = 4,action = 3005,value = 1.0},
+{time = 387.408000,device = 4,action = 3005,value = 1.0},
+{time = 387.418000,device = 4,action = 3005,value = 1.0},
+{time = 387.428000,device = 4,action = 3005,value = 1.0},
+{time = 387.438000,device = 4,action = 3005,value = 1.0},
+{time = 387.538000,device = 4,action = 3017,value = 1.0},
+{time = 387.638000,device = 4,action = 3001,value = 1.0},
+{time = 387.648000,device = 4,action = 3005,value = 1.0},
+{time = 387.658000,device = 4,action = 3007,value = 1.0},
+{time = 387.668000,device = 4,action = 3016,value = 0.0},
 
 --[[
 Seat Arm Handle

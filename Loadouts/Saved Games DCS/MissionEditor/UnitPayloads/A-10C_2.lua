@@ -43,235 +43,6 @@ local unitPayloads = {
 			},
 		},
 		[2] = {
-			["name"] = "AA Missles",
-			["pylons"] = {
-				[1] = {
-					["CLSID"] = "ALQ_184",
-					["num"] = 11,
-				},
-				[2] = {
-					["CLSID"] = "{LAU-131 - 7 AGR-20 M282}",
-					["num"] = 2,
-				},
-				[3] = {
-					["CLSID"] = "{LAU-131x3 - 7 AGR-20A}",
-					["num"] = 8,
-				},
-				[4] = {
-					["CLSID"] = "{LAU-131x3 - 7 AGR-20 M282}",
-					["num"] = 4,
-				},
-				[5] = {
-					["CLSID"] = "{5335D97A-35A5-4643-9D9B-026C75961E52}",
-					["num"] = 7,
-				},
-				[6] = {
-					["CLSID"] = "{CBU_105}",
-					["num"] = 5,
-				},
-				[7] = {
-					["CLSID"] = "{LAU-131x3 - 7 AGR-20A}",
-					["num"] = 3,
-				},
-				[8] = {
-					["CLSID"] = "{A111396E-D3E8-4b9c-8AC9-2432489304D5}",
-					["num"] = 10,
-				},
-				[9] = {
-					["CLSID"] = "{LAU-131x3 - 7 AGR-20A}",
-					["num"] = 9,
-				},
-				[10] = {
-					["CLSID"] = "{5335D97A-35A5-4643-9D9B-026C75961E52}",
-					["num"] = 6,
-				},
-				[11] = {
-					["CLSID"] = "{DB434044-F5D0-4F1F-9BA9-B73027E18DD3}",
-					["num"] = 1,
-				},
-			},
-			["tasks"] = {
-				[1] = 31,
-			},
-		},
-		[3] = {
-			["name"] = "AA CBU",
-			["pylons"] = {
-				[1] = {
-					["CLSID"] = "ALQ_184",
-					["num"] = 11,
-				},
-				[2] = {
-					["CLSID"] = "{A111396E-D3E8-4b9c-8AC9-2432489304D5}",
-					["num"] = 10,
-				},
-				[3] = {
-					["CLSID"] = "{CBU_105}",
-					["num"] = 9,
-				},
-				[4] = {
-					["CLSID"] = "{CBU_105}",
-					["num"] = 8,
-				},
-				[5] = {
-					["CLSID"] = "{CBU_105}",
-					["num"] = 7,
-				},
-				[6] = {
-					["CLSID"] = "{5335D97A-35A5-4643-9D9B-026C75961E52}",
-					["num"] = 6,
-				},
-				[7] = {
-					["CLSID"] = "{CBU_105}",
-					["num"] = 5,
-				},
-				[8] = {
-					["CLSID"] = "{CBU_105}",
-					["num"] = 4,
-				},
-				[9] = {
-					["CLSID"] = "{CBU_105}",
-					["num"] = 3,
-				},
-				[10] = {
-					["CLSID"] = "{5335D97A-35A5-4643-9D9B-026C75961E52}",
-					["num"] = 2,
-				},
-				[11] = {
-					["CLSID"] = "{DB434044-F5D0-4F1F-9BA9-B73027E18DD3}",
-					["num"] = 1,
-				},
-			},
-			["tasks"] = {
-				[1] = 31,
-			},
-		},
-		[4] = {
-			["name"] = "AA MAVS",
-			["pylons"] = {
-				[1] = {
-					["CLSID"] = "ALQ_184",
-					["num"] = 11,
-				},
-				[2] = {
-					["CLSID"] = "LAU_88_AGM_65H_3",
-					["num"] = 9,
-				},
-				[3] = {
-					["CLSID"] = "{LAU-131x3 - 7 AGR-20 M282}",
-					["num"] = 4,
-				},
-				[4] = {
-					["CLSID"] = "LAU_88_AGM_65H_3",
-					["num"] = 3,
-				},
-				[5] = {
-					["CLSID"] = "{LAU-131 - 7 AGR-20 M282}",
-					["num"] = 2,
-				},
-				[6] = {
-					["CLSID"] = "{DB434044-F5D0-4F1F-9BA9-B73027E18DD3}",
-					["num"] = 1,
-				},
-				[7] = {
-					["CLSID"] = "{LAU-131x3 - 7 AGR-20 M282}",
-					["num"] = 8,
-				},
-				[8] = {
-					["CLSID"] = "{A111396E-D3E8-4b9c-8AC9-2432489304D5}",
-					["num"] = 10,
-				},
-				[9] = {
-					["CLSID"] = "{CBU_105}",
-					["num"] = 7,
-				},
-				[10] = {
-					["CLSID"] = "{5335D97A-35A5-4643-9D9B-026C75961E52}",
-					["num"] = 6,
-				},
-				[11] = {
-					["CLSID"] = "{CBU_105}",
-					["num"] = 5,
-				},
-			},
-			["tasks"] = {
-				[1] = 31,
-			},
-		},
-		[5] = {
-			["name"] = "AA VERY LIGHT",
-			["pylons"] = {
-				[1] = {
-					["CLSID"] = "{DB434044-F5D0-4F1F-9BA9-B73027E18DD3}",
-					["num"] = 11,
-				},
-				[2] = {
-					["CLSID"] = "{DB434044-F5D0-4F1F-9BA9-B73027E18DD3}",
-					["num"] = 1,
-				},
-				[3] = {
-					["CLSID"] = "{A111396E-D3E8-4b9c-8AC9-2432489304D5}",
-					["num"] = 2,
-				},
-			},
-			["tasks"] = {
-				[1] = 31,
-			},
-		},
-		[6] = {
-			["name"] = "AA Lighter",
-			["pylons"] = {
-				[1] = {
-					["CLSID"] = "ALQ_184",
-					["num"] = 11,
-				},
-				[2] = {
-					["CLSID"] = "{LAU-131x3 - 7 AGR-20A}",
-					["num"] = 9,
-				},
-				[3] = {
-					["CLSID"] = "{LAU-131 - 7 AGR-20 M282}",
-					["num"] = 2,
-				},
-				[4] = {
-					["CLSID"] = "{LAU-131x3 - 7 AGR-20A}",
-					["num"] = 3,
-				},
-				[5] = {
-					["CLSID"] = "BRU-42_3*GBU-12",
-					["num"] = 4,
-				},
-				[6] = {
-					["CLSID"] = "BRU-42_3*GBU-12",
-					["num"] = 8,
-				},
-				[7] = {
-					["CLSID"] = "{51F9AAE5-964F-4D21-83FB-502E3BFE5F8A}",
-					["num"] = 6,
-				},
-				[8] = {
-					["CLSID"] = "{DB434044-F5D0-4F1F-9BA9-B73027E18DD3}",
-					["num"] = 1,
-				},
-				[9] = {
-					["CLSID"] = "{A111396E-D3E8-4b9c-8AC9-2432489304D5}",
-					["num"] = 10,
-				},
-				[10] = {
-					["CLSID"] = "{CBU_103}",
-					["num"] = 7,
-				},
-				[11] = {
-					["CLSID"] = "{CBU_105}",
-					["num"] = 5,
-				},
-			},
-			["tasks"] = {
-				[1] = 31,
-				[2] = 32,
-			},
-		},
-		[7] = {
 			["name"] = "AA SHIP",
 			["pylons"] = {
 				[1] = {
@@ -315,15 +86,122 @@ local unitPayloads = {
 				[1] = 30,
 			},
 		},
-		[8] = {
-			["name"] = "AA GBU",
+		[3] = {
+			["displayName"] = "TGP R | APKWS M282 x 91 | GBU12  x3 | AIM 9M x2",
+			["name"] = "TGP R | APKWS M282 x 91 | GBU12  x3 | AIM 9M x2",
 			["pylons"] = {
 				[1] = {
-					["CLSID"] = "{5335D97A-35A5-4643-9D9B-026C75961E52}",
+					["CLSID"] = "{DB434044-F5D0-4F1F-9BA9-B73027E18DD3}",
+					["num"] = 11,
+				},
+				[2] = {
+					["CLSID"] = "{LAU-131 - 7 AGR-20 M282}",
+					["num"] = 2,
+				},
+				[3] = {
+					["CLSID"] = "{LAU-131x3 - 7 AGR-20 M282}",
+					["num"] = 8,
+				},
+				[4] = {
+					["CLSID"] = "{LAU-131x3 - 7 AGR-20 M282}",
+					["num"] = 4,
+				},
+				[5] = {
+					["CLSID"] = "{DB769D48-67D7-42ED-A2BE-108D566C8B1E}",
+					["num"] = 7,
+				},
+				[6] = {
+					["CLSID"] = "{DB769D48-67D7-42ED-A2BE-108D566C8B1E}",
+					["num"] = 5,
+				},
+				[7] = {
+					["CLSID"] = "{LAU-131x3 - 7 AGR-20 M282}",
+					["num"] = 3,
+				},
+				[8] = {
+					["CLSID"] = "{A111396E-D3E8-4b9c-8AC9-2432489304D5}",
+					["num"] = 10,
+				},
+				[9] = {
+					["CLSID"] = "{LAU-131x3 - 7 AGR-20 M282}",
+					["num"] = 9,
+				},
+				[10] = {
+					["CLSID"] = "{DB769D48-67D7-42ED-A2BE-108D566C8B1E}",
+					["num"] = 6,
+				},
+				[11] = {
+					["CLSID"] = "ALQ_184",
+					["num"] = 1,
+				},
+			},
+			["tasks"] = {
+				[1] = 31,
+			},
+		},
+		[4] = {
+			["displayName"] = "TGP R | APKWS M282 x 49 | GBU12 x3 | AGM 65H x6 | AIM 9M x2",
+			["name"] = "TGP R | APKWS M282 x 49 | GBU12 x3 | AGM 65H x6 | AIM 9M x2",
+			["pylons"] = {
+				[1] = {
+					["CLSID"] = "{DB434044-F5D0-4F1F-9BA9-B73027E18DD3}",
+					["num"] = 11,
+				},
+				[2] = {
+					["CLSID"] = "LAU_88_AGM_65H_3",
+					["num"] = 9,
+				},
+				[3] = {
+					["CLSID"] = "{LAU-131x3 - 7 AGR-20 M282}",
+					["num"] = 4,
+				},
+				[4] = {
+					["CLSID"] = "LAU_88_AGM_65H_3",
+					["num"] = 3,
+				},
+				[5] = {
+					["CLSID"] = "{LAU-131 - 7 AGR-20 M282}",
+					["num"] = 2,
+				},
+				[6] = {
+					["CLSID"] = "ALQ_184",
+					["num"] = 1,
+				},
+				[7] = {
+					["CLSID"] = "{LAU-131x3 - 7 AGR-20 M282}",
+					["num"] = 8,
+				},
+				[8] = {
+					["CLSID"] = "{A111396E-D3E8-4b9c-8AC9-2432489304D5}",
+					["num"] = 10,
+				},
+				[9] = {
+					["CLSID"] = "{DB769D48-67D7-42ED-A2BE-108D566C8B1E}",
+					["num"] = 7,
+				},
+				[10] = {
+					["CLSID"] = "{DB769D48-67D7-42ED-A2BE-108D566C8B1E}",
+					["num"] = 6,
+				},
+				[11] = {
+					["CLSID"] = "{DB769D48-67D7-42ED-A2BE-108D566C8B1E}",
+					["num"] = 5,
+				},
+			},
+			["tasks"] = {
+				[1] = 31,
+			},
+		},
+		[5] = {
+			["displayName"] = "TGP R | APKWS M282 x 91 | GBU12 x14 | CBU 105 x2 | AIM 9M x2",
+			["name"] = "TGP R | APKWS M282 x 91 | GBU12 x14 | CBU 105 x2 | AIM 9M x2",
+			["pylons"] = {
+				[1] = {
+					["CLSID"] = "{DB769D48-67D7-42ED-A2BE-108D566C8B1E}",
 					["num"] = 2,
 				},
 				[2] = {
-					["CLSID"] = "{5335D97A-35A5-4643-9D9B-026C75961E52}",
+					["CLSID"] = "ALQ_184",
 					["num"] = 1,
 				},
 				[3] = {
@@ -359,7 +237,7 @@ local unitPayloads = {
 					["num"] = 10,
 				},
 				[11] = {
-					["CLSID"] = "ALQ_184",
+					["CLSID"] = "{DB434044-F5D0-4F1F-9BA9-B73027E18DD3}",
 					["num"] = 11,
 				},
 			},
@@ -367,71 +245,61 @@ local unitPayloads = {
 				[1] = 31,
 			},
 		},
-		[9] = {
-			["name"] = "AA AI",
+		[6] = {
+			["displayName"] = "TGP R | APKWS M282 x 91 | AIM 9M x2",
+			["name"] = "TGP R | APKWS M282 x 91 | AIM 9M x2",
 			["pylons"] = {
 				[1] = {
-					["CLSID"] = "ALQ_184",
+					["CLSID"] = "{DB434044-F5D0-4F1F-9BA9-B73027E18DD3}",
 					["num"] = 11,
 				},
 				[2] = {
-					["CLSID"] = "{DB434044-F5D0-4F1F-9BA9-B73027E18DD3}",
+					["CLSID"] = "ALQ_184",
 					["num"] = 1,
 				},
 				[3] = {
-					["CLSID"] = "{5335D97A-35A5-4643-9D9B-026C75961E52}",
-					["num"] = 2,
-				},
-				[4] = {
-					["CLSID"] = "{LAU-131x3 - 7 AGR-20A}",
-					["num"] = 3,
-				},
-				[5] = {
 					["CLSID"] = "{A111396E-D3E8-4b9c-8AC9-2432489304D5}",
 					["num"] = 10,
 				},
-				[6] = {
-					["CLSID"] = "{CBU_105}",
+				[4] = {
+					["CLSID"] = "{LAU-131x3 - 7 AGR-20 M282}",
 					["num"] = 9,
 				},
-				[7] = {
-					["CLSID"] = "{CBU_105}",
+				[5] = {
+					["CLSID"] = "{LAU-131x3 - 7 AGR-20 M282}",
 					["num"] = 8,
 				},
+				[6] = {
+					["CLSID"] = "{LAU-131 - 7 AGR-20 M282}",
+					["num"] = 2,
+				},
+				[7] = {
+					["CLSID"] = "{LAU-131x3 - 7 AGR-20 M282}",
+					["num"] = 3,
+				},
 				[8] = {
-					["CLSID"] = "{CBU_103}",
+					["CLSID"] = "{LAU-131x3 - 7 AGR-20 M282}",
 					["num"] = 4,
-				},
-				[9] = {
-					["CLSID"] = "{CBU-87}",
-					["num"] = 5,
-				},
-				[10] = {
-					["CLSID"] = "{CBU-87}",
-					["num"] = 7,
-				},
-				[11] = {
-					["CLSID"] = "{DB769D48-67D7-42ED-A2BE-108D566C8B1E}",
-					["num"] = 6,
 				},
 			},
 			["tasks"] = {
 				[1] = 31,
 			},
 		},
-		[10] = {
-			["name"] = "AA Mission",
+		[7] = {
+			["displayName"] = "TGP R | APKWS M282 x 49 | GBU12 x6 | CBU 105 x2 | GBU 10 x1 | AIM 9M x2",
+			["name"] = "TGP R | APKWS M282 x 49 | GBU12 x6 | CBU 105 x2 | GBU 10 x1 | AIM 9M x2",
 			["pylons"] = {
 				[1] = {
-					["CLSID"] = "ALQ_184",
+					["CLSID"] = "{DB434044-F5D0-4F1F-9BA9-B73027E18DD3}",
 					["num"] = 11,
 				},
 				[2] = {
-					["CLSID"] = "{DB434044-F5D0-4F1F-9BA9-B73027E18DD3}",
+					["CLSID"] = "ALQ_184",
 					["num"] = 1,
 				},
 				[3] = {
-					["CLSID"] = "{A111396E-D3E8-4b9c-8AC9-2432489304D5}",
+					["CLSID"] = "{LAU-131 - 7 AGR-20 M282}",
 					["num"] = 2,
 				},
 				[4] = {
@@ -455,7 +323,7 @@ local unitPayloads = {
 					["num"] = 7,
 				},
 				[9] = {
-					["CLSID"] = "{CBU_103}",
+					["CLSID"] = "{CBU_105}",
 					["num"] = 5,
 				},
 				[10] = {
@@ -463,7 +331,7 @@ local unitPayloads = {
 					["num"] = 6,
 				},
 				[11] = {
-					["CLSID"] = "{LAU-131 - 7 AGR-20A}",
+					["CLSID"] = "{A111396E-D3E8-4b9c-8AC9-2432489304D5}",
 					["num"] = 10,
 				},
 			},
@@ -471,7 +339,114 @@ local unitPayloads = {
 				[1] = 31,
 			},
 		},
-		[11] = {
+		[8] = {
+			["displayName"] = "TGP R | CBU 105 x8 | CBU 97 x1 | AIM 9M x2",
+			["name"] = "TGP R | CBU 105 x8 | CBU 97 x1 | AIM 9M x2",
+			["pylons"] = {
+				[1] = {
+					["CLSID"] = "{DB434044-F5D0-4F1F-9BA9-B73027E18DD3}",
+					["num"] = 11,
+				},
+				[2] = {
+					["CLSID"] = "{A111396E-D3E8-4b9c-8AC9-2432489304D5}",
+					["num"] = 10,
+				},
+				[3] = {
+					["CLSID"] = "{CBU_105}",
+					["num"] = 9,
+				},
+				[4] = {
+					["CLSID"] = "{CBU_105}",
+					["num"] = 8,
+				},
+				[5] = {
+					["CLSID"] = "{CBU_105}",
+					["num"] = 7,
+				},
+				[6] = {
+					["CLSID"] = "{5335D97A-35A5-4643-9D9B-026C75961E52}",
+					["num"] = 6,
+				},
+				[7] = {
+					["CLSID"] = "{CBU_105}",
+					["num"] = 5,
+				},
+				[8] = {
+					["CLSID"] = "{CBU_105}",
+					["num"] = 4,
+				},
+				[9] = {
+					["CLSID"] = "{CBU_105}",
+					["num"] = 3,
+				},
+				[10] = {
+					["CLSID"] = "{5335D97A-35A5-4643-9D9B-026C75961E52}",
+					["num"] = 2,
+				},
+				[11] = {
+					["CLSID"] = "ALQ_184",
+					["num"] = 1,
+				},
+			},
+			["tasks"] = {
+				[1] = 31,
+			},
+		},
+		[9] = {
+			["displayName"] = "TGP R | APKWS M282 x 49 | GBU12 x6 | CBU 105 x2 | GBU10 x2 | AIM 9M x2",
+			["name"] = "TGP R | APKWS M282 x 49 | GBU12 x6 | CBU 105 x2 | GBU10 x2 | AIM 9M x2",
+			["pylons"] = {
+				[1] = {
+					["CLSID"] = "{DB434044-F5D0-4F1F-9BA9-B73027E18DD3}",
+					["num"] = 11,
+				},
+				[2] = {
+					["CLSID"] = "{LAU-131x3 - 7 AGR-20A}",
+					["num"] = 9,
+				},
+				[3] = {
+					["CLSID"] = "{LAU-131 - 7 AGR-20 M282}",
+					["num"] = 2,
+				},
+				[4] = {
+					["CLSID"] = "{LAU-131x3 - 7 AGR-20A}",
+					["num"] = 3,
+				},
+				[5] = {
+					["CLSID"] = "BRU-42_3*GBU-12",
+					["num"] = 4,
+				},
+				[6] = {
+					["CLSID"] = "BRU-42_3*GBU-12",
+					["num"] = 8,
+				},
+				[7] = {
+					["CLSID"] = "{51F9AAE5-964F-4D21-83FB-502E3BFE5F8A}",
+					["num"] = 6,
+				},
+				[8] = {
+					["CLSID"] = "ALQ_184",
+					["num"] = 1,
+				},
+				[9] = {
+					["CLSID"] = "{A111396E-D3E8-4b9c-8AC9-2432489304D5}",
+					["num"] = 10,
+				},
+				[10] = {
+					["CLSID"] = "{CBU_103}",
+					["num"] = 7,
+				},
+				[11] = {
+					["CLSID"] = "{CBU_105}",
+					["num"] = 5,
+				},
+			},
+			["tasks"] = {
+				[1] = 31,
+				[2] = 32,
+			},
+		},
+		[10] = {
 			["name"] = "AA Da Best",
 			["pylons"] = {
 				[1] = {
