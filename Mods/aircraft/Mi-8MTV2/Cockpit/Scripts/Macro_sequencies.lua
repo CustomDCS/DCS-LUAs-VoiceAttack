@@ -340,7 +340,7 @@ push_start_command(45, {message = _("  Left Engine Running"), message_timeout = 
 
 -- Right Engine START 57.2sec
 
-push_start_command(43, {message = _("  Right Engine Start"), message_timeout = 44.0})
+push_start_command(dt, {message = _("  Right Engine Start"), message_timeout = 44.0})
 
 push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_10, value = 1.0}) -- Right Shutoff Valve Switch Cover - Open
 push_start_command(dt, {device = devices.FUELSYS_INTERFACE, action = device_commands.Button_2, value = 1.0}) -- Right Shutoff Valve Switch
