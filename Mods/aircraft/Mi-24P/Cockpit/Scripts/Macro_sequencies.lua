@@ -449,7 +449,7 @@ push_start_command(dt,{device = devices.WEAP_SYS,action =  weapon_commands.Opera
 
 -- Main Radio Selector Switch
 
-push_start_command(dt,{device = devices.SPU_8, action =  SPU_8_Mi24_commands.CMD_SPU8_P_ICS_RADIO, value = 1.0}) -- Main Radio - RADIO
+--push_start_command(dt,{device = devices.SPU_8, action =  SPU_8_Mi24_commands.CMD_SPU8_P_ICS_RADIO, value = 1.0}) -- Main Radio - RADIO
 
 
 -- Finish Message
