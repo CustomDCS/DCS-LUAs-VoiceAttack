@@ -76,7 +76,7 @@ push_start_command(dt, {device = devices.ARC_9, action = device_commands.Button_
 local function doStartSequence()
 
 push_start_command(dt, {message = _("  CustomDCS.com Super Quick Autostart Sequence Is Running"), message_timeout = 120})
-push_start_command(dt, {message = _("  This Auto Start is Set For LC Gecitkale"), message_timeout = 120})
+--push_start_command(dt, {message = _("  This Auto Start is Set For LC Gecitkale"), message_timeout = 120})
 push_start_command(dt, {message = _("  -Mi-8MTV2-"), message_timeout = 120})
 
 
