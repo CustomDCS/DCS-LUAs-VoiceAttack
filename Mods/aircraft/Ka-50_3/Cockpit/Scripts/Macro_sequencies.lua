@@ -161,25 +161,27 @@ push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = 3004, value 
 push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = 3003, value = 1.0}) -- Switch
 push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = 3004, value = 0.0}) -- Cover close
 
--- Left engine start
-push_start_command(dt, {message = _("Engine selector switch - Left engine"), message_timeout = dt_mto})
-push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = 3008, value = 0.1})
-push_start_command(dt, {message = _("Left engine - Starting (50s)"), message_timeout = 50})
-push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = 3005, value = 1.0}) -- Press
-push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = 3005, value = 0.0}) -- Release
-push_start_command(15, {message = _("Left engine at 20% RPM: cut-off valve - Open"), message_timeout = dt_mto})
-push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = 3009, value = 1.0})
-push_start_command(35, {message = _("Left engine - Started"), message_timeout = dt_mto})
-
 -- Right engine start
 push_start_command(dt, {message = _("Engine selector switch - Right engine"), message_timeout = dt_mto})
 push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = 3008, value = 0.2})
 push_start_command(dt, {message = _("Right engine - Starting (50s)"), message_timeout = 50})
-push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = 3005, value = 1.0}) -- Press
+push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = 3005, value = 2.0}) -- Press
 push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = 3005, value = 0.0}) -- Release
 push_start_command(15, {message = _("Right engine at 20% RPM: cut-off valve - Open"), message_timeout = dt_mto})
 push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = 3010, value = 1.0})
-push_start_command(35, {message = _("Right engine - Started"), message_timeout = dt_mto})
+push_start_command(50, {message = _("Right engine - Started"), message_timeout = dt_mto})
+
+-- Left engine start
+push_start_command(dt, {message = _("Engine selector switch - Left engine"), message_timeout = dt_mto})
+push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = 3008, value = 0.1})
+push_start_command(dt, {message = _("Left engine - Starting (50s)"), message_timeout = 50})
+push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = 3005, value = 2.0}) -- Press
+push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = 3005, value = 0.0}) -- Release
+push_start_command(20, {message = _("Left engine at 20% RPM: cut-off valve - Open"), message_timeout = dt_mto})
+push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = 3009, value = 1.0})
+push_start_command(35, {message = _("Left engine - Started"), message_timeout = dt_mto})
+
+
 
 push_start_command(dt, {message = _("APU - Stop"), message_timeout = dt_mto})
 push_start_command(dt, {device = devices.ENGINE_INTERFACE, action = 3007, value = 1.0})
@@ -333,7 +335,7 @@ push_start_command(dt, {device = devices.AUTOPILOT, action = 3003, value = 0.0})
 --push_start_command(dt, {device = devices.AUTOPILOT, action = 3002, value = 1.0})
 push_start_command(dt, {device = devices.AUTOPILOT, action = 3002, value = 0.0})
 
-push_start_command(dt, {message = _("CUSTOMDCS.com AUTOSTART COMPLETE (BIG THANKS TO HAVOC!)"), message_timeout = 60.0})
+push_start_command(dt, {message = _("CUSTOMDCS.com AUTOSTART COMPLETE (BIG THANKS TO HAVOC AND AGAARIN!)"), message_timeout = 60.0})
 push_start_command(dt, {device = devices.PVI, action = 3023, value = -1.0}) -- WIND OFF
 
 
