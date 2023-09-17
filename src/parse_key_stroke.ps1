@@ -1,4 +1,4 @@
-[XML]$vap = Get-Content 'VoiceAttack\Transport Profile  (RH)\Transport (Rotorheads) 0019-Profile.vap'
+[XML]$vap = Get-Content 'VoiceAttack\Gazelle (RH)\Gazelle (Rotorheads) 0001-Profile.vap'
 
 # prints 220
 #$vap.Profile.Commands.Command[0].ActionSequence.CommandAction[0].KeyCodes.unsignedShort
@@ -23,6 +23,10 @@ foreach ($command in $vap.Profile.Commands.Command)
         # change to 114
         Write-Host "Updating F2 to F3"
         $codes[2] = 114
+      }elseif ($codes[2] -eq 114) { #F2
+        # change to 115
+        Write-Host "Updating F3 to F4"
+        $codes[2] = 115
       }
     }
   }
