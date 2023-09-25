@@ -31,7 +31,7 @@ start_sequence_full = {
 {time = add_time(std_dt),device = devices.TABLET,action = device_commands.Button_1,value = 1.0,message = _("TABLET - ON"),message_timeout = std_message},
 {time = add_time(std_dt),device = devices.SYNC_CONTROLS,action = device_commands.Button_65,value = 0.05,message = _("RWR - BRT"),message_timeout = std_message},
 {time = add_time(std_dt),device = devices.LIGHTS,action = device_commands.Button_3,value = 0.1,message = _("UV - ON"),message_timeout = std_message},
-{time = add_time(std_dt),device = devices.PH,action = device_commands.Button_1,value = 0.66,message = _("STROBE LIGHTS - ON"),message_timeout = std_message},
+{time = add_time(std_dt),device = devices.PH,action = device_commands.Button_1,value = 0.75,message = _("STROBE LIGHTS - ON"),message_timeout = std_message},
 {time = add_time(std_dt),device = devices.NADIR,action = device_commands.Button_2,value = 0.2,message = _("NADIR - VEILLE"),message_timeout = std_message},
 {time = add_time(std_dt),device = devices.ELECTRIC,action = device_commands.Button_6,value = 1.0,message = _("FUEL PUMP SWITCH - ON"),message_timeout = std_message},
 {time = add_time(std_dt),device = devices.SA342_BASE_FM,action = device_commands.Button_7,value = 1.0,message = _("ROTOR BRAKE - RELEASE"),message_timeout = std_message},
