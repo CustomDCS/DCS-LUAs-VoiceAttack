@@ -112,6 +112,7 @@ csar.bluemash = {
     "BlueMASH #7",
     "BlueMASH #8",
     "BlueMASH #9",
+    "CV1",
     "BlueMASH #10"
 } -- The unit that serves as MASH for the blue side
 
@@ -129,7 +130,7 @@ csar.redmash = {
 } -- The unit that serves as MASH for the red side
 
 
-csar.csarMode = 0
+csar.csarMode = 3
 
 --      0 - No Limit - NO Aircraft disabling
 --      1 - Disable Aircraft when its down - Timeout to reenable aircraft
@@ -138,7 +139,7 @@ csar.csarMode = 0
 
 csar.maxLives = 8 -- Maximum pilot lives
 
-csar.countCSARCrash = false -- If you set to true, pilot lives count for CSAR and CSAR aircraft will count.
+csar.countCSARCrash = true -- If you set to true, pilot lives count for CSAR and CSAR aircraft will count.
 
 csar.reenableIfCSARCrashes = true -- If a CSAR heli crashes, the pilots are counted as rescued anyway. Set to false to Stop this
 
@@ -149,7 +150,7 @@ csar.disableTimeoutTime = 20 -- Time in minutes for TIMEOUT
 
 csar.destructionHeight = 150 -- height in meters an aircraft will be destroyed at if the aircraft is disabled
 
-csar.enableForAI = false -- set to false to disable AI units from being rescued.
+csar.enableForAI = true -- set to false to disable AI units from being rescued.
 
 csar.enableForRED = true -- enable for red side
 
@@ -164,12 +165,12 @@ csar.redsmokecolor = 1 -- Color of smokemarker for red side, 0 is green, 1 is re
 
 csar.requestdelay = 2 -- Time in seconds before the survivors will request Medevac
 
-csar.coordtype = 3 -- Use Lat/Long DDM (0), Lat/Long DMS (1), MGRS (2), Bullseye imperial (3) or Bullseye metric (4) for coordinates.
+csar.coordtype = 2 -- Use Lat/Long DDM (0), Lat/Long DMS (1), MGRS (2), Bullseye imperial (3) or Bullseye metric (4) for coordinates.
 csar.coordaccuracy = 1 -- Precision of the reported coordinates, see MIST-docs at http://wiki.hoggit.us/view/GetMGRSString
 -- only applies to _non_ bullseye coords
 
 csar.immortalcrew = true -- Set to true to make wounded crew immortal
-csar.invisiblecrew = true -- Set to true to make wounded crew insvisible
+csar.invisiblecrew = false -- Set to true to make wounded crew insvisible
 
 csar.messageTime = 30 -- Time to show the intial wounded message for in seconds
 

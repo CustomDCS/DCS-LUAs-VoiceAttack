@@ -32,11 +32,11 @@ local http 			= require('socket.http')
 HOOK.writeDebugDetail(ModuleName .. ": local required loaded")
 
 --## VARS
-WTHRloaded						= false
+WTHRloaded						= true
 DewPointCalc					= nil
 local rndFactorPerc				= 15 --% of randomization on calculated values
-local cloudFog					= false
-local WeatherAirport 			= "LIEO" 
+local cloudFog					= true
+local WeatherAirport 			= "LTFG" 
 
 
 --## METAR
