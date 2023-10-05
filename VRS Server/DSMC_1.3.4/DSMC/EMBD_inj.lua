@@ -2582,7 +2582,7 @@ end
 --do functions
 --EMBD.getFreeCountry()
 EMBD.getAptInfo()
-EMBD.createRadioMenu()
+--EMBD.createRadioMenu()
 if DSMC_autosavefrequency and DSMC_multy and DSMC_io and DSMC_lfs then
 	timer.scheduleFunction(EMBD.scheduleAutosave, {}, timer.getTime() + tonumber(DSMC_autosavefrequency))
 end
